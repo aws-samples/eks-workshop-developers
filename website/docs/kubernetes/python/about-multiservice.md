@@ -26,4 +26,4 @@ The **[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-dock
 - **Service**: The corresponding Service provides network access to your PostgreSQL database within the cluster, allowing other components, such as our FastAPI application, to communicate with the database.
 
 ## Conclusion
-This guide has illustrated the role of Kubernetes in setting up a multi-pod environment for the 'fastapi-microservices' project. By leveraging Kubernetes and its Deployment and StatefulSet resources, we can significantly simplify the management of our application's components and their interconnections, efficiently scale our application to handle increased loads, and ensure the resilience and persistence of our database.
+This guide has illustrated the role of Kubernetes in setting up a multi-pod environment for the 'python-fastapi-demo-docker' project. By leveraging Kubernetes and its Deployment and StatefulSet resources, we can significantly simplify the management of our application's components and their interconnections, efficiently scale our application to handle increased loads, and ensure the resilience and persistence of our database.

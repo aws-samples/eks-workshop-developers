@@ -12,7 +12,7 @@ The goal of this tutorial is to show you how to create Kubernetes secrets for th
 ## 1. Creating the Kubernetes Secret for Amazon ECR
 Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This Secret allows your Kubernetes cluster to authenticate with Amazon ECR and pull the Docker image.
 
-Change directories to the 'fastapi-microservices' project directory:
+Change directories to the 'python-fastapi-demo-docker' project directory:
 ```bash
 cd fastapi-microservices
 ```
@@ -99,4 +99,4 @@ APP_HOST:               7 bytes
 ```
 
 ## Conclusion
-This tutorial took you through the secure handling of sensitive data using Kubernetes Secrets within a Minikube environment for the 'fastapi-microservices' application. By incorporating these methods, you have enhanced the security of your application and adhered to best practices for handling confidential data.
+This tutorial took you through the secure handling of sensitive data using Kubernetes Secrets within a Minikube environment for the 'python-fastapi-demo-docker' application. By incorporating these methods, you have enhanced the security of your application and adhered to best practices for handling confidential data.

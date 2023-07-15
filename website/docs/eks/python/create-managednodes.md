@@ -6,7 +6,7 @@ sidebar_position: 5
 This guide shows you how to create an Amazon EKS cluster using managed node groups, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [Amazon EKS Cluster Options](about-cluster.md).
 
 ## 1. Creating the Cluster
-From the 'fastapi-microservices' project directory, create the cluster using the eksctl configuration file:
+From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 ```bash
 eksctl create cluster -f eks/python-mng-create.yaml
 ```

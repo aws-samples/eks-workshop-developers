@@ -9,7 +9,7 @@ This guide shows you how to create a multi-architecture container image for the 
 - [Integrating Amazon ECR with Docker Compose](integration-ecr.md)
 
 ## 1. Logging into Amazon ECR
-From the 'fastapi-microservices' project directory, authenticate the Docker CLI to your Amazon ECR registry using:
+From the 'python-fastapi-demo-docker' project directory, authenticate the Docker CLI to your Amazon ECR registry using:
 ```
 aws ecr get-login-password \
 --region ${AWS_REGION} | docker login \
@@ -61,4 +61,4 @@ docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.
 This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
 
 ## Conclusion
-This guide explored the process of constructing and executing Docker containers using Docker Compose in the 'fastapi-microservices' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.
+This guide explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.

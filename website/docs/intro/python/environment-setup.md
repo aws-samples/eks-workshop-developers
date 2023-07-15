@@ -61,7 +61,7 @@ DOCKER_USERNAME=frank9
 ```
 
 ## 5. Import Environment Variables
-Next, from the root directory of the 'fastapi-microservices' project, import all environment variables by running the following commands.
+Next, from the root directory of the 'python-fastapi-demo-docker' project, import all environment variables by running the following commands.
 
 **macOS**
 ```bash

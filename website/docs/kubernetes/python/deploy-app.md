@@ -9,7 +9,7 @@ This guide is designed to equip you with the necessary skills for efficient depl
 ## 1. Creating the FastAPI Deployment and Service
 The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)' manifest consists of two primary Kubernetes resources: a Service and a Deployment.
 
-From the 'fastapi-microservices' project directory, apply the Kubernetes configuration:
+From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```bash
 cd fastapi-microservices
 kubectl apply -f kubernetes/fastapi-app.yaml
@@ -25,7 +25,7 @@ The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 !!! tip
     Notice that the PostgreSQL service as 'db' **must** match the database service name of 'db' in postgresql://bookdbadmin:dbpassword@db:5432/bookstore.
 
-From the 'fastapi-microservices' project directory, apply the Kubernetes configuration:
+From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```bash
 cd fastapi-microservices
 kubectl apply -f kubernetes/postgres-db.yaml

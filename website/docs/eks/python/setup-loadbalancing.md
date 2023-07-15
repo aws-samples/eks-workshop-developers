@@ -8,9 +8,9 @@ This guide shows you how to set up the [AWS Load Balancer Controller (LBC)](http
     Classic Load Balancers and Network Load Balancers are not supported on pods running on Fargate.
 
 ## 1. Set Environment Variables
-Before we start setting up our EKS cluster, we need to set an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'fastapi-microservices' project directory.
+Before we start setting up our EKS cluster, we need to set an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
 
-From the 'fastapi-microservices' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
+From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
 ```bash
 cd fastapi-microservices
 export CLUSTER_VPC=$(aws eks describe-cluster --name fargate-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)

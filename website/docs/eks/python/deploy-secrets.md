@@ -7,7 +7,7 @@ sidebar_position: 8
 This guide will help you secure sensitive information in your Amazon EKS Kubernetes cluster. By the end of it, you will be able to generate an Amazon ECR authorization token, create Kubernetes secrets from an environment file and a Docker registry, and verify the creation of these secrets.
 
 ## 1. Generate an Authorization Token for Amazon ECR
-Change directories to the 'fastapi-microservices' project directory:
+Change directories to the 'python-fastapi-demo-docker' project directory:
 ```bash
 cd fastapi-microservices
 ```

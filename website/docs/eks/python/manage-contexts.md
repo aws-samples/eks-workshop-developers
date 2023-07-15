@@ -19,7 +19,7 @@ arn:aws:eks:us-east-1:123456789012:cluster/fargate-quickstart
 ## 2. Switching Contexts
 If your current context doesn't match your EKS cluster, you need to switch contexts. Switching context essentially points your local Kubernetes CLI tool, kubectl, to interact with your desired cluster.
 
-From the 'fastapi-microservices' project directory, update your local kubeconfig file using the following command:
+From the 'python-fastapi-demo-docker' project directory, update your local kubeconfig file using the following command:
 ```bash
 aws eks --region ${AWS_REGION} update-kubeconfig --name fargate-quickstart
 ```

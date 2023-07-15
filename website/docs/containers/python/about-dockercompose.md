@@ -7,7 +7,7 @@ This guide details how Docker Compose is leveraged in the [python-fastapi-demo-d
 
 ## Configuration Overview
 
-Our `docker-compose.yml` file in the `fastapi-microservices` project outlines two services: our FastAPI application (the 'web' service) and the PostgreSQL database (the 'db' service). Both services are part of the **webnet** network. Docker networks facilitate interaction between containers, which is crucial for our web service to communicate with the database. Additionally, the **web** service relies on the **db** service due to Docker Compose's **depends_on** directive. As a result, Docker Compose guarantees that the **db** service starts before the **web** service.
+Our `docker-compose.yml` file in the 'python-fastapi-demo-docker' project outlines two services: our FastAPI application (the 'web' service) and the PostgreSQL database (the 'db' service). Both services are part of the **webnet** network. Docker networks facilitate interaction between containers, which is crucial for our web service to communicate with the database. Additionally, the **web** service relies on the **db** service due to Docker Compose's **depends_on** directive. As a result, Docker Compose guarantees that the **db** service starts before the **web** service.
 
 ### web Service (FastAPI Application)
 
@@ -49,4 +49,4 @@ db:
 
 ## Conclusion
 
-This guide has illustrated the role of Docker Compose in setting up a multi-container environment for the `fastapi-microservices` project. By leveraging Docker Compose, we can significantly simplify the management of our application's components and their interconnections.
+This guide has illustrated the role of Docker Compose in setting up a multi-container environment for the `python-fastapi-demo-docker` project. By leveraging Docker Compose, we can significantly simplify the management of our application's components and their interconnections.
