@@ -41,13 +41,13 @@ If you prefer not to use git, you can alternatively [download the Zip file](http
 ## 4. Creating the .env File
 We'll be heavily reliant on environment variables to ease the set-up process throughout this workshop. 
 
-Navigate into the project directory and make a copy of the example environment variables file.
+First, navigate into the project directory and make a copy of the example environment variables file.
 ```
 cd python-fastapi-demo-docker
 cp .env.example .env
 ```
 
-First, add your AWS credentials:
+Now add your AWS credentials to the `.env` file you just created:
 ```
 AWS_ACCOUNT_ID=012345678901
 AWS_ACCESS_KEY_ID=ASIAWNZPPVHEXAMPLE
