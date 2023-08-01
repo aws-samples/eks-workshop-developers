@@ -1,6 +1,6 @@
 ---
 title: Right-Sizing Your Pods with Minikube and Metrics Server
-sidebar_position: 7
+sidebar_position: 6
 ---
 
 ## Objective
