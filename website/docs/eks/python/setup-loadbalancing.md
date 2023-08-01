@@ -12,7 +12,7 @@ Before we start setting up our EKS cluster, we need to set an environment variab
 
 From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
 ```bash
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 export CLUSTER_VPC=$(aws eks describe-cluster --name fargate-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
 ```
 

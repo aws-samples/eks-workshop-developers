@@ -9,7 +9,7 @@ This guide will help you secure sensitive information in your Amazon EKS Kuberne
 ## 1. Generate an Authorization Token for Amazon ECR
 Change directories to the 'python-fastapi-demo-docker' project directory:
 ```bash
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 ```
 
 Generate an Amazon ECR authorization token:

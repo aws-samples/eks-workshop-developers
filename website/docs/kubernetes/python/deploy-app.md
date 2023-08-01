@@ -11,7 +11,7 @@ The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```bash
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 kubectl apply -f kubernetes/fastapi-app.yaml
 ```
 The expected output should look like this:
@@ -27,7 +27,7 @@ The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```bash
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 kubectl apply -f kubernetes/postgres-db.yaml
 ```
 The expected output should look like this:

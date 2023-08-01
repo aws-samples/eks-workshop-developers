@@ -33,7 +33,7 @@ Default output format [None]: json
 Clone the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) repository and navigate into the project directory:
 ```
 git clone https://github.com/aws-samples/python-fastapi-demo-docker.git 
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 ```
 
 If you prefer not to use git, you can alternatively [download the Zip file](https://github.com/aws-samples/python-fastapi-demo-docker/archive/refs/heads/main.zip).
@@ -43,7 +43,7 @@ We'll be heavily reliant on environment variables to ease the set-up process thr
 
 Navigate into the project directory and make a copy of the example environment variables file.
 ```
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 cp .env.example .env
 ```
 

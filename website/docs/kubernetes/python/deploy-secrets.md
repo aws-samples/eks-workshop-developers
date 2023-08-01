@@ -14,7 +14,7 @@ Our Amazon ECR repository is private, so we need to generate an Amazon ECR autho
 
 Change directories to the 'python-fastapi-demo-docker' project directory:
 ```bash
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 ```
 
 Generate an Amazon ECR authorization token:

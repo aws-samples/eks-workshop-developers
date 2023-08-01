@@ -10,7 +10,7 @@ The **[eks-deploy-app.yaml](https://github.com/aws-samples/python-fastapi-demo-d
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```
-cd fastapi-microservices
+cd python-fastapi-demo-docker
 kubectl apply -f eks/deploy-app-python.yaml
 ```
 
