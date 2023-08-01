@@ -11,8 +11,11 @@ From the 'python-fastapi-demo-docker' project directory, create the cluster usin
 eksctl create cluster -f eks/python-fargate-create.yaml
 ```
 
-!!! tip
-    If you receive an “Error: checking AWS STS access” in the response, be sure to check that you’re using the right user identity for the current shell session. Depending on how you configured the AWS CLI, you may also need to specify a named profile (for example, `--profile clusteradmin`).
+:::tip
+
+If you receive an “Error: checking AWS STS access” in the response, be sure to check that you’re using the right user identity for the current shell session. Depending on how you configured the AWS CLI, you may also need to specify a named profile (for example, `--profile clusteradmin`).
+
+:::     
 
 Upon completion, the output should look something like this:
 

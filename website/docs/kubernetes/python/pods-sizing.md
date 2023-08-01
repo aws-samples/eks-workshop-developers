@@ -130,11 +130,13 @@ minikube   418m         10%    2388Mi          30%
 ## 7. Interpreting the Data
 The "kubectl top pod" and "kubectl top node" commands provided us with some insightful data about our [CPU](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) and [memory](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) usage. Here's a quick rundown on what we learned.
 
-!!! warning
-    Take note that setting **CPU limits** in a Kubernetes environment is generally not recommended unless you have a thorough understanding of your application's thread behavior within CPU time slices. For more details on managing CPU limits, refer to [Using Prometheus to Avoid Disasters with Kubernetes CPU Limits](https://aws.amazon.com/blogs/containers/using-prometheus-to-avoid-disasters-with-kubernetes-cpu-limits/).
+:::caution
 
+Take note that setting **CPU limits** in a Kubernetes environment is generally not recommended unless you have a thorough understanding of your application's thread behavior within CPU time slices. For more details on managing CPU limits, refer to [Using Prometheus to Avoid Disasters with Kubernetes CPU Limits](https://aws.amazon.com/blogs/containers/using-prometheus-to-avoid-disasters-with-kubernetes-cpu-limits/).
+
+:::
 #### 'fastapi-microservices-7c997f68cc-nrrj8' Pod
-
+ 
 - **CPU(cores)**: This pod was using approximately 101m CPU. This value, expressed in milliCPU units (m), represents the amount of CPU resources the pod is using. In this case, 101m corresponds to roughly 0.1 of a single CPU core. If your application experiences high load, it may benefit from an increase in the CPU limits defined in the Kubernetes pod configuration.
 - **MEMORY(bytes)**: The memory usage of this pod was around 103Mi, which is about 103 Mebibytes of RAM. If the application encounters high load, consider increasing the memory limits in the Kubernetes pod configuration.
 

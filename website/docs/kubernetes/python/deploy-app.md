@@ -22,8 +22,12 @@ deployment.apps/fastapi-deployment created
 
 ## 2. Creating the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml)' manifest also consists of three primary Kubernetes resources: a StatefulSet, a Service, and a PersistentVolumeClaim.
-!!! tip
-    Notice that the PostgreSQL service as 'db' **must** match the database service name of 'db' in postgresql://bookdbadmin:dbpassword@db:5432/bookstore.
+
+:::tip
+
+Take note that the Kubernetes service name of 'db' **must** match the service name of 'db' in Docker `postgresql://bookdbadmin:dbpassword@db:5432/bookstore`.
+
+:::  
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 ```bash
