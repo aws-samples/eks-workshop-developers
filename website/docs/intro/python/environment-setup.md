@@ -8,7 +8,7 @@ If you're planning to complete the Python workshop in full, make sure you've set
 
 - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Create a DockerHub Account](https://hub.docker.com/)
-- [Install Python 9+](https://www.python.org/downloads/release/python-390/)
+- [Install Python 3.9+](https://www.python.org/downloads/release/python-390/)
 - [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [Install eksctl](https://eksctl.io/introduction/#installation)
