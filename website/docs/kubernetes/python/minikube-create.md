@@ -1,6 +1,6 @@
 ---
 title: Creating a Kubernetes Cluster with Minikube
-sidebar_position: 3
+sidebar_position: 2
 ---
 ## Overview
 minikube is a tool that allows you to run Kubernetes locally. It creates a single-node or multi-node Kubernetes cluster inside a Virtual Machine (VM) on your local machine. This tutorial demonstrates how to start a Minikube cluster and create a new Kubernetes namespace, which provide a way to divide cluster resources among multiple users, applications, or application environments.

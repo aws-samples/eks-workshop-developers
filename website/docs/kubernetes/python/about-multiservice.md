@@ -1,6 +1,6 @@
 ---
 title: Introduction to Managing Multiple Services with Kubernetes
-sidebar_position: 2
+sidebar_position: 1
 ---
 ## Overview
 The lab exercises that follow serve as an introduction to Kubernetes, covering the components and deployment of our microservices-based application on a local Kubernetes cluster using [minikube](https://minikube.sigs.k8s.io/docs/). 
