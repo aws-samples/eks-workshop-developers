@@ -33,7 +33,6 @@ Default output format [None]: json
 Clone the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) repository and navigate into the project directory:
 ```
 git clone https://github.com/aws-samples/python-fastapi-demo-docker.git 
-cd python-fastapi-demo-docker
 ```
 
 If you prefer not to use git, you can alternatively [download the Zip file](https://github.com/aws-samples/python-fastapi-demo-docker/archive/refs/heads/main.zip).
