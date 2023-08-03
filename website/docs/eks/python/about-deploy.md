@@ -1,6 +1,6 @@
 ---
-title: Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS
-sidebar_position: 3
+title: About FastAPI and PostgreSQL Kubernetes resources
+sidebar_position: 2
 ---
 ## Overview
 This chapter shows you how to deploy the Kubernetes resources for our FastAPI application and PostgreSQL database within an Amazon EKS cluster. 

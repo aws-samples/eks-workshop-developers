@@ -1,6 +1,6 @@
 ---
 title: Creating an Amazon EKS Cluster (Fargate)
-sidebar_position: 4
+sidebar_position: 3
 ---
 ## Objective
 This guide shows you how to create an Amazon EKS cluster using AWS Fargate, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [Amazon EKS Cluster Options](about-cluster.md).

@@ -1,6 +1,6 @@
 ---
 title: Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS
-sidebar_position: 8
+sidebar_position: 5
 ---
 
 ## Objective

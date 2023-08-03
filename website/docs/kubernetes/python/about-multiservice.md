@@ -1,5 +1,5 @@
 ---
-title: Introduction to Managing Multiple Services with Kubernetes
+title: About Managing Multiple Services with Kubernetes
 sidebar_position: 1
 ---
 ## Overview

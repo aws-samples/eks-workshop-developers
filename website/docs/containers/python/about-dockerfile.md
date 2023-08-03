@@ -1,5 +1,5 @@
 ---
-title: Implementing Multi-Stage Builds in Docker for Cost Savings
+title: About Multi-Stage Builds in Docker for Cost Savings
 sidebar_position: 3
 ---
 ## Objective

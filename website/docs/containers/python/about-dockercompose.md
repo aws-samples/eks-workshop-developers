@@ -1,5 +1,5 @@
 ---
-title: Introduction to Managing Multiple Services with Docker Compose
+title: About Managing Multiple Services with Docker Compose
 sidebar_position: 2
 ---
 ## Objective

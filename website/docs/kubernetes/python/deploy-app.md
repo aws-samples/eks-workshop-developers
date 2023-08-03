@@ -1,6 +1,6 @@
 ---
 title: Deploying FastAPI and PostgreSQL Microservices to Kubernetes using Minikube
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 ## Objective

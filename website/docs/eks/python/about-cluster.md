@@ -1,6 +1,6 @@
 ---
 title: About Amazon EKS Cluster Nodes
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 ## Overview
