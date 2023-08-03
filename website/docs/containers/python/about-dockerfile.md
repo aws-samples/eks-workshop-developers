@@ -59,4 +59,4 @@ CMD uvicorn server.app.main:app --host 0.0.0.0 --port 8000
 
 ## Conclusion
 
-This guide underscores the strategic implementation of Docker's multi-stage builds in the Dockerfile for the fastapi-microservices project. This approach not only separates build-time and run-time dependencies but also reduces the final image size, thus optimizing resource utilization.
+This guide underscores the strategic implementation of Docker's multi-stage builds in the Dockerfile for the python-fastapi-demo-docker project. This approach not only separates build-time and run-time dependencies but also reduces the final image size, thus optimizing resource utilization.

@@ -11,7 +11,7 @@ Navigate to the root directory of the 'python-fastapi-demo-docker' project with 
 ```bash
 docker-compose build
 ```
-This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'fastapi-microservices-web' and 'fastapi-microservices-db' services.
+This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
 
 ## 2. Running the Services as Docker Containers
 After building the images, start the application and database services in separate Docker containers using:
@@ -27,7 +27,7 @@ To confirm that everything is functioning as expected, attempt to add a book by 
 ![Image](./images/app-create-book.png)
 
 ## 4. Interpreting Containers
-Your application ('fastapi-microservices-web' service) and your database ('fastapi-microservices-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our fastapi-microservices application, as instances of the services in our Docker Compose configuration.
+Your application ('python-fastapi-demo-docker-web' service) and your database ('python-fastapi-demo-docker-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our python-fastapi-demo-docker application, as instances of the services in our Docker Compose configuration.
 
 ![Image](./images/docker-extension-open-in-browser.png)
 
@@ -41,9 +41,9 @@ This command halts the containers and, by default, also removes the containers, 
 
 ```
 [+] Running 3/3
- ⠿ Container fastapi-microservices-web-1  Removed           0.5s
- ⠿ Container fastapi-microservices-db-1   Removed           0.2s
- ⠿ Network fastapi-microservices_webnet   Removed           0.1s
+ ⠿ Container python-fastapi-demo-docker-web-1  Removed           0.5s
+ ⠿ Container python-fastapi-demo-docker-db-1   Removed           0.2s
+ ⠿ Network python-fastapi-demo-docker_webnet   Removed           0.1s
 ```
 
 ## 6. Rebuilding and Restarting Docker Services
