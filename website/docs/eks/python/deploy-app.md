@@ -1,9 +1,9 @@
 ---
-title: Deploying FastAPI and PostgreSQL Microservices to EKS Fargate
+title: Deploying FastAPI and PostgreSQL Microservices to EKS
 sidebar_position: 6
 ---
 ## Objective
-This guide shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project on Amazon EKS Fargate. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
+This guide shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project onto your Amazon EKS cluster&mdash;either your AWS Fargate or managed node groups-based cluster. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
 
 ## 1. Deploying the FastAPI Deployment, Service, and Ingress
 The **[eks-deploy-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/eks-deploy-app.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
