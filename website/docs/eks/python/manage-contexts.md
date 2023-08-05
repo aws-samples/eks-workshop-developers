@@ -1,6 +1,6 @@
 ---
 title: Managing Kubernetes Contexts in EKS Cluster
-sidebar_position: 7
+sidebar_position: 5
 ---
 This guide will demonstrate how to verify and switch Kubernetes contexts in an EKS cluster. We'll make use of the kubectl command-line tool, which allows you to run commands against Kubernetes clusters. Specifically, you'll learn how to check your current context and switch to a different one if needed, allowing your local environment to interact with the desired cluster.
 
