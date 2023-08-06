@@ -6,6 +6,8 @@ sidebar_position: 6
 ## Objective
 This guide aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios. 
 
+## Prerequisites
+- [Accessing the FastAPI App](./access-app.md)
 ## 1. Installing the 'hey' tool
 In a terminal, install 'hey' with [Homebrew](https://brew.sh/):
 ```bash

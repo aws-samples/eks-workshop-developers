@@ -5,7 +5,8 @@ sidebar_position: 7
 
 ## Objective
 This guide shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
-
+## Prerequisites
+- [Right-Sizing Your Pods with Minikube and Metrics Server](./pods-sizing.md)
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
 The [fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml) manifest contains the resources for our FastAPI application. We're going to adjust the resource requests and limits for this deployment based on the data we've gathered.
 

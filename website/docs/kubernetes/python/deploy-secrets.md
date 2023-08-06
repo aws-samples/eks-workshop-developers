@@ -6,6 +6,9 @@ sidebar_position: 3
 ## Overview
 In the evolving world of microservices and cloud-native applications, managing sensitive data securely is paramount. Kubernetes offers a "Secret" resource, designed for storing sensitive data like passwords, OAuth tokens, and ssh keys, separating them from the container image to enhance security and modularity. 
 
+## Prerequisites
+- [Creating a Kubernetes Cluster with Minikube](minikube-create.md)
+
 ## Objective
 The goal of this tutorial is to show you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. By the end, you'll have a firm understanding of managing sensitive data and running your microservices securely. To gain a deeper understanding of the different Kubernetes resources we're creating, refer to [Introduction to Managing Multiple Services with Kubernetes](about-multiservice.md).
 

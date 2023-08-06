@@ -6,6 +6,9 @@ sidebar_position: 4
 ## Objective
 This guide is designed to equip you with the necessary skills for efficient deployment and management of microservices, specifically those belonging to the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, within a Kubernetes environment. Through the steps outlined in this guide, you will learn how to configure, deploy, and manage your microservices using Minikube and Amazon ECR. For a comprehensive understanding of the different Kubernetes resources being created, refer to [Introduction to Managing Multiple Services with Kubernetes](about-multiservice.md).
 
+## Prerequisites
+- [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+
 ## 1. Creating the FastAPI Deployment and Service
 The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)' manifest consists of two primary Kubernetes resources: a Service and a Deployment.
 
