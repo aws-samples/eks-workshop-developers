@@ -1,6 +1,6 @@
 ---
 title: About Managing Multiple Services with Docker Compose
-sidebar_position: 2
+sidebar_position: 1
 ---
 ## Objective
 This guide details how Docker Compose is leveraged in the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project for the orchestration of multiple containers. By the end of this guide, you'll understand how Docker Compose can facilitate the management and orchestration of multi-container environments.

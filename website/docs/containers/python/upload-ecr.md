@@ -1,10 +1,12 @@
 ---
 title: Uploading Container Images to Amazon ECR
-sidebar_position: 5
+sidebar_position: 4
 ---
 ## Overview
 Learn how to leverage Amazon Elastic Container Registry (ECR) as a secure and efficient storage solution for Docker images in the context of our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project.
 
+## Prerequisites
+- [Building and Running the Docker Containers](./build-image.md)
 ## Objective
 This tutorial simplifies the process of pushing Docker images to Amazon ECR using the FastAPI and PostgreSQL images from our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. We'll showcase how uploading these Docker images to ECR enhances your development, testing, and deployment workflows by making the images accessible across different environments.
 

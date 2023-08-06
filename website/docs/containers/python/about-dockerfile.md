@@ -1,6 +1,6 @@
 ---
 title: About Multi-Stage Builds in Docker for Cost Savings
-sidebar_position: 3
+sidebar_position: 2
 ---
 ## Objective
 This guide will shed light on the practical application of Docker's multi-stage builds within our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's Dockerfile. By the end of this guide, you'll learn how multi-stage builds can help reduce the final Docker image size and how this can translate into cost savings in cloud environments.
