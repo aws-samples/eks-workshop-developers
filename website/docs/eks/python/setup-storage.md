@@ -11,6 +11,9 @@ EBS CSI volumes only support the 'ReadWriteOnce' access mode. While this may see
 
 :::     
 
+## Prerequisites
+- [Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster](./setup-loadbalancing.md)
+
 ## 1. Verifying the Service Account
 First, we need to make sure the "ebs-csi-controller-sa" service account is correctly set up in the "kube-system" namespace in our cluster.
 
