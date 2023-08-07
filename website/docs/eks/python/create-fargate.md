@@ -11,7 +11,7 @@ This guide shows you how to create an Amazon EKS cluster using AWS Fargate, spec
 ## 1. Creating the Cluster
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 ```bash
-eksctl create cluster -f eks/python-fargate-create.yaml
+eksctl create cluster -f eks/create-fargate-python.yaml
 ```
 
 :::tip
