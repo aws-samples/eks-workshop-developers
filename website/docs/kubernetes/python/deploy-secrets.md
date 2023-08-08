@@ -71,7 +71,7 @@ kubectl describe secret fastapi-secret -n my-cool-app
 The expected output should look like this:
 ```bash
 Name:         fastapi-secret
-Namespace:    default
+Namespace:    my-cool-app
 Labels:       <none>
 Annotations:  <none>
 
@@ -79,26 +79,27 @@ Type:  Opaque
 
 Data
 ====
-POSTGRES_PASSWORD:      10 bytes
-POSTGRES_MASTER:        8 bytes
-DOCKER_DATABASE_URL:    53 bytes
-HTTP_HOST:              16 bytes
-IMAGE_VERSION:          3 bytes
-POSTGRES_DB:            9 bytes
-POSTGRES_HOST:          9 bytes
-POSTGRES_PORT:          4 bytes
-POSTGRES_USER:          11 bytes
-APP_PORT:               4 bytes
-AWS_ACCOUNT_ID:         12 bytes
-AWS_SECRET_ACCESS_KEY:  40 bytes
-DOCKER_USERNAME:        9 bytes
-AWS_ACCESS_KEY_ID:      20 bytes
-AWS_REGION:             9 bytes
-LOCAL_HOST:             9 bytes
-POSTGRES_DATABASE_URL:  60 bytes
-POSTGRES_TABLE:         5 bytes
-POSTGRES_VOLUME:        2 bytes
-APP_HOST:               7 bytes
+AWS_SECRET_ACCESS_KEY:       40 bytes
+AWS_SESSION_TOKEN:           764 bytes
+DATABASE_URL:                58 bytes
+HTTP_HOST:                   16 bytes
+IMAGE_VERSION:               3 bytes
+WORKSHOP_POSTGRES_PASSWORD:  10 bytes
+AWS_REGION:                  9 bytes
+DOCKER_DATABASE_URL:         53 bytes
+POSTGRES_MASTER:             8 bytes
+POSTGRES_TABLE:              5 bytes
+APP_HOST:                    7 bytes
+AWS_ACCESS_KEY_ID:           20 bytes
+POSTGRES_HOST:               9 bytes
+POSTGRES_PASSWORD:           15 bytes
+POSTGRES_VOLUME:             2 bytes
+WORKSHOP_POSTGRES_DB:        9 bytes
+APP_PORT:                    4 bytes
+DOCKER_USERNAME:             7 bytes
+LOCAL_HOST:                  9 bytes
+POSTGRES_PORT:               4 bytes
+WORKSHOP_POSTGRES_USER:      11 bytes
 ```
 
 ## Conclusion
