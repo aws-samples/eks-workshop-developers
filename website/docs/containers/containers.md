@@ -4,12 +4,15 @@ sidebar_position: 1
 ---
 
 ## Overview
+
 This chapter introduces the process of containerizing an application, emphasizing the creation of multi-architecture images compatible with Kubernetes. Subsequently, we'll show how to deploy these images to a private Amazon Elastic Container Registry (ECR) and manage them within a Kubernetes environment.
 
 ## Objective
+
 This guide aims to introduce essential concepts and practices related to containerization. It focuses on familiarizing you with the benefits of containerization, the role of Amazon ECR as a container registry, the importance of multi-architecture images for Kubernetes, and how Kubernetes uses containerization for efficient application deployment and management.
 
 ## Terms
+
 Containerization is a method of running applications in isolated environments, each with its own resources. In the context of Kubernetes, container images should be multi-architecture to ensure compatibility across different node architectures.
 
 - A **container image** is a self-contained, lightweight package holding everything necessary to run an application. It comprises a series of read-only layers, each layer signifying a modification to its predecessor. For compatibility with Kubernetes, it's crucial to make container images multi-architecture. These images are stored in a container registry and can be deployed on any system supporting containerization.
@@ -18,5 +21,14 @@ Containerization is a method of running applications in isolated environments, e
 
 - A **container registry** is a centralized platform for storing, managing, and distributing container images. It acts as a repository, facilitating easy image access and retrieval across various hosts or environments. Container registries can be public or private, reflecting the organization's security needs. While public registries like Docker Hub allow unrestricted image upload and access, private ones like Amazon Elastic Container Registry (ECR) cater to enterprise applications.
 
+- In context of containers **multi-architecture** refers to the ability of a container image to run on multiple CPU architectures (`linux/amd64`, `linux/arm64`, `windows/amd64` ). A multi-arch container image is nothing but list of images that has references to binaries and libraries compiled for multiple CPU architectures. An important advantage of multi-architecture containers is the ability to deploy highly available applications in a Kubernetes cluster that can be made up of nodes with different CPU architectures (x86-64, ARM64, Windows).
+
+  - Here are some example of such images in different container registry.
+    - ECR public repo: [docker/library/python](https://gallery.ecr.aws/docker/library/python#:~:text=OS/Arch%3A%C2%A0Linux%2C%20Windows%2C%20ARM%2064%2C%20x86%2D64%2C%20x86%2C%20ARM)
+    - Docker hub repo: [python](https://hub.docker.com/_/python#:~:text=Supported%20architectures)
+
+![Image](multi-arch.png)
+
 ## Services
+
 - [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/)
