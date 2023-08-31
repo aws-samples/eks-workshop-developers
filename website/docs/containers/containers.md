@@ -2,6 +2,8 @@
 title: Containers
 sidebar_position: 1
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## Overview
 
@@ -26,8 +28,15 @@ Containerization is a method of running applications in isolated environments, e
   - Here are some examples of multi-architecture images in different container registries.
     - ECR public repo: [docker/library/python](https://gallery.ecr.aws/docker/library/python#:~:text=OS/Arch%3A%C2%A0Linux%2C%20Windows%2C%20ARM%2064%2C%20x86%2D64%2C%20x86%2C%20ARM)
     - Docker hub repo: [python](https://hub.docker.com/_/python#:~:text=Supported%20architectures)
-  - The following images depict examples of how a multi-architecture image (container binary) is pulled from a container registry: 
-![Image](multi-arch.png)
+  - The following images depict examples of how a multi-architecture image (container binary) is pulled from a container registry:
+<Tabs>
+  <TabItem value="Linux/arm64" label="Linux/arm64" default>
+    <img src="multi-arch-linux.png" alt="Linux/arm64" />
+  </TabItem>
+    <TabItem value="Windows" label="Windows" default>
+    <img src="multi-arch-windows.png" alt="Windows" />
+  </TabItem>
+</Tabs>
 
 ## Services
 
