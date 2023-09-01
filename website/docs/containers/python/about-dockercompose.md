@@ -32,7 +32,7 @@ The **web** service builds a Docker image using the Dockerfile in our project di
 
 ### db Service (PostgreSQL Database)
 
-The **db** service uses the official PostgreSQL image from Docker Hub. It's configured to load enviroment varibales such as database user, password, and database name from file .`env`. The volume `postgres_data` is used to store the database data persistently, ensuring data remains intact even if the container is stopped or deleted. The `init.sh` script is run in the PostgreSQL container at startup to initialize the database. It's part of the 'webnet' network, which facilitates communication between this service and the web service.
+The **db** service uses the official PostgreSQL image from Docker Hub. It's configured to load enviroment varibales such as database user, password, and database name from file `.env`. The volume `postgres_data` is used to store the database data persistently, ensuring data remains intact even if the container is stopped or deleted. The `init.sh` script is run in the PostgreSQL container at startup to initialize the database. It's part of the 'webnet' network, which facilitates communication between this service and the web service.
 
 ```
   db:

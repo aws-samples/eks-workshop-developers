@@ -29,7 +29,7 @@ aws ecr get-login-password \
 
 You should see the following response output: “Login Succeeded”.
 
-**Note:** If you get an error message, check the value of parameter `"credsStore"` in docker configuration (ex: `~/.docker/config.json` in Mac). If the value is `"ecr-login"` you can skip this step, because there is no need to execute docker log in command.
+**Note:** If you get an error message, check the value of parameter `"credsStore"` in docker configuration (ex: `~/.docker/config.json` in Mac). If the value is `"ecr-login"` you can skip this step, because there is no need to execute docker login command.
 
 ## 3. Uploading Docker Images to ECR
 Tag your Docker image for the ECR repository:
