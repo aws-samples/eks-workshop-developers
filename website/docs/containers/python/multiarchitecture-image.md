@@ -7,6 +7,8 @@ This guide shows you how to create a multi-architecture container image for the 
 
 ## Prerequisites
 - [Integrating Amazon ECR with Docker Compose](integration-ecr.md)
+- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
+- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## 1. Logging into Amazon ECR
 From the 'python-fastapi-demo-docker' project directory, authenticate the Docker CLI to your Amazon ECR registry using:

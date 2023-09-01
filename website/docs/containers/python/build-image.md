@@ -7,11 +7,19 @@ sidebar_position: 3
 This guide walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 ## Prerequisites
 - [Setting up the Development Environment](../../intro/python/environment-setup.md)
+
 ## 1. Building Docker Images for Each Service
-Navigate to the root directory of the 'python-fastapi-demo-docker' project with the Dockerfile and docker-compose.yml. To build Docker images for the application and database services, run:
+Navigate to the root directory of the 'python-fastapi-demo-docker' project with the Dockerfile and docker-compose.yml.
+
+```bash
+cd python-fastapi-demo-docker
+```
+
+Build Docker images for the application and database services by running:
 ```bash
 docker-compose build
 ```
+
 This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
 
 ## 2. Running the Services as Docker Containers
