@@ -14,37 +14,36 @@ Our `docker-compose.yml` file in the 'python-fastapi-demo-docker' project outlin
 The **web** service builds a Docker image using the Dockerfile in our project directory and starts the FastAPI application. The current directory, containing the application code, is mounted into the '/server' directory inside the container. This setup ensures that any changes made to the application code on the host are immediately reflected in the container. Similar to the db service, this service is part of the 'webnet' network, allowing it to communicate with the db service. 
 
 ```
-web:
-  build: .
-  command: uvicorn server.app.main:app --host 0.0.0.0 --port 8000
-  volumes:
-    - .:/server
-  ports:
-    - 8000:8000
-  depends_on:
-    - db
-  networks:
-    - webnet
-  environment: 
-    - DATABASE_URL=${DOCKER_DATABASE_URL}
+  web:
+    build: .
+    image: fastapi-microservices:${IMAGE_VERSION}
+    command: uvicorn server.app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/server
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - webnet
+    env_file:
+      - .env
 ```
 
 ### db Service (PostgreSQL Database)
 
-The **db** service uses the official PostgreSQL image from Docker Hub. It's configured using environment variables for the database user, password, and database name. The volume `postgres_data` is used to store the database data persistently, ensuring data remains intact even if the container is stopped or deleted. The `init.sh` script is run in the PostgreSQL container at startup to initialize the database. It's part of the 'webnet' network, which facilitates communication between this service and the web service.
+The **db** service uses the official PostgreSQL image from Docker Hub. It's configured to load enviroment varibales such as database user, password, and database name from file .`env`. The volume `postgres_data` is used to store the database data persistently, ensuring data remains intact even if the container is stopped or deleted. The `init.sh` script is run in the PostgreSQL container at startup to initialize the database. It's part of the 'webnet' network, which facilitates communication between this service and the web service.
 
 ```
-db:
-  image: postgres:13
-  environment:
-    POSTGRES_USER: ${POSTGRES_USER}
-    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    POSTGRES_DB: ${POSTGRES_DB}
-  volumes:
-    - ./db/init.sh:/docker-entrypoint-initdb.d/init.sh
-    - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
-  networks:
-    - webnet
+  db:
+    image: postgres:13
+    env_file:
+      - .env
+    volumes:
+      - ./server/db/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
+    networks:
+      - webnet
 ```
 
 ## Conclusion
