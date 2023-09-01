@@ -10,6 +10,7 @@ This tutorial simplifies the process of pushing Docker images to Amazon ECR usin
 
 ## Prerequisites
 - [Building and Running the Docker Containers](build-image.md)
+- Update aws cli to the latest available version following the steps in the [official aws cli docs](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 ## 1. Creating an ECR Repository
 Create a new private Amazon ECR repository:
@@ -27,6 +28,8 @@ aws ecr get-login-password \
 ```
 
 You should see the following response output: “Login Succeeded”.
+
+**Note:** If you get an error message, check the value of parameter `"credsStore"` in docker configuration (ex: `~/.docker/config.json` in Mac). If the value is `"ecr-login"` you can skip this step, because there is no need to execute docker log in command.
 
 ## 3. Uploading Docker Images to ECR
 Tag your Docker image for the ECR repository:
