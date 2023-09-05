@@ -7,6 +7,8 @@ This guide shows you how to create a multi-architecture container image for the 
 
 ## Prerequisites
 - [Integrating Amazon ECR with Docker Compose](integration-ecr.md)
+- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
+- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## 1. Logging into Amazon ECR
 From the 'python-fastapi-demo-docker' project directory, authenticate the Docker CLI to your Amazon ECR registry using:
@@ -59,6 +61,15 @@ docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.
 ```
 
 This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
+
+## Cleanup
+
+To clean up created images run the following command:
+
+```bash
+docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
+```
+
 
 ## Conclusion
 This guide explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.

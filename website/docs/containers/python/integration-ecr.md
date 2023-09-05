@@ -8,6 +8,8 @@ This guide shows to streamline the process of uploading Docker images to Amazon 
 
 ## Prerequisites
 - [Uploading Container Images to Amazon ECR](upload-ecr.md)
+- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
+- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## 1. Adjustments to the Dockerfile
 After the successful upload of Docker images to Amazon ECR, no changes are required in the Dockerfile, which serves as a consistent blueprint for defining the environment, dependencies, and image creation steps.
@@ -59,19 +61,38 @@ After making changes to your application, stop the running services with `Ctrl+C
 IMAGE_VERSION=1.1
 ```
 
-To build a new image for your application, run: 
+
+After editing `.env` make sure to [Refresh Environment Variables](../../intro/python/environment-setup#5-import-environment-variables) and verify if `IMAGE_VERSION` is updated.
+
+```bash
+echo $IMAGE_VERSION
+1.1
+```
+
+
+To build a new image for your application, run:
 ```bash
 docker-compose build web
 ```
 
-To tag the new image, run:
+Above command will build image with ECR tag to verify please run following command:
 ```bash
-docker tag fastapi-microservices:${IMAGE_VERSION} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
+docker image ls | grep amazonaws.com/fastapi-microservices
+AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.1                             defd60e3e376   6 minutes ago   233MB
+AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.0                             abc11f568055   2 hours ago     233MB
 ```
 
 To push the new image to your ECR repository, run:
 ```bash
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
+```
+
+## Cleanup
+
+To clean up created images run the following command:
+
+```bash
+docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
 ```
 
 ## Conclusion
