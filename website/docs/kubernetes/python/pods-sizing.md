@@ -121,7 +121,7 @@ fastapi-postgres-0   1m           17Mi
 ### Checking Resource Usage for the Entire Node
 To gain an overall understanding of the resource consumption in your node, you can use the "top node" command. Run the following command to get the resource usage for all pods running on your node:
 ```bash
-kubectl top node -n my-cool-app
+kubectl top node
 ```
 You should see something like this:
 ```bash

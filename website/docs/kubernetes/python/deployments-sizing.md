@@ -224,5 +224,25 @@ Events:
   Normal  Started    13m   kubelet            Started container db
 ```
 
+## Cleanup
+
+To clean up kubernetes resources created by minikube run the following command.
+
+```bash
+ minikube delete --all --purge
+```
+
+You should see something like this:
+
+```bash
+🔥  Deleting "minikube" in docker ...
+🔥  Removing /Users/dbattula/.minikube/machines/minikube ...
+💀  Removed all traces of the "minikube" cluster.
+🔥  Successfully deleted all profiles
+💀  Successfully purged minikube directory located at - [/Users/dbattula/.minikube]
+📌  Kicbase images have not been deleted. To delete images run:
+    ▪ docker rmi gcr.io/k8s-minikube/kicbase:v0.0.40
+```
+
 ## Conclusion
 This guide showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.
