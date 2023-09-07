@@ -16,6 +16,7 @@ cd python-fastapi-demo-docker
 ```
 
 Build Docker images for the application and database services by running:
+
 ```bash
 docker-compose build
 ```

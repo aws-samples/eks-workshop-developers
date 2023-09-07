@@ -7,6 +7,7 @@ minikube is a tool that allows you to run Kubernetes locally. It creates a singl
 
 ## Prerequisites
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
+- [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
 ## Objective
 The goal of this tutorial is to guide you in starting a local Kubernetes cluster using minikube and then creating a new namespace. This lays the groundwork for developing, testing, and managing applications on Kubernetes without needing a full-scale Kubernetes cluster. 
 
