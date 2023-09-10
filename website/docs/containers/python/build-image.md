@@ -1,6 +1,6 @@
 ---
 title: Building and Running the Docker Containers
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 ## Objective
@@ -8,13 +8,12 @@ This guide walks you through the process of building container images for our [p
 ## Prerequisites
 - [Setting up the Development Environment](../../intro/python/environment-setup.md)
 
-## 1. Building Docker Images for Each Service
-Navigate to the root directory of the 'python-fastapi-demo-docker' project with the Dockerfile and docker-compose.yml.
-
+## Initial Setup
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```
-
+## 1. Building Docker Images for Each Service
 Build Docker images for the application and database services by running:
 
 ```bash

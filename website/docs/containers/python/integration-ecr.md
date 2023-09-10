@@ -1,6 +1,6 @@
 ---
 title: Integrating Amazon ECR with Docker Compose
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 ## Objective
@@ -8,8 +8,6 @@ This guide shows to streamline the process of uploading Docker images to Amazon 
 
 ## Prerequisites
 - [Uploading Container Images to Amazon ECR](upload-ecr.md)
-- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
-- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## 1. Adjustments to the Dockerfile
 After the successful upload of Docker images to Amazon ECR, no changes are required in the Dockerfile, which serves as a consistent blueprint for defining the environment, dependencies, and image creation steps.
