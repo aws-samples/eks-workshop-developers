@@ -1,6 +1,6 @@
 ---
 title: Deploying FastAPI and PostgreSQL Microservices to Kubernetes using Minikube
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 ## Objective
@@ -11,36 +11,7 @@ This lab is designed to equip you with the necessary skills for efficient deploy
 
 - [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
 
-## 1. Creating db-init-script Configmap
-
-Run the following command from `python-fastapi-demo-docker` directory to create config map
-
-```bash
-cd python-fastapi-demo-docker
-kubectl create configmap db-init-script --from-file=init.sh=server/db/init.sh -n my-cool-app
-```
-
-The expected output should look like this:
-```bash
-configmap/db-init-script created
-```
-
-To confirm that your Kubernetes Configmap has been successfully created, you can use the kubectl get configmap command. This command lists all secrets that exist in the current namespace:
-
-```bash
-kubectl get configmap -n my-cool-app
-```
-
-The expected output should look like this:
-
-```bash
-
-NAME               DATA   AGE
-db-init-script     1      4m47s
-kube-root-ca.crt   1      5m36s
-```
-
-## 2. Creating the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
+## 1. Creating the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
 The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml)' manifest also consists of three primary Kubernetes resources: a StatefulSet, a Service, and a PersistentVolumeClaim.
 
@@ -65,7 +36,7 @@ statefulset.apps/fastapi-postgres created
 persistentvolumeclaim/postgres-pvc created
 ```
 
-## 3. Creating the FastAPI Deployment and Service
+## 2. Creating the FastAPI Deployment and Service
 
 The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)' manifest consists of two primary Kubernetes resources: a Service and a Deployment.
 
@@ -107,7 +78,7 @@ service/fastapi-service configured
 deployment.apps/fastapi-deployment created
 ```
 
-## 4. Verifying the Deployment
+## 3. Verifying the Deployment
 After applying the configuration, verify that the deployment is running correctly.
 
 Check the services:

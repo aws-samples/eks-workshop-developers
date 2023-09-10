@@ -1,6 +1,6 @@
 ---
 title: Updating Kubernetes Manifests with Appropriate Resource Limits and Requests
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 ## Objective

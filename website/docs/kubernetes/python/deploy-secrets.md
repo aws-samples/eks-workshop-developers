@@ -1,13 +1,13 @@
 ---
 title: Securing FastAPI Microservices with Kubernetes Secrets
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 ## Objective
 In the evolving world of microservices and cloud-native applications, managing sensitive data securely is paramount. Kubernetes offers a "Secret" resource, designed for storing sensitive data like passwords, OAuth tokens, and ssh keys, separating them from the container image to enhance security and modularity. This lab shows you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. 
 
 ## Prerequisites
-- [Creating a Kubernetes Cluster with Minikube](minikube-create.md)
+- [Initializing PostgreSQL Database with Kubernetes ConfigMaps](deploy-configmap.md)
 
 ## 1. Creating the Kubernetes Secret for Amazon ECR
 Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This is a critical step because it ensures that your Kubernetes cluster can pull the necessary container images from your private ECR repository. Now, you might be wondering whether this ECR secret will survive pod restarts, especially considering that ECR tokens are only valid for 12 hours. Kubernetes will automatically refresh the secret when it nears expiration, ensuring uninterrupted access to your private ECR repository.
