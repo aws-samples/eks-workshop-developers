@@ -1,21 +1,24 @@
 ---
-title: Creating an Amazon EKS Cluster.
-sidebar_position: 99
+title: Creating an Amazon EKS Cluster
+sidebar_position: 3
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 ## Objective
-This guide shows you how to create an Amazon EKS cluster, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [Amazon EKS Cluster Options](about-cluster.md).
+This guide shows you how to create an Amazon EKS cluster, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [About Amazon EKS Cluster Nodes](about-cluster.md).
 
 ## Prerequisites
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
-- [Configuring the Shell Environment](../../intro/python/environment-setup#2-configuring-the-shell-environment)
-- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
-- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
+
+## Initial Setup
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+```bash
+cd python-fastapi-demo-docker
+```
 
 <Tabs>
-  <TabItem value="Compute type Fargate" label="Compute type Fargate" default>
+  <TabItem value="Compute type Fargate" label="Fargate" default>
 
 ## 1. Creating the Cluster
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
@@ -64,7 +67,7 @@ aws eks create-fargate-profile \
 ## Conclusion
 This guide has walked you through the process of creating an Amazon EKS Fargate cluster pre-configured to deploy the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. By following these instructions, you've set up a functioning Kubernetes cluster on Amazon EKS, ready for deploying applications. 
   </TabItem>
-    <TabItem value="Compute type Managed node group(EC2)" label="Compute type Managed node group(EC2)" default>
+    <TabItem value="Compute type Managed node group(EC2)" label="Managed Node Groups (EC2)" default>
 
 ## Creating the Cluster
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
