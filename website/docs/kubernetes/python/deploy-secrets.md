@@ -8,16 +8,14 @@ In the evolving world of microservices and cloud-native applications, managing s
 
 ## Prerequisites
 - [Creating a Kubernetes Cluster with Minikube](minikube-create.md)
-- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
-- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## Objective
 The goal of this tutorial is to show you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. By the end, you'll have a firm understanding of managing sensitive data and running your microservices securely. To gain a deeper understanding of the different Kubernetes resources we're creating, refer to [Introduction to Managing Multiple Services with Kubernetes](about-multiservice.md).
 
 ## 1. Creating the Kubernetes Secret for Amazon ECR
-Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This Secret allows your Kubernetes cluster to authenticate with Amazon ECR and pull the Docker image.
+Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This is a critical step because it ensures that your Kubernetes cluster can pull the necessary container images from your private ECR repository. Now, you might be wondering whether this ECR secret will survive pod restarts, especially considering that ECR tokens are only valid for 12 hours. Kubernetes will automatically refresh the secret when it nears expiration, ensuring uninterrupted access to your private ECR repository.
 
-Change directories to the 'python-fastapi-demo-docker' project directory:
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```

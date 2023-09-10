@@ -2,15 +2,17 @@
 title: Creating a Kubernetes Cluster with Minikube
 sidebar_position: 2
 ---
-## Overview
-minikube is a tool that allows you to run Kubernetes locally. It creates a single-node or multi-node Kubernetes cluster inside a Virtual Machine (VM) on your local machine. This tutorial demonstrates how to start a Minikube cluster and create a new Kubernetes namespace, which provide a way to divide cluster resources among multiple users, applications, or application environments.
+## Objective
+minikube is a tool that allows you to run Kubernetes locally. It creates a single-node or multi-node Kubernetes cluster inside a Virtual Machine (VM) on your local machine. The goal of this lab is to guide you in starting a local Kubernetes cluster using minikube and then creating a new namespace. This lays the groundwork for subsequent lab exercises.
 
 ## Prerequisites
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
-- [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
-## Objective
-The goal of this tutorial is to guide you in starting a local Kubernetes cluster using minikube and then creating a new namespace. This lays the groundwork for developing, testing, and managing applications on Kubernetes without needing a full-scale Kubernetes cluster. 
 
+## Initial Setup
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+```bash
+cd python-fastapi-demo-docker
+```
 ## 1. Starting Minikube
 Before we can deploy applications to Kubernetes, we need to have a running Kubernetes cluster. minikube allows us to create a local Kubernetes cluster, which is suitable for development and testing.
 
