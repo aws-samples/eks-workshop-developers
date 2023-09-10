@@ -4,7 +4,7 @@ sidebar_position: 4
 ---
 
 ## Objective
-This guide shows to streamline the process of uploading Docker images to Amazon ECR and employing them within Docker Compose. By shifting the Docker image storage to Amazon ECR and harnessing them in Docker Compose, we aim to enhance deployment smoothness and the scalability of your microservices application.
+This lab shows to streamline the process of uploading Docker images to Amazon ECR and employing them within Docker Compose. By shifting the Docker image storage to Amazon ECR and harnessing them in Docker Compose, we aim to enhance deployment smoothness and the scalability of your microservices application.
 
 ## Prerequisites
 - [Uploading Container Images to Amazon ECR](upload-ecr.md)
@@ -94,4 +94,4 @@ docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws
 ```
 
 ## Conclusion
-Through this guide, we've achieved seamless integration of Docker images with Docker Compose by uploading them to Amazon ECR. This approach has increased the portability of our FastAPI application and PostgreSQL database, allowing any Docker-equipped environment to pull images, create containers, and run the application with minimal fuss.
+Through this lab, we've achieved seamless integration of Docker images with Docker Compose by uploading them to Amazon ECR. This approach has increased the portability of our FastAPI application and PostgreSQL database, allowing any Docker-equipped environment to pull images, create containers, and run the application with minimal fuss.

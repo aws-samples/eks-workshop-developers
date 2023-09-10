@@ -4,7 +4,7 @@ sidebar_position: 6
 ---
 
 ## Objective
-This guide aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios. 
+This lab aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios. 
 
 ## Prerequisites
 - [Accessing the FastAPI App](./access-app.md)
@@ -153,4 +153,4 @@ Take note that setting **CPU limits** in a Kubernetes environment is generally n
 - **MEMORY%**: The node was using 30% of its total available memory. Should your application require additional memory resources during high load, the node has ample unused memory to meet this need.
 
 ## Conclusion
-This guide has provided you with the understanding and tools needed to optimally size your Kubernetes pods based on your application's unique requirements. By using the 'hey' tool and Kubernetes Metrics Server, you can simulate real-world load scenarios, monitor resource usage, and make informed decisions regarding your pods' CPU and memory requests. Remember that setting CPU limits should be approached with caution, understanding the intricacies involved in the process.
+This lab has provided you with the understanding and tools needed to optimally size your Kubernetes pods based on your application's unique requirements. By using the 'hey' tool and Kubernetes Metrics Server, you can simulate real-world load scenarios, monitor resource usage, and make informed decisions regarding your pods' CPU and memory requests. Remember that setting CPU limits should be approached with caution, understanding the intricacies involved in the process.

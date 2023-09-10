@@ -49,4 +49,4 @@ Look for an output message stating that the image is up-to-date, signaling a suc
 
 ## Conclusion
 
-This guide walked you through the process of pushing a Docker container image to Amazon ECR. This method provides a convenient way to manage and distribute Docker images, making it an essential tool for any developer working with Docker.
+This lab walked you through the process of pushing a Docker container image to Amazon ECR. This method provides a convenient way to manage and distribute Docker images, making it an essential tool for any developer working with Docker.

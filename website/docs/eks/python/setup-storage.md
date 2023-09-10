@@ -3,7 +3,7 @@ title: Setting up Scalable Storage with the EBS CSI Driver in Amazon EKS
 sidebar_position: 7
 ---
 ## Objective
-This guide shows you how to set up the EBS CSI Driver on your cluster, which enables dynamic provisioning of Amazon EBS volumes in Kubernetes. We'll leverage [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster to provide the necessary permissions to the driver.
+This lab shows you how to set up the EBS CSI Driver on your cluster, which enables dynamic provisioning of Amazon EBS volumes in Kubernetes. We'll leverage [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster to provide the necessary permissions to the driver.
 
 :::info
 

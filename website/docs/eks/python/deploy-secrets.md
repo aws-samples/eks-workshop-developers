@@ -4,7 +4,7 @@ sidebar_position: 8
 ---
 
 ## Objective
-This guide will help you secure sensitive information in your Amazon EKS Kubernetes cluster. By the end of it, you will be able to create Kubernetes secrets from an environment file and verify the creation of these secrets.
+This lab will help you secure sensitive information in your Amazon EKS Kubernetes cluster. By the end of it, you will be able to create Kubernetes secrets from an environment file and verify the creation of these secrets.
 
 ## Prerequisites
 - [Setting up Scalable Storage with the EBS CSI Driver in Amazon EKS](./setup-storage.md)

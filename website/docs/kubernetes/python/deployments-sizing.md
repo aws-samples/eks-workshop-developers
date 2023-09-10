@@ -4,7 +4,7 @@ sidebar_position: 7
 ---
 
 ## Objective
-This guide shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
+This lab shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
 ## Prerequisites
 - [Right-Sizing Your Pods with Minikube and Metrics Server](./pods-sizing.md)
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
@@ -245,4 +245,4 @@ You should see something like this:
 ```
 
 ## Conclusion
-This guide showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.
+This lab showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.

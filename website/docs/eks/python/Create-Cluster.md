@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 ## Objective
-This guide shows you how to create an Amazon EKS cluster, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [About Amazon EKS Cluster Nodes](about-cluster.md).
+This lab shows you how to create an Amazon EKS cluster, specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. To gain a deeper understanding of the different cluster configurations in the configuration file we'll use, refer to [About Amazon EKS Cluster Nodes](about-cluster.md).
 
 ## Prerequisites
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
@@ -65,7 +65,7 @@ aws eks create-fargate-profile \
 ```
 
 ## Conclusion
-This guide has walked you through the process of creating an Amazon EKS Fargate cluster pre-configured to deploy the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. By following these instructions, you've set up a functioning Kubernetes cluster on Amazon EKS, ready for deploying applications. 
+This lab has walked you through the process of creating an Amazon EKS Fargate cluster pre-configured to deploy the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. By following these instructions, you've set up a functioning Kubernetes cluster on Amazon EKS, ready for deploying applications. 
   </TabItem>
     <TabItem value="Compute type Managed node group(EC2)" label="Managed Node Groups (EC2)" default>
 

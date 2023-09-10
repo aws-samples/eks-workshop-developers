@@ -2,7 +2,7 @@
 title: Managing Kubernetes Contexts in EKS Cluster
 sidebar_position: 5
 ---
-This guide will demonstrate how to verify and switch Kubernetes contexts in an EKS cluster. We'll make use of the kubectl command-line tool, which allows you to run commands against Kubernetes clusters. Specifically, you'll learn how to check your current context and switch to a different one if needed, allowing your local environment to interact with the desired cluster.
+This lab will demonstrate how to verify and switch Kubernetes contexts in an EKS cluster. We'll make use of the kubectl command-line tool, which allows you to run commands against Kubernetes clusters. Specifically, you'll learn how to check your current context and switch to a different one if needed, allowing your local environment to interact with the desired cluster.
 
 ## Prerequisites
 - [Creating an Amazon EKS Cluster](./create-cluster.md) 
@@ -31,4 +31,4 @@ Updated context arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart in
 ```
 
 ## Conclusion
-This guide provided a quick walkthrough on how to verify and switch Kubernetes contexts in an EKS cluster. With a good grasp of Kubernetes contexts, you're now better equipped to handle workloads on different EKS clusters efficiently.
+This lab provided a quick walkthrough on how to verify and switch Kubernetes contexts in an EKS cluster. With a good grasp of Kubernetes contexts, you're now better equipped to handle workloads on different EKS clusters efficiently.
