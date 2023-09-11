@@ -6,7 +6,7 @@ This lab will demonstrate how to verify and switch Kubernetes contexts in an EKS
 
 ## Prerequisites
 
-- [Creating an Amazon EKS Cluster (Fargate)](./Create-Cluster#1-creating-the-cluster) or [Creating an Amazon EKS Cluster (Managed Node Groups)](./Create-Cluster#creating-the-cluster)
+- [Creating an Amazon EKS Cluster](./Create-Cluster.md)
 - [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
 
 ## 1. Verifying the Current Context
