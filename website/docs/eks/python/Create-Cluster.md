@@ -1,5 +1,5 @@
 ---
-title: Creating an Amazon EKS Cluster.
+title: Creating an Amazon EKS Cluster
 sidebar_position: 3
 ---
 import Tabs from '@theme/Tabs';
