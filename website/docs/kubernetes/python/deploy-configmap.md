@@ -14,7 +14,7 @@ Our PostgreSQL database requires custom initialization, which is why we use an i
 
 Navigate to the root directory of the 'python-fastapi-demo-docker' project where the init.sh script is located:
 ```bash
-cd server/db
+cd python-fastapi-demo-docker$
 ```
 
 Generate the Kubernetes ConfigMap:
