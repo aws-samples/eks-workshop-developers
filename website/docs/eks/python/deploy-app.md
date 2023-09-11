@@ -6,6 +6,7 @@ sidebar_position: 9
 This lab shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project onto your Amazon EKS cluster&mdash;either your AWS Fargate or managed node groups-based cluster. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
 
 ## Prerequisites
+
 - [Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS](./deploy-secrets.md)
 
 ## 1. Creating db-init-script Configmap
@@ -39,9 +40,10 @@ kube-root-ca.crt   1      5m36s
 
 ## 2. Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
-The **[deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim. 
+The **[deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+
 ```
 kubectl apply -f eks/deploy-db-python.yaml
 ```
@@ -77,7 +79,8 @@ vi eks/deploy-app-python.yaml
 ```
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
-```
+
+```bash
 cd python-fastapi-demo-docker
 kubectl apply -f eks/deploy-app-python.yaml
 ```
