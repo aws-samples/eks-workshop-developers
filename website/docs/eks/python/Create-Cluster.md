@@ -23,6 +23,10 @@ cd python-fastapi-demo-docker
 ## 1. Creating the Cluster
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 
+:::caution
+Please verify the region specified in file `eks/create-fargate-python.yaml` and change it if needed. The region should be same as the one used in [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file).
+:::
+
 ```bash
 eksctl create cluster -f eks/create-fargate-python.yaml
 ```
@@ -71,6 +75,11 @@ This lab has walked you through the process of creating an Amazon EKS Fargate cl
 
 ## Creating the Cluster
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
+
+:::caution
+Please verify the region specified in file `eks/create-mng-python.yaml` and change it if needed. The region should be same as the one used in [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file).
+:::
+
 ```bash
 eksctl create cluster -f eks/create-mng-python.yaml
 ```

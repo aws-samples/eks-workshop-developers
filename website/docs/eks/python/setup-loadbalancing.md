@@ -2,6 +2,9 @@
 title: Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster
 sidebar_position: 6
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## Objective
 This lab shows you how to set up the [AWS Load Balancer Controller (LBC)](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) on your cluster, which enables the routing of external traffic to your Kubernetes services. We'll leverage the [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) we configured when we created our cluster, ensuring that the controller has the required permissions.
 
@@ -10,22 +13,48 @@ This lab shows you how to set up the [AWS Load Balancer Controller (LBC)](https:
 Classic Load Balancers and Network Load Balancers are not supported on pods running on Fargate.
 
 :::
+
 ## Prerequisites
 - [Managing Kubernetes Contexts in EKS Cluster](./manage-contexts.md)
+- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
 
 ## 1. Set Environment Variables
 Before we start setting up our EKS cluster, we need to set an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
 
 From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
+
+<Tabs>
+  <TabItem value="Fargate cluster" label="Fargate cluster" default>
+
 ```bash
 cd python-fastapi-demo-docker
 export CLUSTER_VPC=$(aws eks describe-cluster --name fargate-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
 ```
 
-Fetch your EKS cluster name and set an environment variable:
+set your EKS cluster name as an environment variable:
+
 ```bash
-export CLUSTER_NAME=$(eksctl get cluster --region ${AWS_REGION} | awk 'FNR == 2 {print $1}')
+export CLUSTER_NAME=fargate-quickstart
 ```
+
+  </TabItem>
+    <TabItem value="Managed node group(EC2) Cluster" label="Managed node group(EC2) Cluster" default>
+
+```bash
+cd python-fastapi-demo-docker
+export CLUSTER_VPC=$(aws eks describe-cluster --name managednode-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
+```
+
+set your EKS cluster name as an environment variable:
+
+```bash
+export CLUSTER_NAME=managednode-quickstart
+```
+
+  </TabItem>
+</Tabs>
+
+
 
 ## 2. Verify the Service Account
 First, we need to make sure the "aws-load-balancer-controller" service account is correctly set up in the "kube-system" namespace in our cluster.
@@ -68,7 +97,13 @@ customresourcedefinition.apiextensions.k8s.io/ingressclassparams.elbv2.k8s.aws c
 customresourcedefinition.apiextensions.k8s.io/targetgroupbindings.elbv2.k8s.aws configured
 ```
 
-## 4. Deploy the Load Balancer Controller
+## 4. Updating Your Helm Repos
+Next, update the repositories to ensure Helm is aware of the latest versions of the charts:
+```bash
+helm repo update
+```
+
+## 5. Deploy the Load Balancer Controller
 To install the AWS Load Balancer Controller in the "kube-system" namespace of the EKS cluster, run the following Helm command, replacing region with your specific region:
 ```bash
 helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
@@ -78,12 +113,6 @@ helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
     --set vpcId=${CLUSTER_VPC} \
     --set serviceAccount.name=aws-load-balancer-controller \
     -n kube-system
-```
-
-## 5. Updating Your Helm Repos
-Next, update the repositories to ensure Helm is aware of the latest versions of the charts:
-```bash
-helm repo update
 ```
 
 You should receive an output confirming the successful installation of the AWS Load Balancer Controller (LBC):
@@ -96,4 +125,17 @@ REVISION: 1
 TEST SUITE: None
 NOTES:
 AWS Load Balancer controller installed!
+```
+
+To List installed helm releases run the following
+
+```bash
+helm list -A
+```
+
+You should receive simillar output:
+
+```bash
+NAME                        	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                             	APP VERSION
+aws-load-balancer-controller	kube-system	1       	2023-09-11 00:31:57.585623 -0400 EDT	deployed	aws-load-balancer-controller-1.6.0	v2.6.0
 ```
