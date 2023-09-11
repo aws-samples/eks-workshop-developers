@@ -15,17 +15,8 @@ kubectl get pods -n my-cool-app
 ```
 All your pods should be in the "Running" state. If they're not, you will need to troubleshoot the deployment before proceeding.
 
-## 2. Enabling Minikube Tunnel
-Given that the service type for our FastAPI application is a 'LoadBalancer', we need to enable a minikube tunnel to access the service from our host machine.
-
-In a new terminal window, run the following command:
-```bash
-minikube tunnel
-```
-This command needs to be continuously running to keep the network route open, so make sure to leave this terminal window open.
-
-## 3. Accessing the FastAPI Service
-Now that the tunnel has been established, we can access the FastAPI service using the [minikube service](https://minikube.sigs.k8s.io/docs/commands/service/) command. Run the following command in a separate terminal window:
+## 2. Accessing the FastAPI Service
+Use the [minikube service](https://minikube.sigs.k8s.io/docs/commands/service/) command to create a tunnel to the cluster and connect to FastAPI service:
 ```bash
 minikube service fastapi-service --namespace=my-cool-app
 ```
@@ -45,8 +36,9 @@ The expected output should look like this:
 🎉  Opening service my-cool-app/fastapi-service in default browser...
 ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ```
+This command needs to be continuously running to keep the network route open, so make sure to leave this terminal window open.
 
-## 4. Verifying the Setup by Adding a Book
+## 3. Verifying the Setup by Adding a Book
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
 ![Image](./images/app-create-book.png)
