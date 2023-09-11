@@ -1,11 +1,12 @@
 ---
 title: Updating Kubernetes Manifests with Appropriate Resource Limits and Requests
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 ## Objective
-This guide shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
-
+This lab shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
+## Prerequisites
+- [Right-Sizing Your Pods with Minikube and Metrics Server](./pods-sizing.md)
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
 The [fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml) manifest contains the resources for our FastAPI application. We're going to adjust the resource requests and limits for this deployment based on the data we've gathered.
 
@@ -223,5 +224,25 @@ Events:
   Normal  Started    13m   kubelet            Started container db
 ```
 
+## Cleanup
+
+To clean up kubernetes resources created by minikube run the following command.
+
+```bash
+ minikube delete --all --purge
+```
+
+You should see something like this:
+
+```bash
+🔥  Deleting "minikube" in docker ...
+🔥  Removing /Users/dbattula/.minikube/machines/minikube ...
+💀  Removed all traces of the "minikube" cluster.
+🔥  Successfully deleted all profiles
+💀  Successfully purged minikube directory located at - [/Users/dbattula/.minikube]
+📌  Kicbase images have not been deleted. To delete images run:
+    ▪ docker rmi gcr.io/k8s-minikube/kicbase:v0.0.40
+```
+
 ## Conclusion
-This guide showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.
+This lab showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.

@@ -1,15 +1,17 @@
 ---
 title: Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster
-sidebar_position: 9
+sidebar_position: 6
 ---
 ## Objective
-This guide shows you how to set up the [AWS Load Balancer Controller (LBC)](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) on your cluster, which enables the routing of external traffic to your Kubernetes services. We'll leverage the [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) we configured when we created our cluster, ensuring that the controller has the required permissions.
+This lab shows you how to set up the [AWS Load Balancer Controller (LBC)](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) on your cluster, which enables the routing of external traffic to your Kubernetes services. We'll leverage the [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) we configured when we created our cluster, ensuring that the controller has the required permissions.
 
 :::info
 
 Classic Load Balancers and Network Load Balancers are not supported on pods running on Fargate.
 
 :::
+## Prerequisites
+- [Managing Kubernetes Contexts in EKS Cluster](./manage-contexts.md)
 
 ## 1. Set Environment Variables
 Before we start setting up our EKS cluster, we need to set an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.

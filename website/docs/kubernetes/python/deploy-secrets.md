@@ -1,18 +1,18 @@
 ---
 title: Securing FastAPI Microservices with Kubernetes Secrets
-sidebar_position: 3
+sidebar_position: 4
 ---
 
-## Overview
-In the evolving world of microservices and cloud-native applications, managing sensitive data securely is paramount. Kubernetes offers a "Secret" resource, designed for storing sensitive data like passwords, OAuth tokens, and ssh keys, separating them from the container image to enhance security and modularity. 
-
 ## Objective
-The goal of this tutorial is to show you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. By the end, you'll have a firm understanding of managing sensitive data and running your microservices securely. To gain a deeper understanding of the different Kubernetes resources we're creating, refer to [Introduction to Managing Multiple Services with Kubernetes](about-multiservice.md).
+In the evolving world of microservices and cloud-native applications, managing sensitive data securely is paramount. Kubernetes offers a "Secret" resource, designed for storing sensitive data like passwords, OAuth tokens, and ssh keys, separating them from the container image to enhance security and modularity. This lab shows you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. 
+
+## Prerequisites
+- [Initializing PostgreSQL Database with Kubernetes ConfigMaps](deploy-configmap.md)
 
 ## 1. Creating the Kubernetes Secret for Amazon ECR
-Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This Secret allows your Kubernetes cluster to authenticate with Amazon ECR and pull the Docker image.
+Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This is a critical step because it ensures that your Kubernetes cluster can pull the necessary container images from your private ECR repository. Now, you might be wondering whether this ECR secret will survive pod restarts, especially considering that ECR tokens are only valid for 12 hours. Kubernetes will automatically refresh the secret when it nears expiration, ensuring uninterrupted access to your private ECR repository.
 
-Change directories to the 'python-fastapi-demo-docker' project directory:
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```
@@ -68,7 +68,7 @@ kubectl describe secret fastapi-secret -n my-cool-app
 The expected output should look like this:
 ```bash
 Name:         fastapi-secret
-Namespace:    default
+Namespace:    my-cool-app
 Labels:       <none>
 Annotations:  <none>
 
@@ -76,26 +76,27 @@ Type:  Opaque
 
 Data
 ====
-POSTGRES_PASSWORD:      10 bytes
-POSTGRES_MASTER:        8 bytes
-DOCKER_DATABASE_URL:    53 bytes
-HTTP_HOST:              16 bytes
-IMAGE_VERSION:          3 bytes
-POSTGRES_DB:            9 bytes
-POSTGRES_HOST:          9 bytes
-POSTGRES_PORT:          4 bytes
-POSTGRES_USER:          11 bytes
-APP_PORT:               4 bytes
-AWS_ACCOUNT_ID:         12 bytes
-AWS_SECRET_ACCESS_KEY:  40 bytes
-DOCKER_USERNAME:        9 bytes
-AWS_ACCESS_KEY_ID:      20 bytes
-AWS_REGION:             9 bytes
-LOCAL_HOST:             9 bytes
-POSTGRES_DATABASE_URL:  60 bytes
-POSTGRES_TABLE:         5 bytes
-POSTGRES_VOLUME:        2 bytes
-APP_HOST:               7 bytes
+AWS_SECRET_ACCESS_KEY:       40 bytes
+AWS_SESSION_TOKEN:           764 bytes
+DATABASE_URL:                58 bytes
+HTTP_HOST:                   16 bytes
+IMAGE_VERSION:               3 bytes
+WORKSHOP_POSTGRES_PASSWORD:  10 bytes
+AWS_REGION:                  9 bytes
+DOCKER_DATABASE_URL:         53 bytes
+POSTGRES_MASTER:             8 bytes
+POSTGRES_TABLE:              5 bytes
+APP_HOST:                    7 bytes
+AWS_ACCESS_KEY_ID:           20 bytes
+POSTGRES_HOST:               9 bytes
+POSTGRES_PASSWORD:           15 bytes
+POSTGRES_VOLUME:             2 bytes
+WORKSHOP_POSTGRES_DB:        9 bytes
+APP_PORT:                    4 bytes
+DOCKER_USERNAME:             7 bytes
+LOCAL_HOST:                  9 bytes
+POSTGRES_PORT:               4 bytes
+WORKSHOP_POSTGRES_USER:      11 bytes
 ```
 
 ## Conclusion

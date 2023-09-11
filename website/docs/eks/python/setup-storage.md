@@ -1,15 +1,18 @@
 ---
 title: Setting up Scalable Storage with the EBS CSI Driver in Amazon EKS
-sidebar_position: 10
+sidebar_position: 7
 ---
 ## Objective
-This guide shows you how to set up the EBS CSI Driver on your cluster, which enables dynamic provisioning of Amazon EBS volumes in Kubernetes. We'll leverage [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster to provide the necessary permissions to the driver.
+This lab shows you how to set up the EBS CSI Driver on your cluster, which enables dynamic provisioning of Amazon EBS volumes in Kubernetes. We'll leverage [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster to provide the necessary permissions to the driver.
 
 :::info
 
 EBS CSI volumes only support the 'ReadWriteOnce' access mode. While this may seem restrictive, it's actually a good match for databases like PostgreSQL. PostgreSQL can handle multiple concurrent connections and queries, even though it runs on a single node. This means even if your application has numerous users reading from and writing to the database concurrently, PostgreSQL manages these operations internally. Therefore, using 'ReadWriteOnce' volumes with PostgreSQL on EKS is generally the recommended approach.
 
 :::     
+
+## Prerequisites
+- [Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster](./setup-loadbalancing.md)
 
 ## 1. Verifying the Service Account
 First, we need to make sure the "ebs-csi-controller-sa" service account is correctly set up in the "kube-system" namespace in our cluster.

@@ -1,17 +1,26 @@
 ---
 title: Building and Running the Docker Containers
-sidebar_position: 4
+sidebar_position: 2
 ---
 
 ## Objective
-This guide walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
+This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
+## Prerequisites
+- [Setting up the Development Environment](../../intro/python/environment-setup.md)
 
+## Initial Setup
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+```bash
+cd python-fastapi-demo-docker
+```
 ## 1. Building Docker Images for Each Service
-Navigate to the root directory of the 'python-fastapi-demo-docker' project with the Dockerfile and docker-compose.yml. To build Docker images for the application and database services, run:
+Build Docker images for the application and database services by running:
+
 ```bash
 docker-compose build
 ```
-This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'fastapi-microservices-web' and 'fastapi-microservices-db' services.
+
+This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
 
 ## 2. Running the Services as Docker Containers
 After building the images, start the application and database services in separate Docker containers using:
@@ -27,7 +36,7 @@ To confirm that everything is functioning as expected, attempt to add a book by 
 ![Image](./images/app-create-book.png)
 
 ## 4. Interpreting Containers
-Your application ('fastapi-microservices-web' service) and your database ('fastapi-microservices-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our fastapi-microservices application, as instances of the services in our Docker Compose configuration.
+Your application ('python-fastapi-demo-docker-web' service) and your database ('python-fastapi-demo-docker-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our python-fastapi-demo-docker application, as instances of the services in our Docker Compose configuration.
 
 ![Image](./images/docker-extension-open-in-browser.png)
 
@@ -41,9 +50,9 @@ This command halts the containers and, by default, also removes the containers, 
 
 ```
 [+] Running 3/3
- ⠿ Container fastapi-microservices-web-1  Removed           0.5s
- ⠿ Container fastapi-microservices-db-1   Removed           0.2s
- ⠿ Network fastapi-microservices_webnet   Removed           0.1s
+ ⠿ Container python-fastapi-demo-docker-web-1  Removed           0.5s
+ ⠿ Container python-fastapi-demo-docker-db-1   Removed           0.2s
+ ⠿ Network python-fastapi-demo-docker_webnet   Removed           0.1s
 ```
 
 ## 6. Rebuilding and Restarting Docker Services
@@ -58,4 +67,4 @@ This halts your services, rebuilds the Docker images, and reboots the services w
 
 ## Conclusion
 
-This guide explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. This approach provides an efficient way to manage multi-service applications, which greatly benefits developers by streamlining the process.
+This lab explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. This approach provides an efficient way to manage multi-service applications, which greatly benefits developers by streamlining the process.

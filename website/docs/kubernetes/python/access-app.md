@@ -1,11 +1,13 @@
 ---
 title: Accessing the FastAPI App
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 ## Objective
-This guide aims to guide you through the process of accessing your microservices deployed onto a minikube cluster. By using minikube's 'port forwarding' feature and enabling a network tunnel, we'll expose the FastAPI service, allowing you to interact with it from your local machine's web browser. This process is especially crucial for LoadBalancer service types, as they require an additional network route from the host to the service's cluster.
+This lab aims to guide you through the process of accessing your microservices deployed onto a minikube cluster. By using minikube's 'port forwarding' feature and enabling a network tunnel, we'll expose the FastAPI service, allowing you to interact with it from your local machine's web browser. This process is especially crucial for LoadBalancer service types, as they require an additional network route from the host to the service's cluster.
 
+## Prerequisites
+- [Deploying FastAPI and PostgreSQL Microservices to Kubernetes using Minikube](./deploy-app.md)
 ## 1. Checking the Status of Pods
 Before we try to access our application, we need to ensure that all of our pods are running correctly. To check the status of all pods, run the following command:
 ```bash
@@ -50,4 +52,4 @@ To confirm that everything is functioning as expected, attempt to add a book by 
 ![Image](./images/app-create-book.png)
 
 ## Conclusion
-This guide has walked you through the steps necessary to access your microservices, specifically the FastAPI service, deployed on a minikube cluster from your local machine. We've shown how to check the status of your pods, enable a minikube tunnel for access, and verify your setup by interacting with the FastAPI service. The minikube service command is a convenient way to expose your Kubernetes services to your local machine and interact with them as if they were locally deployed.
+This lab has walked you through the steps necessary to access your microservices, specifically the FastAPI service, deployed on a minikube cluster from your local machine. We've shown how to check the status of your pods, enable a minikube tunnel for access, and verify your setup by interacting with the FastAPI service. The minikube service command is a convenient way to expose your Kubernetes services to your local machine and interact with them as if they were locally deployed.
