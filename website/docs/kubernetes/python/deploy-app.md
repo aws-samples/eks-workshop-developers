@@ -131,7 +131,6 @@ The expected output should look like this:
 
 ```bash
 NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-postgres-data-fastapi-postgres-0   Bound    pvc-8772e860-0fcf-4307-9330-d8cf27754174   1Gi        RWO            standard       18m
 postgres-pvc                       Bound    pvc-77773703-6d28-4581-adec-8741150df9ce   1Gi        RWO            standard       18m
 ```
 
