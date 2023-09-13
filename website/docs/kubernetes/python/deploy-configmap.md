@@ -12,9 +12,9 @@ In the realm of container orchestration and cloud-native applications, initializ
 ## 1. Creating the Kubernetes ConfigMap for Database Initialization
 Our PostgreSQL database requires custom initialization, which is why we use an init.sh script. This script creates the database, user, and table. To manage this script, we create a Kubernetes ConfigMap. This ensures that the script is executed when the PostgreSQL container starts, initializing the database as required.
 
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where the init.sh script is located:
+Navigate to the root directory of the 'python-fastapi-demo-docker' project:
 ```bash
-cd server/db
+cd python-fastapi-demo-docker
 ```
 
 Generate the Kubernetes ConfigMap:
