@@ -1,6 +1,6 @@
 ---
-title: Deploying FastAPI and PostgreSQL Microservices to EKS
-sidebar_position: 10
+title: Cleaning Up Resources
+sidebar_position: 12
 ---
 ## Objective
 

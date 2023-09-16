@@ -40,9 +40,5 @@ Updated context arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart in
 ```
 
 ## Conclusion
-<<<<<<< HEAD
-This lab provided a quick walkthrough on how to verify and switch Kubernetes contexts in an EKS cluster. With a good grasp of Kubernetes contexts, you're now better equipped to handle workloads on different EKS clusters efficiently.
-=======
-
 This guide provided a quick walkthrough on how to verify and switch Kubernetes contexts in an EKS cluster. With a good grasp of Kubernetes contexts, you're now better equipped to handle workloads on different EKS clusters efficiently.
->>>>>>> 1368c7f (minor change 2)
+
