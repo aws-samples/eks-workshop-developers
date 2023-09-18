@@ -24,7 +24,7 @@ cd python-fastapi-demo-docker
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Please verify the region specified in file `eks/create-fargate-python.yaml` and change it if needed. The region should be same as the one used in [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file).
+Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../intro/python/environment-setup#4-creating-the-env-file).
 :::
 
 ```bash
@@ -69,7 +69,7 @@ aws eks create-fargate-profile \
 ```
 
 ## Conclusion
-This lab has walked you through the process of creating an Amazon EKS Fargate cluster pre-configured to deploy the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. By following these instructions, you've set up a functioning Kubernetes cluster on Amazon EKS, ready for deploying applications. 
+This lab has walked you through the process of creating an Amazon EKS Fargate cluster pre-configured to deploy the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. By following these instructions, you've set up a functioning Kubernetes cluster on Amazon EKS, ready for deploying applications.
   </TabItem>
     <TabItem value="Compute type Managed node group(EC2)" label="Managed Node Groups (EC2)" default>
 
@@ -77,7 +77,7 @@ This lab has walked you through the process of creating an Amazon EKS Fargate cl
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Please verify the region specified in file `eks/create-mng-python.yaml` and change it if needed. The region should be same as the one used in [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file).
+Make sure to verify the region specified in `eks/create-mng-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../intro/python/environment-setup#4-creating-the-env-file).
 :::
 
 ```bash

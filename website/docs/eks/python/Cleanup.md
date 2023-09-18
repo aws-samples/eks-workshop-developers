@@ -1,10 +1,18 @@
 ---
-title: Deploying FastAPI and PostgreSQL Microservices to EKS
-sidebar_position: 10
+title: Cleanup
+sidebar_position: 99
 ---
 ## Objective
 
 Cleaning up created EKS and ECR resources.
+
+## Initial Setup
+
+Navigate to the root directory of the `python-fastapi-demo-docker` project where your [environment variables]((../../intro/python/environment-setup#2-configuring-the-shell-environment)) are sourced:
+
+```bash
+cd python-fastapi-demo-docker
+```
 
 ## Prerequisites
 

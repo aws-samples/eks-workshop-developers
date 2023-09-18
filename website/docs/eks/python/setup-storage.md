@@ -59,25 +59,7 @@ helm repo update
 
 ## 4. Deploying the EBS CSI Driver
 To install the EBS CSI driver on the EKS cluster in the current context, use the following Helm command:
-```bash
-helm upgrade --install aws-ebs-csi-driver \
-  --namespace kube-system \
-  --set serviceAccount.controller.create=false \
-  --set serviceAccount.snapshot.create=false \
-  --set enableVolumeScheduling=true \
-  --set enableVolumeResizing=true \
-  --set enableVolumeSnapshot=true \
-  --set serviceAccount.snapshot.name=ebs-csi-controller-sa \
-  --set serviceAccount.controller.name=ebs-csi-controller-sa \
-  aws-ebs-csi-driver/aws-ebs-csi-driver
-```
 
-error seen
-```
-Error: rendered manifests contain a resource that already exists. Unable to continue with install: ServiceAccount "ebs-csi-controller-sa" in namespace "kube-system" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: key "app.kubernetes.io/managed-by" must equal "Helm": current value is "eksctl"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "aws-ebs-csi-driver"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "kube-system"
-```
-
-Working script:
 ```bash
 helm upgrade --install aws-ebs-csi-driver \
   --namespace kube-system \

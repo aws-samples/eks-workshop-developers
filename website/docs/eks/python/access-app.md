@@ -21,9 +21,9 @@ kubectl get pods -n my-cool-app
 ```
 All your pods should be in the "Running" state. If they're not, you will need to troubleshoot the deployment before proceeding.
 
-## 2. Get the Application Loadbalancer URL
+## 2. Get the Application Load Balancer URL
 
-Run the following command to get Application Loadbalancer URL:
+Run the following command to get the URL:
 
 ```bash
 kubectl get ingress -n my-cool-app
@@ -40,9 +40,10 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-8114c40e9c-860636650.us
 
 Open your browser paste the ALB link.
 
-![](FastAPI.png)
+![](app-home.png)
 
 ## 4. Verifying the Setup by Adding a Book
+
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
 ![Image](app-create-book.png)
