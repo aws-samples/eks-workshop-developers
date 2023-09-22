@@ -29,6 +29,23 @@ docker buildx use webBuilder
 docker buildx inspect --bootstrap
 ```
 
+The expected output should look like this:
+```bash
+webBuilder
+[+] Building 2.7s (1/1) FINISHED
+ => [internal] booting buildkit                                                                                            2.6s
+ => => pulling image moby/buildkit:buildx-stable-1                                                                         1.1s
+ => => creating container buildx_buildkit_webbuilder0                                                                      1.5s
+Name:   webBuilder
+Driver: docker-container
+
+Nodes:
+Name:      webbuilder0
+Endpoint:  unix:///var/run/docker.sock
+Status:    running
+Platforms: linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/mips64le, linux/mips64, linux/arm/v7, linux/arm/v6
+```
+
 ## 3. Pushing the Image to Amazon ECR
 Next, build and push the images for your web service by running the following commands:
 ```bash
@@ -36,7 +53,61 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 This builds Docker images based on the Dockerfile instructions and pushes them to your ECR repository. 
-
+The expected output should look like this :
+```bash
+[+] Building 305.4s (30/30) FINISHED
+ => [internal] load build definition from Dockerfile                                                                       0.1s
+ => => transferring dockerfile: 1.01kB                                                                                     0.0s
+ => [linux/amd64 internal] load metadata for docker.io/library/python:3.9-slim-buster                                      2.3s
+ => [linux/arm64 internal] load metadata for docker.io/library/python:3.9-slim-buster                                      2.2s
+ => [auth] library/python:pull token for registry-1.docker.io                                                              0.0s
+ => [internal] load .dockerignore                                                                                          0.0s
+ => => transferring context: 2B                                                                                            0.0s
+ => [linux/amd64 builder 1/5] FROM docker.io/library/python:3.9-slim-buster@sha256:320a7a4250aba4249f458872adecf92eea88dc  1.3s
+ => => resolve docker.io/library/python:3.9-slim-buster@sha256:320a7a4250aba4249f458872adecf92eea88dc6abd2d76dc5c0f01cac9  0.2s
+ => => sha256:2e1c130fa3ec1777a82123374b4c500623959f903c1dd731ee4a83e1f1b38ff2 3.14MB / 3.14MB                             1.1s
+ => => sha256:84c8c79126f669beec1dcf6f34cd88094471745570c19c29b465dfa7db1fdabd 243B / 243B                                 0.2s
+ => => sha256:8d53da26040835f622504d7762fad14d226ac414efeb5363f5febebc89ff224d 11.04MB / 11.04MB                           3.2s
+ => => sha256:8b91b88d557765cd8c6802668755a3f6dc4337b6ce15a17e4857139e5fc964f3 27.14MB / 27.14MB                          15.1s
+ => => sha256:824416e234237961c9c5d4f41dfe5b295a3c35a671ee52889bfb08d8e257ec4c 2.78MB / 2.78MB                             1.3s
+ => => extracting sha256:8b91b88d557765cd8c6802668755a3f6dc4337b6ce15a17e4857139e5fc964f3                                  4.3s
+ => => extracting sha256:824416e234237961c9c5d4f41dfe5b295a3c35a671ee52889bfb08d8e257ec4c                                  1.4s                            0.0s
+ => => extracting sha256:2e1c130fa3ec1777a82123374b4c500623959f903c1dd731ee4a83e1f1b38ff2                                  1.3s
+ => [linux/arm64 builder 1/5] FROM docker.io/library/python:3.9-slim-buster@sha256:320a7a4250aba4249f458872adecf92eea88dc  0.7s
+ => => resolve docker.io/library/python:3.9-slim-buster@sha256:320a7a4250aba4249f458872adecf92eea88dc6abd2d76dc5c0f01cac9  0.2s
+ => [internal] load build context                                                                                          0.3s
+ => => transferring context: 130.52kB                                                                                      0.1s
+ => [linux/arm64 builder 2/5] WORKDIR /server                                                                              0.3s
+ => [linux/arm64 builder 3/5] RUN apt-get update && apt-get install -y build-essential                                   120.4s
+ => [linux/arm64 runner 3/8] RUN apt-get update && apt-get install -y netcat                                              71.4s
+ => [linux/amd64 builder 2/5] WORKDIR /server                                                                              0.1s
+ => [linux/amd64 runner 3/8] RUN apt-get update && apt-get install -y netcat                                              16.6s
+ => [linux/amd64 builder 3/5] RUN apt-get update && apt-get install -y build-essential                                    50.2s
+ => [linux/amd64 builder 4/5] COPY ./server/requirements.txt /server/                                                      0.2s
+ => [linux/amd64 builder 5/5] RUN pip wheel --no-cache-dir --no-deps --wheel-dir /server/wheels -r requirements.txt       13.3s
+ => [linux/amd64 runner 4/8] COPY --from=builder /server/wheels /server/wheels                                             0.1s
+ => [linux/amd64 runner 5/8] COPY --from=builder /server/requirements.txt .                                                0.0s
+ => [linux/amd64 runner 6/8] RUN pip install --no-cache /server/wheels/*                                                  15.3s
+ => [linux/amd64 runner 7/8] RUN pip install uvicorn                                                                       2.3s
+ => [linux/amd64 runner 8/8] COPY . /server/                                                                               0.1s
+ => [linux/arm64 builder 4/5] COPY ./server/requirements.txt /server/                                                      0.1s
+ => [linux/arm64 builder 5/5] RUN pip wheel --no-cache-dir --no-deps --wheel-dir /server/wheels -r requirements.txt       43.3s
+ => [linux/arm64 runner 4/8] COPY --from=builder /server/wheels /server/wheels                                             0.1s
+ => [linux/arm64 runner 5/8] COPY --from=builder /server/requirements.txt .                                                0.0s
+ => [linux/arm64 runner 6/8] RUN pip install --no-cache /server/wheels/*                                                  83.4s
+ => [linux/arm64 runner 7/8] RUN pip install uvicorn                                                                      11.4s
+ => [linux/arm64 runner 8/8] COPY . /server/                                                                               0.1s
+ => exporting to image                                                                                                    18.2s
+ => => exporting layers                                                                                                    5.8s
+ => => exporting manifest sha256:b0470562af55ca88d950a848ff258f7baed1231d11e73a93e79d9dec19c77382                          0.0s
+ => => exporting config sha256:f0e3c543a641a36f19e8fea24195e1aee441b00502798c607397ae93405604a3                            0.0s
+ => => exporting manifest sha256:0faad539de2df68a509bb9e08fbe457681cd161a0dbba98d4519b4b5c1e3cb39                          0.0s
+ => => exporting config sha256:d298c0b1ce0f96e0b1a4b1e05cd99706ef767045f17f118e48906273443cb88b                            0.0s
+ => => exporting manifest list sha256:894e90606e81e42117077fb6797a1332131dd077fa91c75ba4b498619d90e9e7                     0.0s
+ => => pushing layers                                                                                                     11.1s
+ => => pushing manifest for ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0@sha256:894e90606e81e42  1.2s
+ => [auth] sharing credentials for ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+```
 ## 4. Running the Services as Docker Containers
 After building the images, start the application and database services in separate Docker containers using Docker Compose:
 ```bash
