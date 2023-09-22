@@ -105,7 +105,7 @@ fastapi-postgres-0                    1/1     Running   0          16h
 ### Checking Resource Usage for a Specific Pod
 Once you have the pod names, you can monitor the CPU and memory usage of each pod using the "top pod" command. Here's how to check the resource usage of a specific pod:
 ```bash
-kubectl top pod <pod name>
+kubectl top pod <pod name> -n my-cool-app
 ```
 
 This will provide you with the CPU and memory usage of the specified pod, as shown in the following examples:
