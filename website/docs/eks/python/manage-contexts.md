@@ -22,22 +22,40 @@ This command will output the current context, which should resemble:
 ```bash
 arn:aws:eks:us-east-1:123456789012:cluster/fargate-quickstart
 ```
+or
+```bash
+admin@fargate-quickstart.us-east-1.eksctl.io
+```
 
 ## 2. Switching Contexts
 
 If your current context doesn't match your EKS cluster, you need to switch contexts. Switching context essentially points your local Kubernetes CLI tool, kubectl, to interact with your desired cluster.
 
-From the 'python-fastapi-demo-docker' project directory, update your local kubeconfig file using the following command:
+From the 'python-fastapi-demo-docker' project directory, update your local kubeconfig file using either one of the following commands:
 
 ```bash
 aws eks --region ${AWS_REGION} update-kubeconfig --name fargate-quickstart
 ```
+or
+```bash
+eksctl utils write-kubeconfig --cluster=fargate-quickstart --region ${AWS_REGION}
+```
 
-Executing this command should output a confirmation message similar to the one below, indicating a successful context switch:
+Executing the commands should output a confirmation message similar to the messages below, indicating a successful context switch:
 
 ```bash
 Updated context arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart in /Users/frank/.kube/config
 ```
+or
+```bash
+2023-09-22 17:00:52 [✔]  saved kubeconfig as "/Users/user1/.kube/config"
+```
+
+:::tip
+
+- If using eksctl to switch context, ensure that aws-iam-authentocator is installed in your environment. Refer to AWS documentation for [aws-iam-authenticator installation steps](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
+
+:::  
 
 ## Conclusion
 
