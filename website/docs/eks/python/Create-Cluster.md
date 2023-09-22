@@ -62,7 +62,7 @@ While we've already created the necessary Fargate profile and namespace for this
 ```bash
 kubectl create namespace my-other-cool-app
 ```
-To create Fargate Profile, a [PodExecutionRole](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html) is needed. Create the role if it doesn't exists using and update the ARN in below command. 
+To create Fargate Profile, a [PodExecutionRole](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html) is needed. Create the role if it doesn't exists and update the ARN in below command.
 ```bash
 aws eks create-fargate-profile \
     --region ${AWS_REGION} \
