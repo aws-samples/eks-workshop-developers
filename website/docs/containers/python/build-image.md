@@ -30,6 +30,8 @@ docker-compose up
 
 This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
 
+![Image](./images/app-home.png)
+
 ## 3. Verify the Setup by Adding a Book
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 

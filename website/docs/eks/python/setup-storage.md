@@ -18,29 +18,26 @@ EBS CSI volumes only support the 'ReadWriteOnce' access mode. While this may see
 First, we need to make sure the "ebs-csi-controller-sa" service account is correctly set up in the "kube-system" namespace in our cluster.
 
 Run the following command:
+
 ```bash
 kubectl get sa ebs-csi-controller-sa -n kube-system -o yaml
 ```
+
 Response:
+
 ```bash
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   annotations:
-    meta.helm.sh/release-name: aws-ebs-csi-driver
-    meta.helm.sh/release-namespace: kube-system
-  creationTimestamp: "2023-06-06T20:53:06Z"
+    eks.amazonaws.com/role-arn: arn:aws:iam::999999999999:role/eksctl-fargate-quickstart-addon-iamserviceac-Role1-163G838NUHJH2
+  creationTimestamp: "2023-09-11T16:21:50Z"
   labels:
-    app.kubernetes.io/component: csi-driver
-    app.kubernetes.io/instance: aws-ebs-csi-driver
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: aws-ebs-csi-driver
-    app.kubernetes.io/version: 1.19.0
-    helm.sh/chart: aws-ebs-csi-driver-2.19.0
+    app.kubernetes.io/managed-by: eksctl
   name: ebs-csi-controller-sa
   namespace: kube-system
-  resourceVersion: "1485703"
-  uid: 517c71c9-2f59-473f-8d15-dae84be476b7
+  resourceVersion: "183181"
+  uid: bcb09ee4-2e30-45ee-a1f7-50eea4c933ef
 ```
 
 ## 2. Adding the EBS CSI Driver as a Helm Repo
@@ -62,20 +59,33 @@ helm repo update
 
 ## 4. Deploying the EBS CSI Driver
 To install the EBS CSI driver on the EKS cluster in the current context, use the following Helm command:
+
 ```bash
 helm upgrade --install aws-ebs-csi-driver \
   --namespace kube-system \
-  --set serviceAccount.controller.create=false \
-  --set serviceAccount.snapshot.create=false \
-  --set enableVolumeScheduling=true \
-  --set enableVolumeResizing=true \
-  --set enableVolumeSnapshot=true \
-  --set serviceAccount.snapshot.name=ebs-csi-controller-sa \
-  --set serviceAccount.controller.name=ebs-csi-controller-sa \
+  --set controller.serviceAccount.create=false \
   aws-ebs-csi-driver/aws-ebs-csi-driver
 ```
 
+o/p seen :
+
+```bash
+Release "aws-ebs-csi-driver" does not exist. Installing it now.
+NAME: aws-ebs-csi-driver
+LAST DEPLOYED: Mon Sep 11 13:33:48 2023
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+NOTES:
+To verify that aws-ebs-csi-driver has started, run:
+
+    kubectl get pod -n kube-system -l "app.kubernetes.io/name=aws-ebs-csi-driver,app.kubernetes.io/instance=aws-ebs-csi-driver"
+
+NOTE: The [CSI Snapshotter](https://github.com/kubernetes-csi/external-snapshotter) controller and CRDs will no longer be installed as part of this chart and moving forward will be a prerequisite of using the snap shotting functionality.
+```
+
 The output will confirm the successful installation of the EBS CSI driver:
+
 ```bash
 Release "aws-ebs-csi-driver" has been upgraded. Happy Helming!
 NAME: aws-ebs-csi-driver
@@ -83,5 +93,3 @@ LAST DEPLOYED: Tue Jun  6 14:53:58 2023
 NAMESPACE: kube-system
 STATUS: deployed
 ```
-
-
