@@ -1,9 +1,9 @@
 ---
-title: Setting up Scalable Storage with the EBS CSI Driver in Amazon EKS
+title: Verify EBS CSI Driver is installed 
 sidebar_position: 7
 ---
 ## Objective
-This lab shows you how to set up the EBS CSI Driver on your cluster, which enables dynamic provisioning of Amazon EBS volumes in Kubernetes. We'll leverage [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster and EBS Add-On to deploy EBS CSI Driver. 
+This lab shows how to verify the installation of EBS CSI driver add-on. EBS CSI driver is used to procure persistent volume claims for postgres db. EBS CSI Driver on your cluster, enables dynamic provisioning of Amazon EBS volumes in Kubernetes. Managing the EBS CSI driver as an add-on improve security and reduce the amount of work.
 
 :::info
 

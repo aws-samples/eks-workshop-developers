@@ -1,6 +1,7 @@
 ---
 title: Cleaning Up Resources
 sidebar_position: 12
+---
 
 ## Objective
 

@@ -6,22 +6,23 @@ sidebar_position: 11
 ## Overview
 
 This Chapter shows how to instrument the Application using AWS Distro for OpenTelemetry(ADOT) and Deploy the instrumented Application in EKS.
+We will go through the following steps as part of instrumenting the application.
+
+1. Instrument the Application Code with manual instrumentation in local environment.
+2. Test the Instrumentation Locally. 
+3. Deploy the ADOT add-on in the EKS Custer and its pre-requisites. 
+4. Deploy the Application with ADOT Collector Side Car Container.
+5. Visualize the traces in the X-Ray Console.
+
+We will go through each of the steps in detail.
+
 To go though this chapter checkout to git branch  aws-opentelemetry using the command:
 
 ``` bash
 git checkout aws-opentelemetry
 ```
 
-## Steps in the instrumentation 
-1. Instrument the Application Code with manual instrumentation in local Environment.
-2. Test the Instrumentation Locally. 
-3. Deploy the ADOT add-on in the EKS Custer and create OpenTelemetryCollector using Custom Resource Definition(CRD). 
-4. Deploy the Application with ADOT Collector Side Car Container.
-5. Visualize the traces in the X-Ray Console.
-
-We will go through each of the steps in detail.
-
-### Instrument the Application Code with Manual Instrumentation in local Environment.
+## 1. Instrument the Application Code with manual Instrumentation in local environment.
 
 Otel Instrumentation requires 4 primary steps:
 
@@ -35,12 +36,12 @@ The first three steps are done over this [file](https://github.com/aws-samples/p
 Check the 4th step for the Application [here](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/main.py#L11) and db over this [link](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/connect.py#L47)
 
 
-### Testing the Instrumentation locally 
+## 2. Testing the Instrumentation locally 
 
 To start the instrumentation tracing locally. Change the branch to **"aws-opentelemetry"** in the repository python-fastapi-demo-docker. Update the .env file by copying the file
 .env.example to .env.
 
-***Remember to update the AWS Credentials acoording to your account in .env file***
+***Remember to update the AWS Credentials according to your account in .env file***
 
 Start the application with the following command.
 
@@ -61,7 +62,7 @@ Having tested the code locally, we will build the image locally and push it to E
 Follow the steps 1, 2 and 3 mentioned over the tutorial [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md) to build and push the image.
 Keep the note of the image uri, we will be using to update the yaml.
 
-### Deploy the ADOT add-on in the EKS Custer and Create OpenTelemetryCollector Custom Resource Definition. 
+## 3. Deploy the ADOT add-on in the EKS Custer and its pre-requisites. 
 
 To deploy the ADOT Add-on cert-manager is a prerequisite. Deploy cert-manager using the command below:
 
@@ -86,7 +87,7 @@ cert-manager-webhook-021345abcd-ef678      1/1     Running   0          12s
 
 For [Details of Prequisites Check the Offical EKS Document.](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr)
 
-Create the EKS ADOT add-on using the following command:
+**Create the EKS ADOT add-on using the following command:**
 
 ``` bash
 eksctl create addon -f eks/create-adot-add-on-python.yaml
@@ -99,7 +100,7 @@ as a side car container.
 kubectl apply -f eks/opentelemetrycollector.yaml
 ```
 
-### Create ADOT Collector IAM Roles Service Account 
+**Create ADOT Collector IAM Roles Service Account**
 
 The IAM roles Service Account for ADOT gives the ADOT collector AWSXRay write permissions.
 To create the IAM Roles for Service account use the below command:
@@ -113,7 +114,7 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
-### Deploy the Application with ADOT Collector Side Car Container.
+### 4. Deploy the Application with ADOT Collector Side Car Container.
 
 In order to deploy the add-on with the ADOT side car we use the annotation `sidecar.opentelemetry.io/inject: "true"` in our app deployment's pod spec.
 To deploy the application update the image uri on [line 35](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35).  
@@ -123,6 +124,8 @@ Before creating the application, clean up older instance of your application usi
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-python.yaml
 ```
+
+**Note:** Don't delete the older secret fastapi-secret created as part of the tutorial. We will be using the same secret. If you have not created the secret earlier change. Checkout to main branch and follow the steps mentioned in the section  [Securing FastAPI Microservices with Kubernetes Secrets](../../kubernetes/python/deploy-secrets.md)
 
 Deploy the Postgres DB and Application using the commands:
 
@@ -169,6 +172,8 @@ kubectl apply -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
 eksctl delete cluster -f eks/create-mng-python.yaml
 ```
+
+**Note:** The above clean up steps, cleans up all the resources. You don't need to follow the [Cleaning Up Resources](Cleanup.md) document after following these steps.
 
 
 
