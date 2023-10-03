@@ -31,7 +31,7 @@ kubectl apply -f kubernetes/postgres-db.yaml
 The expected output should look like this:
 
 ```bash
-service/fastapi-postgres-service created
+service/db created
 statefulset.apps/fastapi-postgres created
 persistentvolumeclaim/postgres-pvc created
 ```
@@ -91,7 +91,7 @@ The expected output should look like this:
 
 ```bash
 NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-fastapi-postgres-service   ClusterIP      None            <none>        5432/TCP       85m
+db                         ClusterIP      None            <none>        5432/TCP       85m
 fastapi-service            LoadBalancer   10.109.76.246   <pending>     80:30639/TCP   85m
 ```
 

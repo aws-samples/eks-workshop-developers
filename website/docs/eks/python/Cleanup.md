@@ -1,10 +1,18 @@
 ---
 title: Cleaning Up Resources
 sidebar_position: 12
----
+
 ## Objective
 
 Cleaning up created EKS and ECR resources.
+
+## Initial Setup
+
+Navigate to the root directory of the `python-fastapi-demo-docker` project where your [environment variables]((../../intro/python/environment-setup#2-configuring-the-shell-environment)) are sourced:
+
+```bash
+cd python-fastapi-demo-docker
+```
 
 ## Prerequisites
 

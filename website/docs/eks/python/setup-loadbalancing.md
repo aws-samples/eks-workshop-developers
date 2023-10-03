@@ -127,7 +127,7 @@ NOTES:
 AWS Load Balancer controller installed!
 ```
 
-To List installed helm releases run the following
+To list installed helm releases run the following
 
 ```bash
 helm list -A

@@ -51,10 +51,9 @@ docker-compose down
 This command halts the containers and, by default, also removes the containers, networks, and volumes as described in your docker-compose.yml file. You should receive the following response output:
 
 ```
-[+] Running 3/3
- ⠿ Container python-fastapi-demo-docker-web-1  Removed           0.5s
- ⠿ Container python-fastapi-demo-docker-db-1   Removed           0.2s
- ⠿ Network python-fastapi-demo-docker_webnet   Removed           0.1s
+Removing python-fastapi-demo-docker_web_1 ... done
+Removing python-fastapi-demo-docker_db_1  ... done
+Removing network python-fastapi-demo-docker_webnet
 ```
 
 ## 6. Rebuilding and Restarting Docker Services
