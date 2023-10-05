@@ -14,9 +14,7 @@ We will go through the following steps as part of instrumenting the application.
 4. Deploy the Application with ADOT Collector Side Car Container.
 5. Visualize the traces in the X-Ray Console.
 
-We will go through each of the steps in detail.
-
-To go though this chapter checkout to git branch  aws-opentelemetry using the command:
+We will go through each of the steps in detail. To go though this chapter checkout to git branch  aws-opentelemetry using the command:
 
 ``` bash
 git checkout aws-opentelemetry
@@ -29,11 +27,10 @@ Otel Instrumentation requires 4 primary steps:
 1. Global Tracer Provider which is factory for tracer.
 2. A processor which defines the method of sending the created elements (spans) onwards.
 3. A Trace Exporter to send traces to the OTEL Exporter Endpoint.
-4. Instrumenting the Application and DB library which are FAST API and SqlAlchemy. This step ensures that all requests which are made with this libraray are instrumented.
+4. Instrumenting the Application and DB library which are FAST API and SqlAlchemy. This step ensures that all requests which are made with this library are instrumented.
 
 We have done this changes in the Application on the branch aws-opentelemetry.
-The first three steps are done over this [file](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/tracing.py)
-Check the 4th step for the Application [here](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/main.py#L11) and db over this [link](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/connect.py#L47)
+The first three steps are done over this [file](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/tracing.py), the 4th step for the Application [here](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/main.py#L11) and db over this [link](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/connect.py#L47).
 
 
 ## 2. Testing the Instrumentation locally 
@@ -70,8 +67,7 @@ Starting the application using docker compose.
 ```bash
 docker-compose up --build
 ```
-
-When you test the Application locally by creating a book, check for traces in AWS Cloudwatch Console -> X-Ray -> Traces.
+Play with the Application locally at ``(http://localhost:8000)`` by creating a book to generate traces. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces in the region configured in your docker compose .env file.
 Click on Trace Id and the TraceMap to see the Application request flow.
 
 ![Trace Map](./Local-tracing.png)
@@ -116,7 +112,8 @@ eksctl create addon -f eks/create-adot-add-on-python.yaml
 ```
 
 Once the add-on is created. Create the OpenTelemetryCollector CRD object using the below command which contains the configuration for the OTel Collector which will be pushed
-as a side car container.
+as a side car container. The default opentelemetry configuration sends traces to us-east-1. If you want to send traces to a different region, change the region over this [line](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L34)
+before applying ``opentelemetrycollector.yaml``
 
 ``` bash
 kubectl apply -f eks/opentelemetrycollector.yaml
@@ -142,16 +139,15 @@ Events:              <none>
 
 ### 4. Deploy the Application with ADOT Collector Side Car Container.
 
-In order to deploy the add-on with the ADOT side car we use the annotation `sidecar.opentelemetry.io/inject: "true"` in our app deployment's pod spec.
-To deploy the application update the image uri on [line 35](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35).  
-Before creating the application, clean up older instance of your application using the command.
+In order to deploy the add-on with the ADOT side car, we use the annotation `sidecar.opentelemetry.io/inject: "true"` in our app deployment's pod spec.
+To deploy the application update the image uri on [line 35](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35). Before creating the application, clean up older instance of your application using the command.
 
 ``` bash
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-python.yaml
 ```
 
-**Note:** Don't delete the older secret fastapi-secret created as part of the tutorial. We will be using the same secret. If you have not created the secret earlier change. Checkout to main branch and follow the steps mentioned in the section  [Securing FastAPI Microservices with Kubernetes Secrets](../../kubernetes/python/deploy-secrets.md)
+**Note:** Don't delete the older secret fastapi-secret created as part of the tutorial. We will be using the same secret. If you have not created the secret earlier, checkout to main branch and follow the steps mentioned in the section  [Securing FastAPI Microservices with Kubernetes Secrets](../../kubernetes/python/deploy-secrets.md)
 
 Deploy the Postgres DB and Application using the commands:
 
@@ -169,7 +165,7 @@ fastapi-postgres-0                    1/1     Running   0          8h
 You can access the application using the ALB created in your account. You can get the alb in your account by searching for the loadbalancer with key `ingress.k8s.aws/stack` and 
 value `my-cool-app/fastapi-ingress`. Play with the application to generate traces.
 
-Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. You should see traces like the below:
+Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. You should see traces like the below in the region where you are sending the traces: 
 
 ![Trace Map](./k8-app-trace.png)
 
