@@ -27,8 +27,8 @@ git checkout aws-opentelemetry
 Otel Instrumentation requires 4 primary steps:
 
 1. Global Tracer Provider which is factory for tracer.
-2. A processor defines the method of sending the created elements (spans) onwards.
-3. A Trace Exporter to send to the OTEL Exporter Endpoint.
+2. A processor which defines the method of sending the created elements (spans) onwards.
+3. A Trace Exporter to send traces to the OTEL Exporter Endpoint.
 4. Instrumenting the Application and DB library which are FAST API and SqlAlchemy. This step ensures that all requests which are made with this libraray are instrumented.
 
 We have done this changes in the Application on the branch aws-opentelemetry.
@@ -41,15 +41,37 @@ Check the 4th step for the Application [here](https://github.com/aws-samples/pyt
 To start the instrumentation tracing locally. Change the branch to **"aws-opentelemetry"** in the repository python-fastapi-demo-docker. Update the .env file by copying the file
 .env.example to .env.
 
+It will add below two environment variables which are required to run it locally.
+
+```bash
+# OTLP Specific Configuration
+OTEL_EXPORTER_OTLP_ENDPOINT = adotcollector:4317
+OTEL_SERVICE_NAME = "BookManagemment-App"
+```
+
 ***Remember to update the AWS Credentials according to your account in .env file***
 
-Start the application with the following command.
+Build the application using docker-compose and start it. Buildx is not required for building the application locally. Remove any buildx instance running, so it doesn't interfere in docker compose build. Keep in mind the name parameter will be different based on the name of your buildx instance. Commands below:
+
+``` bash
+docker buildx ls # Lists buildx instances
+NAME/NODE       DRIVER/ENDPOINT  STATUS  BUILDKIT                              PLATFORMS
+webBuilder *    docker-container
+  webbuilder0   desktop-linux    running v0.12.1                               linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/mips64le, linux/mips64, linux/arm/v7, linux/arm/v6
+
+
+
+docker buildx rm webBuilder # Removes buildx instances. Change the name of the buildx instance as per the name in your environment.
+webBuilder removed
+
+```
+Starting the application using docker compose.
 
 ```bash
 docker-compose up --build
 ```
 
-When you test the Application locally, check for traces in AWS Cloudwatch Console -> X-Ray -> Traces.
+When you test the Application locally by creating a book, check for traces in AWS Cloudwatch Console -> X-Ray -> Traces.
 Click on Trace Id and the TraceMap to see the Application request flow.
 
 ![Trace Map](./Local-tracing.png)
@@ -100,18 +122,22 @@ as a side car container.
 kubectl apply -f eks/opentelemetrycollector.yaml
 ```
 
-**Create ADOT Collector IAM Roles Service Account**
+**Check for ADOT Collector IAM Roles Service Account**
 
 The IAM roles Service Account for ADOT gives the ADOT collector AWSXRay write permissions.
-To create the IAM Roles for Service account use the below command:
+The adot collector is created by eksctl while creating the cluster.
 
 ``` bash
-eksctl create iamserviceaccount \
---name adot-collector \
---namespace my-cool-app \
---cluster managednode-quickstart \
---attach-policy-arn arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess \
---approve
+kubectl describe serviceaccount -n my-cool-app adot-collector 
+Name:                adot-collector
+Namespace:           my-cool-app
+Labels:              app.kubernetes.io/managed-by=eksctl
+                     aws-usage=application
+Annotations:         eks.amazonaws.com/role-arn: arn:aws:iam::xxxxxx:role/eksctl-managednode-quickstart-addon-iamservi-Role1-1N6RG936O0AC2
+Image pull secrets:  <none>
+Mountable secrets:   <none>
+Tokens:              <none>
+Events:              <none>
 ```
 
 ### 4. Deploy the Application with ADOT Collector Side Car Container.
@@ -147,7 +173,7 @@ Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. You should see tr
 
 ![Trace Map](./k8-app-trace.png)
 
-We have used [resourcedetection](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L22-L25) processor in OpenTelemetryCollector Custom Resource Definition to enrich the trace with kubernetes specific Metadata. You can see the kubernetes metadata in raw traces as well as by selecting the application.
+We have used [resourcedetection](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L22-L25) processor in OpenTelemetryCollector Custom Resource Definition to enrich the trace with kubernetes specific Metadata. You can see the kubernetes metadata in raw traces as well by selecting the application.
 
 ![Raw Trace](./raw-trace-snippet.png)
 
