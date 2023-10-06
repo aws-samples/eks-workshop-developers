@@ -107,10 +107,11 @@ kubectl get namespaces
 The output should look something like this:
 ```bash
 NAME              STATUS   AGE
-default           Active   41h
-kube-node-lease   Active   41h
-kube-public       Active   41h
-kube-system       Active   41h
+default           Active   13m
+kube-node-lease   Active   13m
+kube-public       Active   13m
+kube-system       Active   13m
+my-cool-app       Active   7m37s
 ```
 
 ## Creating a Namespace
