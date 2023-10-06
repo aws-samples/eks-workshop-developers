@@ -23,7 +23,7 @@ cd python-fastapi-demo-docker
 <Tabs>
   <TabItem value="Compute type Fargate" label="Fargate" default>
 
-## 1. Using cluster configuration file with Faragte nodes 
+## 1. Using the cluster configuration file for Faragte nodes 
 The **[create-fargate-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/create-fargate-python.yaml)** eksctl configuration file sets up a Fargate-based cluster for deploying our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) with the following components:  
 
 - **Metadata**: This section contains crucial metadata about your cluster, such as the cluster's name ("fargate-quickstart"), the AWS region where the cluster will be hosted ("us-east-1"), and the Kubernetes version ("1.26") that the cluster will run.
@@ -44,7 +44,7 @@ eksctl create cluster -f eks/create-fargate-python.yaml
 
 :::tip
 
-- Update eksctl cli to the latest version following [eksctl official documentation](https://eksctl.io/introduction/#installation) to avoid execution errors.
+- To avoid execution errors, update eksctl to the latest version using [eksctl official documentation](https://eksctl.io/introduction/#installation).
 - If you receive an “Error: checking AWS STS access” in the response, be sure to check that you’re using the right IAM user identity for the current shell session. Depending on how you configured the AWS CLI, you may also need to specify a named profile (for example, `--profile clusteradmin`).
 :::     
 
@@ -71,7 +71,7 @@ my-cool-app       Active   27m
 
 :::tip
 
-- If you receive authentication errors, update kubeconfig using command `aws eks update-kubeconfig --name fargate-quickstart`
+- If you receive authentication errors, update kubeconfig using the following command `aws eks update-kubeconfig --name fargate-quickstart`
 
 :::   
 
@@ -90,7 +90,7 @@ This lab has walked you through the process of creating an Amazon EKS Fargate cl
   </TabItem>
     <TabItem value="Compute type Managed node group(EC2)" label="Managed Node Groups (EC2)" default>
 
-## 1. Using cluster configuration file with Faragte nodes 
+## 1. Using the cluster configuration file for Managed Node Groups 
 The **[create-mng-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/create-mng-python.yaml)** eksctl configuration file sets up a managed node groups-based cluster for deploying our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) with the following components: 
 
 - **Metadata**: This section contains crucial metadata about your cluster, such as the cluster's name ("managednode-quickstart"), the target AWS region ("us-east-1"), and the Kubernetes version ("1.26") to be deployed.
@@ -112,7 +112,7 @@ eksctl create cluster -f eks/create-mng-python.yaml
 
 :::tip
 
-- Update eksctl cli to the latest version following [eksctl official documentation](https://eksctl.io/introduction/#installation) to avoid execution errors.
+- To avoid execution errors, update eksctl to the latest version using [eksctl official documentation](https://eksctl.io/introduction/#installation).
 - If you receive an “Error: checking AWS STS access” in the response, be sure to check that you’re using the right user identity for the current shell session. Depending on how you configured the AWS CLI, you may also need to specify a named profile (for example, `--profile clusteradmin`).
 
 :::  
@@ -138,7 +138,7 @@ kube-system       Active   41h
 
 :::tip
 
-- If you receive authentication errors, update kubeconfig using command `aws eks update-kubeconfig --name managednode-quickstart`
+- If you receive authentication errors, update kubeconfig using the following command `aws eks update-kubeconfig --name managednode-quickstart`
 
 :::   
 

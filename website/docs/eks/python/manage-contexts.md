@@ -41,7 +41,7 @@ or
 eksctl utils write-kubeconfig --cluster=fargate-quickstart --region ${AWS_REGION}
 ```
 
-Executing the commands should output a confirmation message similar to the messages below, indicating a successful context switch:
+Executing the following commands should output a confirmation message similar to the output below, indicating a successful context switch:
 
 ```bash
 Updated context arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart in /Users/frank/.kube/config
@@ -53,7 +53,7 @@ or
 
 :::tip
 
-- If using eksctl to switch context, ensure that aws-iam-authentocator is installed in your environment. Refer to AWS documentation for [aws-iam-authenticator installation steps](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
+- If using eksctl to switch contexts, make sure that the `aws-iam-authenticator` is installed in your environment. Refer to [Installing aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) in EKS documentation.
 
 :::  
 
