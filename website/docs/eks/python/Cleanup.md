@@ -8,17 +8,11 @@ Cleaning up created EKS and ECR resources.
 
 ## Initial Setup
 
-Navigate to the root directory of the `python-fastapi-demo-docker` project where your [environment variables]((../../intro/python/environment-setup#2-configuring-the-shell-environment)) are sourced:
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
 
 ```bash
 cd python-fastapi-demo-docker
 ```
-
-## Prerequisites
-
-- [Configuring the Shell Environment](../../intro/python/environment-setup#2-configuring-the-shell-environment)
-- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
-- [Importing environment variables](../../intro/python/environment-setup#5-import-environment-variables)
 
 ## Cleanup
 

@@ -16,10 +16,9 @@ Classic Load Balancers and Network Load Balancers are not supported on pods runn
 
 ## Prerequisites
 - [Managing Kubernetes Contexts in EKS Cluster](./manage-contexts.md)
-- [Creating the .env File](../../intro/python/environment-setup#4-creating-the-env-file)
 
 ## 1. Set Environment Variables
-Before we start setting up our EKS cluster, we need to set an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
+Before we start setting up our EKS cluster, we need to add an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
 
 From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
 
@@ -69,7 +68,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::985866617021:role/eksctl-fargate-quickstart-addon-iamserviceac-Role1-J2T54L9SG5L0
+    eks.amazonaws.com/role-arn: arn:aws:iam::01234567890:role/eksctl-fargate-quickstart-addon-iamserviceac-Role1-J2T54L9SG5L0
   creationTimestamp: "2023-05-30T23:09:32Z"
   labels:
     app.kubernetes.io/managed-by: eksctl
