@@ -35,7 +35,7 @@ Otel Instrumentation requires 4 primary steps to get you up and running with Ope
 * **Trace Exporter**: This component takes care of sending traces to the OTEL Exporter Endpoint and acts as the bridge. You'll find the Trace Exporter in the [app/tracing.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/tracing.py) file.
 * **Instrumenting the Application and Database**: For the FastAPI application, you'll find it's instrumented in the [app/main.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/main.py#L11) file and the PostgreSQL/SQLAlchemy database in the [app/connect.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/connect.py#L47) file.
 
-## 4. Testing the Instrumentation Locally 
+## 3. Testing the Instrumentation Locally 
 
 To test the tracing locally, build the instrumented application code locally using the following command:
 
@@ -91,7 +91,7 @@ Take note of the image tag and update the [eks/deploy-app-with-adot-sidecar.yaml
 
 ## 5. Deploy the ADOT Add-On
 
-The ADOT '[cert-manager](https://cert-manager.io/docs/)' add-on is required for subsequent steps. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in EKS official documentation. 
+The '[cert-manager](https://cert-manager.io/docs/)' is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in EKS official documentation. 
 
 Deploy the 'cert-manager' add-on in your cluster using the following command:
 
