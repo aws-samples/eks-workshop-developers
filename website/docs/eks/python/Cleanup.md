@@ -22,12 +22,12 @@ cd python-fastapi-demo-docker
 
 ## Cleanup
 
-To avoid incurring future charges, you should delete the resources created during this workshop.
+To avoid incurring future charges, you should delete the resources you created during this workshop.
 
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
 
-1. Retrieve the EFS ID (e.g., `fs-040f4681791902287`) you configured in the [previous lab exercise](setupstorage.md), then replace the sample value in [eks/efs-pv.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/efs-pv.yaml) with your EFS ID.
+1. Retrieve the EFS ID (e.g., `fs-040f4681791902287`) you configured in the [previous lab exercise](setup-storage.md), then replace the sample value in [eks/efs-pv.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/efs-pv.yaml) with your EFS ID.
 ```bash
 echo $file_system_id
 ```
