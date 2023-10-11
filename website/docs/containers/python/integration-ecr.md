@@ -60,7 +60,7 @@ IMAGE_VERSION=1.1
 ```
 
 
-After editing `.env` make sure to [Refresh Environment Variables](../../intro/python/environment-setup#5-import-environment-variables) and verify if `IMAGE_VERSION` is updated.
+After editing `.env` make sure to [re-import your environment variables](../../intro/python/environment-setup#5-import-environment-variables) and verify if `IMAGE_VERSION` is updated.
 
 ```bash
 echo $IMAGE_VERSION

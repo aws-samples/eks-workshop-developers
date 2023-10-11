@@ -45,7 +45,7 @@ kube-root-ca.crt   1      5m36s
 
 ## 2. Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
-The **[deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
+The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 
@@ -61,6 +61,7 @@ From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes co
   ```bash
    kubectl get po fastapi-postgres-0 -n my-cool-app
   ```
+The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
 
    expected output:
    
@@ -84,30 +85,19 @@ From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes co
 
 The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress.
 
-To identify the ECR repository URI execute the following command.
+To identify the ECR repository URI, run the following command:
 
 ```bash
-aws ecr describe-repositories --region ${AWS_REGION} --repository-names  fastapi-microservices --output table --query "repositories[*].{repositoryUri:repositoryUri}"
+echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
 The expected output should look like this:
 
 ```bash
--------------------------------------------------------------------------------
-|                            DescribeRepositories                             |
-+-----------------------------------------------------------------------------+
-|                                repositoryUri                                |
-+-----------------------------------------------------------------------------+
-|  999999999999.dkr.ecr.us-west-2.amazonaws.com/fastapi-microservices         |
-+-----------------------------------------------------------------------------+
+01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
 ```
 
-Open fastapi-app.yaml and replace `0123456789.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0` with your ECR repository URI image and tag(`1.0`).
-
-```bash
-cd python-fastapi-demo-docker
-vi eks/deploy-app-python.yaml
-```
+Open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image.
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 
