@@ -2,7 +2,11 @@
 title: Deploying FastAPI and PostgreSQL Microservices to EKS
 sidebar_position: 9
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## Objective
+
 This lab shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project onto your Amazon EKS cluster&mdash;either your AWS Fargate or managed node groups-based cluster. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
 
 ## Prerequisites
@@ -19,6 +23,7 @@ kubectl create configmap db-init-script --from-file=init.sh=server/db/init.sh -n
 ```
 
 The expected output should look like this:
+
 ```bash
 configmap/db-init-script created
 ```
@@ -44,14 +49,41 @@ The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 
-```
-kubectl apply -f eks/deploy-db-python.yaml
-```
+<Tabs>
+  <TabItem value="Fargate" label="Fargate" default>
+
+  ```bash
+  kubectl apply -f eks/deploy-db-python-fargate.yaml
+  ```
+
+   It will take less than 2 minutes for Fargate to provision pods. In order to verify that the db pod is running plese run the below command.
+
+  ```bash
+   kubectl get po fastapi-postgres-0 -n my-cool-app
+  ```
+The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
+
+   expected output:
+   
+  ```bash
+  kubectl get pod fastapi-postgres-0 -n my-cool-app
+  NAME                 READY   STATUS    RESTARTS   AGE
+  fastapi-postgres-0   1/1     Running   0          4m32s
+  ```
+
+
+  </TabItem>
+  <TabItem value="Managed Node" label="Managed node">
+
+  ```bash
+  kubectl apply -f eks/deploy-db-python.yaml
+  ```
+  </TabItem>
+</Tabs>
 
 ## 3. Deploying the FastAPI Deployment, Service, and Ingress
 
-The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
-
+The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress.
 
 To identify the ECR repository URI, run the following command:
 
