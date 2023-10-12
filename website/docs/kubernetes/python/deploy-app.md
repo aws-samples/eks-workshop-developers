@@ -178,8 +178,7 @@ NAME                                                        CAPACITY   ACCESS MO
 persistentvolume/pvc-47edb62d-98b6-4973-9d81-337846a5f3cd   1Gi        RWO            Delete           Bound    my-cool-app/postgres-pvc   standard                21h
 ```
 
-The Pod db, which is the database, uses this PersistentVolume. Therefore, if the Pod is deleted for a reason, the StatefulSet controller will start a new replacement Pod and attach the same PersistentVolume to the Pod, so it is possible to take over the data.
-
+The Pod 'db', which is the database, uses this PersistentVolume. Therefore, if the Pod is deleted for any reason, the StatefulSet controller will start a new replacement Pod and attach the same PersistentVolume to the Pod, so it is possible to take over the data.
 
 Next, check the pods:
 
@@ -195,7 +194,7 @@ fastapi-deployment-5cf4f4dcc4-62jgb   1/1     Running   0          19m
 fastapi-postgres-0                    1/1     Running   0          19m
 ```
 
-Now let's take a look at the Pod fastapi-deployment. This Pod read some environment variables from a Secret. It also loads a [credential](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) for private ECR repositories. This makes it possible to pull container images from the ECR repository.
+Now let's take a look at the Pod 'fastapi-deployment'. This Pod read our environment variables from a Secret. It also loads a [credential](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) for private ECR repositories. This makes it possible to pull container images from the ECR repository.
 
 ``` bash
 kubectl get po -n my-cool-app fastapi-deployment-5cf4f4dcc4-62jgb -o yaml
@@ -265,9 +264,9 @@ spec:
       claimName: postgres-pvc
 ```
 
-The container image [postgres](https://hub.docker.com/_/postgres) is a public on DockerHub. When the data directory is empty, it runs the sh script in the /docker-entrypoint-initdb.d directory. Therefore the Pod db is running init.sh when starting for the first time.
+The container image [postgres](https://hub.docker.com/_/postgres) is a public image on DockerHub. When the data directory is empty, it runs the sh script in the /docker-entrypoint-initdb.d directory. Therefore the Pod 'db' is running init.sh when starting for the first time.
 
-Let's take a look at init.sh. You can see that database initialization processes such as database creation, permission grant, table creation, and connection to the database are executed.
+Let's take a look at init.sh. You can see that the database initialization processes such as database creation, permission grant, table creation, and connection to the database are executed.
 
 ```bash
 kubectl exec -it -n my-cool-app fastapi-postgres-0 -- cat /docker-entrypoint-initdb.d/init.sh
