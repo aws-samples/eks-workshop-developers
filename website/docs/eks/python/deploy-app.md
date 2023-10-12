@@ -7,15 +7,20 @@ import TabItem from '@theme/TabItem';
 
 ## Objective
 
-This lab shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project onto your Amazon EKS cluster&mdash;either your AWS Fargate or managed node groups-based cluster. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
+This lab shows you how to deploy the microservices of the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project onto your Amazon EKS cluster&mdash;either for your AWS Fargate or Managed Node Groups-based cluster. To gain a deeper understanding of the Kubernetes resources in these manifests, refer to [Deploying FastAPI and PostgreSQL Kubernetes resources to Amazon EKS](about-deploy.md).
 
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS](./deploy-secrets.md)
 
-## 1. Creating db-init-script Configmap
 
-Run the following command from `python-fastapi-demo-docker` directory to create config map
+## 1. Create FastAPI and PosgreSQL Resources
+<Tabs>
+  <TabItem value="Fargate" label="Fargate" default>
+
+### Creating the Database Initialization Script as a Configmap
+
+1. Run the following command from the `python-fastapi-demo-docker` directory to create a ConfigMap for the database [init.sh](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/server/db/init.sh) script:
 
 ```bash
 cd python-fastapi-demo-docker
@@ -28,7 +33,7 @@ The expected output should look like this:
 configmap/db-init-script created
 ```
 
-To confirm that your Kubernetes Configmap has been successfully created, you can use the kubectl get configmap command. This command lists all secrets that exist in the current namespace:
+2. To confirm the ConfigMap was successfully created, run the following command:
 
 ```bash
 kubectl get configmap -n my-cool-app
@@ -42,71 +47,115 @@ NAME               DATA   AGE
 db-init-script     1      4m47s
 kube-root-ca.crt   1      5m36s
 ```
+### Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
-## 2. Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
+The **[eks/deploy-db-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python-fargate.yaml)** file is used for the deployment of the PostgreSQL database resources.
 
-The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
+1. From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+```bash
+kubectl apply -f eks/deploy-db-python-fargate.yaml
+```
 
-From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+2. It'll take a few minutes for Fargate to provision the pods. To verify that the 'db' pod is running, run the following command:
+```bash
+kubectl get po fastapi-postgres-0 -n my-cool-app
+```
+The expected output should look like this:
+```
+NAME                 READY   STATUS    RESTARTS   AGE
+fastapi-postgres-0   1/1     Running   0          5m
+```
 
-<Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+### Deploying the FastAPI Deployment, Service, and Ingress
 
-  ```bash
-  kubectl apply -f eks/deploy-db-python-fargate.yaml
-  ```
+The **[eks/deploy-app-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python-fargate.yaml)** manifest file is used for the deployment of the FastAPI application resources.
 
-   It will take less than 2 minutes for Fargate to provision pods. In order to verify that the db pod is running plese run the below command.
-
-  ```bash
-   kubectl get po fastapi-postgres-0 -n my-cool-app
-  ```
-The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
-
-   expected output:
-   
-  ```bash
-  kubectl get pod fastapi-postgres-0 -n my-cool-app
-  NAME                 READY   STATUS    RESTARTS   AGE
-  fastapi-postgres-0   1/1     Running   0          4m32s
-  ```
-
-
-  </TabItem>
-  <TabItem value="Managed Node" label="Managed node">
-
-  ```bash
-  kubectl apply -f eks/deploy-db-python.yaml
-  ```
-  </TabItem>
-</Tabs>
-
-## 3. Deploying the FastAPI Deployment, Service, and Ingress
-
-The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress.
-
-To identify the ECR repository URI, run the following command:
+1. Retrieve your ECR URI:
 
 ```bash
 echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
 The expected output should look like this:
-
 ```bash
 01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
 ```
 
-Open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image.
+2. Open the **[eks/deploy-app-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python-fargate.yaml)**, and replace the sample value with your ECR URI.
 
-From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+3. From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+```bash
+kubectl apply -f eks/deploy-app-python-fargate.yaml
+```
+</TabItem>
+
+
+<TabItem value="Managed Node Groups" label="Managed Node Groups">
+
+### Creating the Database Initialization Script as a Configmap
+
+1. Run the following command from the `python-fastapi-demo-docker` directory to create a ConfigMap for the database [init.sh](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/server/db/init.sh) script:
 
 ```bash
 cd python-fastapi-demo-docker
+kubectl create configmap db-init-script --from-file=init.sh=server/db/init.sh -n my-cool-app
+```
+
+The expected output should look like this:
+
+```bash
+configmap/db-init-script created
+```
+
+2. To confirm the ConfigMap was successfully created, run the following command:
+
+```bash
+kubectl get configmap -n my-cool-app
+```
+
+The expected output should look like this:
+
+```bash
+
+NAME               DATA   AGE
+db-init-script     1      4m47s
+kube-root-ca.crt   1      5m36s
+```
+### Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
+
+The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database resources.
+
+1. From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+```bash
+kubectl apply -f eks/deploy-db-python.yaml
+```
+### Deploying the FastAPI Deployment, Service, and Ingress
+The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application resources. 
+
+1. Retrieve your ECR URI:
+
+```bash
+echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
+```
+
+The expected output should look like this:
+```bash
+01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
+```
+
+2. Open the **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)**, and replace the sample value with your ECR URI.
+
+3. From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+
+```bash
 kubectl apply -f eks/deploy-app-python.yaml
 ```
 
-## 4. Verifying the Deployment
+  </TabItem>
+</Tabs>
+
+
+## 2. Verifying the Deployment
 
 After applying the configuration, verify that the deployment is running correctly.
 
