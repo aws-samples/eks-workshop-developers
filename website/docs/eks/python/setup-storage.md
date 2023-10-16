@@ -17,7 +17,7 @@ This lab shows you how to setup and configure a data storage mechanism on your c
 
 ## Objective
 
-This lab shows you how to setup an [Elastic File System (EFS)](https://aws.amazon.com/efs/) volume within your Fargate cluster using the EFS CSI Driver. It's important to note that dynamic provisioning of persistent volumes is **not** supported for Fargate. As a result, in this lab, we'll be manually provisioning both the EFS volume and the corresponding Persistent Volume.
+This lab shows you how to setup an [Elastic File System (EFS)](https://aws.amazon.com/efs/) volume within your Fargate cluster using the EFS CSI Driver. It's important to note that dynamic provisioning of persistent volumes is **not** supported for Fargate. As a result, in this lab, we'll be manually provisioning both the EFS filesystem and the corresponding Persistent Volume.
 
 ## 1. Configuring Mount Targets for the EFS File System
 EFS only allows one mount target to be created in each Availability Zone, so you'll need to place the mount target on **each subnet**. 
@@ -152,7 +152,7 @@ The expected output should look like this:
 
 ```bash
 cd python-fastapi-demo-docker  
-kubectl apply -f eks/deploy-efs-sc-fargate.yaml
+kubectl apply -f eks/efs-sc.yaml
 ```
 
 The expected output should look like this:
@@ -160,21 +160,21 @@ The expected output should look like this:
 storageclass.storage.k8s.io/efs-sc created
 ```
 
-2. To create a persistent volume, you need to attach your EFS volume identifier to the volume. Run the following command to update the file system identifier in the `deploy-efs-pv-fargate.yaml` manifest:
+2. To create a persistent volume, you need to attach your EFS file system identifier to the PV. Run the following command to update the file system identifier in the `deploy-efs-pv-fargate.yaml` manifest:
 
 ```bash
-sed -i 's/fs-000000001121212/$file_system_id/g' eks/deploy-efs-pv-fargate.yaml
+sed -i 's/fs-000000001121212/$file_system_id/g' eks/efs-pv.yaml
 ```
 
 **Optionally**, if you're running this on macOS, run the following command to update the file system identifier:
 ```bash
-sed -i '' 's/fs-000000001121212/'"$file_system_id"'/g' eks/deploy-efs-pv-fargate.yaml
+sed -i '' 's/fs-000000001121212/'"$file_system_id"'/g' eks/efs-pv.yaml
 ```
 
 3. Deploy the Persistent Volume (PV):
 
 ```bash
-kubectl apply -f eks/deploy-efs-pv-fargate.yaml
+kubectl apply -f eks/efs-pv.yaml
 ```
 
 The expected output should look like this:
