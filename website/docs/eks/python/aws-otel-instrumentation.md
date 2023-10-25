@@ -26,6 +26,17 @@ In the `python-fastapi-demo-docker` project where your [environment variables]((
 git checkout aws-opentelemetry
 ```
 
+Next, open the [eks/create-adot-add-on-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
+
+```bash
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: managednode-quickstart
+  region: us-west-1
+```
+
+
 ## 2. Instrument the Application Code with Manual Instrumentation in Local Environment
 
 Otel Instrumentation requires 4 primary steps to get you up and running with OpenTelemetry. Notably, each step is implemented in separate files, including:
@@ -35,13 +46,20 @@ Otel Instrumentation requires 4 primary steps to get you up and running with Ope
 * **Trace Exporter**: This component takes care of sending traces to the OTEL Exporter Endpoint and acts as the bridge. You'll find the Trace Exporter in the [app/tracing.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/tracing.py) file.
 * **Instrumenting the Application and Database**: For the FastAPI application, you'll find it's instrumented in the [app/main.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/main.py#L11) file and the PostgreSQL/SQLAlchemy database in the [app/connect.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/server/app/connect.py#L47) file.
 
-## 3. Testing the Instrumentation Locally 
+## 3. Testing the Instrumentation Locally
+
+We’ll be creating a new and improved multi-architecture image in this lab exercise. Remove the existing multi-architecture container you created:
+
+```bash
+docker buildx rm webBuilder
+```
 
 To test the tracing locally, build the instrumented application code locally using the following command:
 
 ```bash
 docker-compose build 
 ```
+docker-compose will use the local image and not the ECR image. In dev set up while doing the changes it is easier to refer to the local image rather than the remote repository image.
 
 Update the `.env` file by adding the following lines:
 
@@ -55,8 +73,7 @@ Start the application using the following command:
 ```bash
 docker-compose up 
 ```
-
-Play with the application by adding a couple new books at [http://localhost:8000](http://localhost:8000) to generate traces. You can check for traces in the Amazon Cloudwatch Console -> X-Ray -> Traces. Traces will appear in the `AWS_REGION` that you specified in your `.env` file. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
+Play with the application by adding a couple new books at [http://0.0.0.0:8000](http://0.0.0.0:8000) to generate traces. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
 
 ![Trace Map](./Local-tracing.png)
 
@@ -86,8 +103,15 @@ Build and push the images for your web service by running the following commands
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
+Display your Amazon ECR URI:
+```bash
+echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
+```
 
-Take note of the image tag and update the [eks/deploy-app-with-adot-sidecar.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35) with this tag. 
+Replace the sample image in the [eks/deploy-app-with-adot-sidecar.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35) file with your Amazon ECR URI. For example:
+```bash
+image: 01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
+```
 
 ## 5. Deploy the ADOT Add-On
 
@@ -177,16 +201,25 @@ kubectl apply -f eks/deploy-app-with-adot-sidecar.yaml
 ```
 
 The expected output should look like this:
-```
-NAME                                  READY   STATUS    RESTARTS   AGE
-fastapi-deployment-578545f464-j4jw2   2/2     Running   0          70s
-fastapi-postgres-0                    1/1     Running   0          8h
+```bash
+service/fastapi-service created
+deployment.apps/fastapi-deployment created
+ingress.networking.k8s.io/fastapi-ingress created
 ```
 
-You can access the application using the Application Load Balancer (ALB) by searching for `ingress.k8s.aws/stack` and 
-`my-cool-app/fastapi-ingress`. Run a few requests in the FastAPI application to generate traces.
+Run the following command to get the ALB URL:
+```bash
+kubectl get ingress -n my-cool-app
+```
+The expected output should look like this:
+```bash
+NAME              CLASS    HOSTS   ADDRESS                                                                  PORTS   AGE
 
-Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example: 
+fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com   80      2m53s
+
+```
+
+Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, “http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/”. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example: 
 
 ![Trace Map](./k8-app-trace.png)
 
