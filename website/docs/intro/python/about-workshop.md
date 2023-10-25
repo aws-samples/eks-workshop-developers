@@ -1,4 +1,8 @@
-# Workshop Overview
+---
+title: Workshop Overview
+sidebar_position: 1
+---
+
 Welcome to the Python workshop! We'll embark on an end-to-end journey with the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, a Python-based application developed with FastAPI and PostgreSQL as the database. This workshop will guide you from the fundamentals of containerization, Kubernetes, and finally to deploying the application on Amazon Web Services (AWS).
 
 ## About This Workshop

@@ -1,5 +1,7 @@
-# Setting up the Development Environment
-
+---
+title: Setting up the Development Environment
+sidebar_position: 3
+---
 ## Objective
 This guide shows you how to up the necessary tools and environment to leverage the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. For more samples, we recommend exploring the sample app collection (e.g., Python, Flask, FastAPI, PostgreSQL) at [docker/awesome-compose](https://github.com/docker/awesome-compose).
 
