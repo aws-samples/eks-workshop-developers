@@ -1,12 +1,10 @@
 ---
-title: Cleanup
-sidebar_position: 99
+title: Cleaning Up Resources
+sidebar_position: 12
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
-
 
 ## Objective
 
