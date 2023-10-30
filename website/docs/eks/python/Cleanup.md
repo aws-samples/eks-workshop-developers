@@ -12,7 +12,7 @@ This guide shows you how to delete all of the resources you created in this work
 
 ## Initial Setup
 
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
 
 ```bash
 cd python-fastapi-demo-docker

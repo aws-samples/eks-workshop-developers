@@ -15,7 +15,7 @@ This lab shows you how to create an Amazon EKS cluster using a configuration fil
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
 
 ## Initial Setup
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```
@@ -35,7 +35,7 @@ The **[create-fargate-python.yaml](https://github.com/aws-samples/python-fastapi
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../intro/python/environment-setup#4-creating-the-env-file).
+Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../introduction/python/environment-setup).
 :::
 
 ```bash
@@ -107,7 +107,7 @@ The **[create-mng-python.yaml](https://github.com/aws-samples/python-fastapi-dem
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Make sure to verify the region specified in `eks/create-mng-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../intro/python/environment-setup#4-creating-the-env-file).
+Make sure to verify the region specified in `eks/create-mng-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../introduction/python/environment-setup).
 :::
 
 ```bash

@@ -12,7 +12,7 @@ In the evolving world of microservices and cloud-native applications, managing s
 ## 1. Creating the Kubernetes Secret for Amazon ECR
 Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This is a critical step because it ensures that your Kubernetes cluster can pull the necessary container images from your private ECR repository. Now, you might be wondering whether this ECR secret will survive pod restarts, especially considering that ECR tokens are only valid for 12 hours. Kubernetes will automatically refresh the secret when it nears expiration, ensuring uninterrupted access to your private ECR repository.
 
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```

@@ -9,7 +9,7 @@ minikube is a tool that allows you to run Kubernetes locally. It creates a singl
 - [Building and Running Multi-Architecture Containers](../../containers/python/multiarchitecture-image.md)
 
 ## Initial Setup
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```

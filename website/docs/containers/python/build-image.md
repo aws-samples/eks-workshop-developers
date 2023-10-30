@@ -6,10 +6,10 @@ sidebar_position: 2
 ## Objective
 This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 ## Prerequisites
-- [Setting up the Development Environment](../../intro/python/environment-setup.md)
+- [Setting up the Development Environment](../../introduction/python/environment-setup.md)
 
 ## Initial Setup
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
+Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
 ```bash
 cd python-fastapi-demo-docker
 ```
