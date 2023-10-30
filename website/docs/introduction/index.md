@@ -21,4 +21,4 @@ The workshop unfolds through a series of interconnected chapters:
 
 
 ## Ready to Dive In?
-Start with our [introduction](docs/introduction/index.md) to get started.
+Start with our [overview](./python/about-workshop.md) to get started.
