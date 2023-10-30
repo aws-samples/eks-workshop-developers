@@ -6,7 +6,7 @@ This lab will demonstrate how to verify and switch Kubernetes contexts in an EKS
 
 ## Prerequisites
 
-- [Creating an Amazon EKS Cluster](./create-cluster.md)
+- [Creating an Amazon EKS Cluster](Create-Cluster.md)
 
 ## 1. Verifying the Current Context
 
