@@ -15,10 +15,13 @@ This quickstart shows contributors how to set up and run documentation locally.
 ```bash
 git clone https://github.com/your-gh-user-name/eks-workshop-developers.git
 cd eks-workshop-developers/website
+```
+
 3. Run the following command to install the required dependencies.
 ```bash
 npm install
 ```
+
 4. Generate the static files for the documentation site:
 ```bash
 npm run build
