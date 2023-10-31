@@ -20,7 +20,7 @@ We'll go through the following steps as part of the instrumentation process:
 
 
 ## 1. Prepare Your Environment
-In the `python-fastapi-demo-docker` project where your [environment variables]((../../intro/python/environment-setup#2-configuring-the-shell-environment)) are sourced, check-out the 'aws-opentelemetry' branch using the following command:
+In the `python-fastapi-demo-docker` project where your [environment variables](../../introduction/python/environment-setup) are sourced, check-out the 'aws-opentelemetry' branch using the following command:
 
 ``` bash
 git checkout aws-opentelemetry
