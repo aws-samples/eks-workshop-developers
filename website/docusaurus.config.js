@@ -13,23 +13,6 @@ module.exports = {
   organizationName: 'aws-samples',
   projectName: 'eks-workshop-developers',
 
-  plugins: [
-    // Redirect root to introduction page plugin
-    function rootRedirectPlugin() {
-      return {
-        name: 'root-redirect-plugin',
-        async postBuild({actions}) {
-          actions.createRedirect({
-            from: '/', // Base URL
-            to: '/docs/introduction/', // Redirect to the introduction page
-            isPermanent: true,
-            redirectInBrowser: true,
-          });
-        },
-      };
-    },
-  ],
-
   presets: [
     [
       '@docusaurus/preset-classic',
