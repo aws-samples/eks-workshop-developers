@@ -1,11 +1,32 @@
-## My Project
+## EKS Developers Workshop
 
 TODO: Fill this README out!
 
-Be sure to:
+## Quickstart
+This quickstart shows contributors how to set up and run documentation locally.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+### Prerequisites
+- [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 14.x or higher)
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 6.x or higher)
+
+### Setup
+1. [Fork](https://help.github.com/articles/fork-a-repo/) the **eks-workshop-developers** repository.
+2. Clone the forked repository:
+```bash
+git clone https://github.com/your-gh-user-name/eks-workshop-developers.git
+cd eks-workshop-developers/website
+```
+3. Generate the static files for the documentation site:
+```bash
+npm run build
+```
+This command will create a `/build` directory.
+
+4. To view the documentation site locally, run:
+```bash
+npm run serve
+```
+This will start a local development server. You will be redirected to documentation in your browser.
 
 ## Security
 
