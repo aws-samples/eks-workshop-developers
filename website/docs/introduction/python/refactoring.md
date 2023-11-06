@@ -187,7 +187,7 @@ conn = psycopg2.connect(
 )
 ```
 
-* When we call `wait_for_db(DATABASE_URL)`, the `DATABASE_URL` value, an environment variable containing the PostgreSQL database connection string, is passed to the function. Inside the function, `db_url` becomes a local variable holding that connection string. Now, as for parsing `db_url`, this is done using the `urlparse` function from Python's built-in `urllib.parse` module. `urlparse` breaks down the URL into its components, like the scheme (http, https, etc.), netloc (the hostname and port), path (the specific resource in the server), query (any query parameters), etc. These are then used in [psycopg2](https://www.psycopg.org/docs/module.html)'s `connect` function to establish a connection to the database.
+* The `wait_for_db` function is invoked with `DATABASE_URL` as its argument, which is sourced from the `DOCKER_DATABASE_URL` environment variable holding the PostgreSQL connection string. Now, as for parsing `db_url`, this is done using the `urlparse` function from Python's built-in `urllib.parse` module. `urlparse` breaks down the URL into its components, like the scheme (http, https, etc.), netloc (the hostname and port), path (the specific resource in the server), query (any query parameters), etc. These are then used in [psycopg2](https://www.psycopg.org/docs/module.html)'s `connect` function to establish a connection to the database.
 
 ```
 result = urlparse(db_url)
