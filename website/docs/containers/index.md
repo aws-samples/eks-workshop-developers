@@ -4,6 +4,8 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import MultiArchLinuxImageUrl from '@site/docs/containers/multi-arch-linux.png';
+import MultiArchWindowsImageUrl from '@site/docs/containers/multi-arch-windows.png';
 
 ## Overview
 
@@ -26,10 +28,10 @@ Containerization is a method of running applications in isolated environments, e
 - In the context of containers, **multi-architecture** refers to the ability of a container image to run on multiple CPU architectures (e.g., `linux/amd64`, `linux/arm64`, `windows/amd64`). A multi-architecture container image is nothing but a list of images that have references to binaries and libraries compiled for multiple CPU architectures. An important advantage of multi-architecture containers is the ability to deploy highly available applications in a Kubernetes cluster that can be made up of nodes with different CPU architectures (x86-64, ARM64, Windows). Let's explore multi-architecture images across various container registries, such as an ECR public repository and DockerHub. In the following example, the [docker/library/python](https://gallery.ecr.aws/docker/library/python#:~:text=OS/Arch%3A%C2%A0Linux%2C%20Windows%2C%20ARM%2064%2C%20x86%2D64%2C%20x86%2C%20ARM) image on ECR supports multiple architectures like Linux, Windows, ARM64, and x86. The [python](https://hub.docker.com/_/python#:~:text=Supported%20architectures) image on DockerHub offers similar versatility.
 <Tabs>
   <TabItem value="Linux/arm64" label="Linux/arm64" default>
-    <img src="multi-arch-linux.png" alt="Linux/arm64" />
+    <img src={MultiArchLinuxImageUrl} alt="Linux/arm64" />
   </TabItem>
     <TabItem value="Windows" label="Windows" default>
-    <img src="multi-arch-windows.png" alt="Windows" />
+    <img src={MultiArchWindowsImageUrl} alt="Windows" />
   </TabItem>
 </Tabs>
 
