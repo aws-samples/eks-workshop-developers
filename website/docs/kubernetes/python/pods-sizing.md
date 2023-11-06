@@ -1,10 +1,10 @@
 ---
 title: Right-Sizing Your Pods with Minikube and Metrics Server
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 ## Objective
-This lab aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios. 
+This lab aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios.
 
 ## Prerequisites
 - [Accessing the FastAPI App](./access-app.md)
