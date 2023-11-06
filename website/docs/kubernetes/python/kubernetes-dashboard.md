@@ -1,11 +1,11 @@
 ---
-title: Viewing Kubernetes resoureces with the Kubernetes Dashboard
+title: Monitoring Kubernetes Resources Using the Dashboard
 sidebar_position: 7
 ---
 
 ## Objective
 
-This lab aims to guide you how to view Kubernetes resources with the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard). The Kubernetes Dashboard is a web-based GUI. You can manage and troubleshoot applications running in a cluster with it. Minikube makes it easy to use the Kubernetes Dashboard.
+This lab walks you through the process of using the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard) to view and manage Kubernetes resources. This user-friendly web-based GUI facilitates the management and troubleshooting of applications within your minikube cluster.
 
 ## Prerequisites
 
@@ -13,13 +13,13 @@ This lab aims to guide you how to view Kubernetes resources with the [Kubernetes
 
 ## 1. Installing the Kubernetes Dashboard
 
-In a terminal, execute [the following command](https://minikube.sigs.k8s.io/docs/handbook/dashboard/) to install and launch the Kubernetes Dashboard. After the Kubernetes Dashboard starts, the Kubernetes Dashboard opens in your default web browser automatically. If it doesn't open automatically, the URL is displayed in the command execution result log, so please copy the URL and open it with a web browser.
+To install and initiate the Kubernetes Dashboard, open your terminal and run the command outlined in the [Minikube documentation](https://minikube.sigs.k8s.io/docs/handbook/dashboard/). Once started, the Dashboard should automatically open in your default web browser. If it doesn't open automatically, the terminal will display a URL as part of the command's output that you can copy and paste into your web browser to access the Dashboard manually.
 
 ```bash
 minikube dashboard
 ```
 
-Note that the Pod 'metrics-server' must be installed in order to display the CPU usage and memory usage of any Pods using the Kubernetes Dashboard. Please execute the following command to install the Pod 'metrics-server'.
+To monitor CPU and memory usage statistics of the pods via the Kubernetes Dashboard, the 'metrics-server' needs to be active. Install it using the following command:
 
 ```bash
 minikube addons enable metrics-server
@@ -29,12 +29,11 @@ minikube addons enable metrics-server
 
 ### Filter Kubernetes resources by the Namespace my-cool-app
 
-This workshop uses the namespace 'my-cool-app'. You can also use “All namespaces” as a filter, but you can filter to show only the resources you need. Please type the following:
-
+This workshop uses the 'my-cool-app' namespace. While the option to view "All namespaces" exists, narrowing down to specific resources streamlines the process. To filter, type the following:
 
 ![kubernetes-dashboard-1](./images/kubernetes-dashboard-1.jpg)
 
-As a result, you can display a list of workload resources by selecting 'Workloads' in the navigation pane. If the Pod 'metrics-server' is installed, you can check the Pod's CPU usage and memory usage as mentioned above.
+Subsequently, navigate to 'Workloads' to list relevant resources. With 'metrics-server' enabled, you can also view CPU and memory statistics here.
 
 ![kubernetes-dashboard-2](./images/kubernetes-dashboard-2.jpg)
 
@@ -42,35 +41,35 @@ Then, press the Pod 'fastapi-deployment' link circled in red.
 
 ### View the details of the Pod 'fastapi-deployment'
 
-As a result, you can check the spec and status of the Pod 'fastapi-deployment'.
+Click on the 'fastapi-deployment' pod to check the spec and status.
 
 ![kubernetes-dashboard-3](./images/kubernetes-dashboard-3.jpg)
 
-When you press the first button from the left of the red frame, you can check the Pod's container log. This means you can use this functionality in place of the command 'kubectl logs' when using the Kubernetes Dashboard.
+Click the first button from the left of the red frame to check the Pod's container log. You can use this functionality in lieu of the 'kubectl logs' command when using the Kubernetes Dashboard.
 
 ![kubernetes-dashboard-4](./images/kubernetes-dashboard-4.jpg)
 
-Then, if you press the second button from the left of the red frame, you can log in to the Pod using a shell. This means you can use this functionality in place of the command 'kubectl exec' when using the Kubernetes Dashboard.
+Press the second button from the left of the red frame to log in to the Pod using a shell. You can use this functionality in lieu of the 'kubectl exec' command when using the Kubernetes Dashboard.
 
 ![kubernetes-dashboard-5](./images/kubernetes-dashboard-5.jpg)
 
 ### View the details of the Service 'fastapi-service'
 
-After that, if you select 'Service' in the navigation pane, you can check the list of Service resources that have been created.
+Switching to 'Services' in the navigation pane presents a list of created services.
 
 ![kubernetes-dashboard-6](./images/kubernetes-dashboard-6.jpg)
 
-If you press the Service 'fastapi-service' link circled in red, you can check the spec and status of the Service 'fastapi-service', and you can also check the endpoint pod list to which requests are routed.
+Press the Service 'fastapi-service' link circled in red to check the spec and status of the Service 'fastapi-service', or check the endpoint pod list to see which requests have been routed.
 
 ![kubernetes-dashboard-7](./images/kubernetes-dashboard-7.jpg)
 
 ### View the details of the Node 'minikube'
 
-If you select 'Nodes' in the navigation pane, you can check the list of Node resources that have been created. In the case of Minikube, only the Node 'minikube' is shown because it is a cluster that has only 1 node.
+Exploring 'Nodes' shows the available nodes that have been created. In Minikube's case, typically you'll see the 'minikube' node, because it's a cluster that has only one node.
 
 ![kubernetes-dashboard-8](./images/kubernetes-dashboard-8.jpg)
 
-Then press the Node 'minikube' link circled in red. After that, you can check the node's sepc, status, and usage status.
+Click the Node 'minikube' link circled in red. Here, you can check the node's spec, status, and usage status.
 
 ![kubernetes-dashboard-9](./images/kubernetes-dashboard-9.jpg)
 
