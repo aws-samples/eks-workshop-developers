@@ -20,7 +20,7 @@ Describe the tests that you ran to verify your changes so that other contributor
 
 # Checklist:
 
-- [ ] My contributions follow the style guidelines of this project
+- [ ] My contributions follow the [style guidelines](../docs/style-guide.md) of this project
 - [ ] I have performed a self-review of my changes
 - [ ] I have added tests that prove my changes are effective
 
