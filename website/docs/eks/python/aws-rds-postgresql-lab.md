@@ -117,7 +117,7 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 We can now visit our website and see that it's still working as expected:
 
-![Screenshot of the FastAPI website showing that books have been created successfully](aws-rds-books.png)
+![Screenshot of the FastAPI website showing that books have been created successfully](./images/aws-rds-books.png)
 
 ## Cleanup
 
