@@ -75,11 +75,11 @@ docker-compose up
 ```
 Play with the application by adding a couple new books at [http://0.0.0.0:8000](http://0.0.0.0:8000) to generate traces. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
 
-![Trace Map](./Local-tracing.png)
+![Trace Map](./images/Local-tracing.png)
 
 Scroll down to view details of the requests in the trace:
 
-![Trace Details](./Segment-Details.png)
+![Trace Details](./images/Segment-Details.png)
 
 ## 4. Build and Push the Multi-Architecture Container
 
@@ -221,13 +221,13 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us
 
 Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, “http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/”. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example: 
 
-![Trace Map](./k8-app-trace.png)
+![Trace Map](./images/k8-app-trace.png)
 
 We've used 'resourcedetection' in [eks/opentelemetrycollector.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L22-L25) in the OpenTelemetryCollector CRD to enrich the trace with Kubernetes-specific metadata. You can see the metadata in raw traces by selecting the application. For example:
 
-![Raw Trace](./raw-trace-snippet.png)
+![Raw Trace](./images/raw-trace-snippet.png)
 
-![Metadata](./Metadata.png)
+![Metadata](./images/Metadata.png)
 
 
 You can filter for traces by creating queries in a time duration. To learn more, see [Using filter expressions](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html) in AWS X-Ray documentation.

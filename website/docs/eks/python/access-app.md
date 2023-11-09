@@ -42,13 +42,13 @@ In the previous lab exercise, we used the AWS Load Balancer Controller (LBC) to 
 1. **Check the status**: Open the [Load Balancers](https://console.aws.amazon.com/ec2/#LoadBalancers:) page on the Amazon EC2 console and select the AWS Region in which your Amazon EKS cluster resides. Next, select your ALB name, such as "k8s-mycoolap-fastapii-8004c40e9c".
 2. **Open the app**: Open a new tab in your browser paste the ALB link, such as "k8s-mycoolap-fastapii-8114c40e9c-860636650.us-west-2.elb.amazonaws.com". You should see the welcome page:
 
-![](app-home.png)
+![](./images/app-home.png)
 
 ## 4. Verifying the Setup by Adding a Book
 
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
-![Image](app-create-book.png)
+![Image](./images/app-create-book.png)
 
 ## Conclusion
 
