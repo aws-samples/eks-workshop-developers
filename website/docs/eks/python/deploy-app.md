@@ -4,6 +4,8 @@ sidebar_position: 9
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+import GetECRURI from '../../../src/includes/get-ecr-uri.md';
 
 ## Objective
 
@@ -12,6 +14,9 @@ This lab shows you how to deploy the microservices of the [python-fastapi-demo-d
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS](./deploy-secrets.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
+<GetEnvVars />
 
 ## 1. Creating db-init-script Configmap
 
@@ -73,11 +78,12 @@ The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi
 
 
   </TabItem>
-  <TabItem value="Managed Node" label="Managed node">
+  <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
-  ```bash
-  kubectl apply -f eks/deploy-db-python.yaml
-  ```
+```bash
+kubectl apply -f eks/deploy-db-python.yaml
+```
+
   </TabItem>
 </Tabs>
 
@@ -85,19 +91,10 @@ The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi
 
 The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress.
 
-To identify the ECR repository URI, run the following command:
+<!--This is a shared file at src/includes/get-ecr-uri.md that shows users how to get their ECR URI.-->
+<GetECRURI />
 
-```bash
-echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
-```
-
-The expected output should look like this:
-
-```bash
-01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
-```
-
-Open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image.
+Next, open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image and tag (e.g., `1.0`).
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 

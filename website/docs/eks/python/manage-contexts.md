@@ -2,11 +2,17 @@
 title: Managing Kubernetes Contexts in EKS Cluster
 sidebar_position: 5
 ---
-This lab will demonstrate how to verify and switch Kubernetes contexts in an EKS cluster. We'll make use of the kubectl command-line tool, which allows you to run commands against Kubernetes clusters. Specifically, you'll learn how to check your current context and switch to a different one if needed, allowing your local environment to interact with the desired cluster.
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+
+## Objective
+This lab shows how to verify and switch Kubernetes contexts in an EKS cluster. We'll make use of the kubectl command-line tool, which allows you to run commands against Kubernetes clusters. Specifically, you'll learn how to check your current context and switch to a different one if needed, allowing your local environment to interact with the desired cluster.
 
 ## Prerequisites
 
 - [Creating an Amazon EKS Cluster](Create-Cluster.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Verifying the Current Context
 

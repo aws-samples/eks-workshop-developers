@@ -5,18 +5,14 @@ sidebar_position: 12
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
-This guide shows you how to delete all of the resources you created in this workshop.
+This guide shows you how to delete all the resources you created in this workshop.
 
-## Initial Setup
-
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
-
-```bash
-cd python-fastapi-demo-docker
-```
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## Cleanup
 
@@ -58,9 +54,9 @@ done
 # Delete the cluster
 eksctl delete cluster -f eks/create-fargate-python.yaml
 ```
+</TabItem>
 
-  </TabItem>
-  <TabItem value="Managed node" label="Managed node">
+<TabItem value="Managed Node Groups" label="Managed Node Groups">
 
 ```bash
 # Delete the ECR repository

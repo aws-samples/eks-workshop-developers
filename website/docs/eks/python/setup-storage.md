@@ -2,10 +2,9 @@
 title: Setting up Scalable Storage in EKS
 sidebar_position: 7
 ---
-
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab shows you how to setup and configure a data storage mechanism on your cluster. 
@@ -13,10 +12,11 @@ This lab shows you how to setup and configure a data storage mechanism on your c
 ## Prerequisites
 - [Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster](./setup-loadbalancing.md)
 
+<!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
+<GetEnvVars />
+
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
-
-## Objective
 
 This lab shows you how to setup an [Elastic File System (EFS)](https://aws.amazon.com/efs/) volume within your Fargate cluster using the EFS CSI Driver. It's important to note that dynamic provisioning of persistent volumes is **not** supported for Fargate. As a result, in this lab, we'll be manually provisioning both the EFS filesystem and the corresponding Persistent Volume.
 
@@ -41,7 +41,7 @@ cidr_range=$(aws ec2 describe-vpcs \
   --region "$AWS_REGION")
 ```
 
-2. Create a security group with an inbound rule that allows inbound NFS traffic for your Amazon EFS mount points, and save it in a variable.
+3. Create a security group with an inbound rule that allows inbound NFS traffic for your Amazon EFS mount points, and save it in a variable.
 ```bash
 security_group_id=$(aws ec2 create-security-group \
   --group-name "MyEfsSecurityGroup" \
@@ -51,7 +51,7 @@ security_group_id=$(aws ec2 create-security-group \
   --output "text")
 ```
 
-3. Create an inbound rule that allows inbound NFS traffic from the CIDR for your cluster's VPC.
+4. Create an inbound rule that allows inbound NFS traffic from the CIDR for your cluster's VPC.
 ```bash
 aws ec2 authorize-security-group-ingress \
   --group-id "$security_group_id" \
@@ -84,7 +84,7 @@ The expected output should look like this:
 To further restrict access to your file system, you can optionally specify the CIDR of your subnet instead of using the entire VPC.
 :::
 
-4. Create the Amazon EFS File System for your cluster.
+5. Create the Amazon EFS File System for your cluster.
 ```bash
 file_system_id=$(aws efs create-file-system \
   --region "$AWS_REGION" \
@@ -94,7 +94,7 @@ file_system_id=$(aws efs create-file-system \
   --output "text")
 ```
 
-5. Retrieve the IDs of the subnets in your VPC and their Availability Zone.
+6. Retrieve the IDs of the subnets in your VPC and their Availability Zone.
 ```bash
 aws ec2 describe-subnets \
   --filters "Name=vpc-id,Values=$vpc_id" \
@@ -121,7 +121,7 @@ DescribeSubnets Output
 --------------------------------------------------------------
 ```
 
-6. Run the following command on **each subnet** to create a mount target for the subnet, replacing the subnet ID. 
+7. Run the following command on **each subnet** to create a mount target for the subnet, replacing the subnet ID. 
 
 ```bash
 aws efs create-mount-target \
@@ -230,7 +230,6 @@ Events:                <none>
 
 <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
-## Objective
 This lab shows you how to verify the setup of the [Amazon Elastic Block Store](https://aws.amazon.com/ebs/) volume for your managed node groups-based EKS cluster, which enabled dynamic provisioning of persistent volumes on our cluster using the EBS CSI Driver. It's worth noting that we're also leveraging [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster.
 
 :::info
