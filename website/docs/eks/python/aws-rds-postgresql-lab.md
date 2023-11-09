@@ -25,7 +25,7 @@ Deploying an Amazon Aurora Serverless v2 PostgreSQL database cluster using Cloud
 2. An `AWS::RDS::DBInstance` which is the instance where our database connections will be made
 3. An `AWS::RDS::DBSubnetGroup` which specifies which VPC and subnets our `DBInstance` can be placed in
 
-For convenience, we are using the same VPC, subnets, and security group as our EKS cluster. Similarly, we are also setting the same database user and password for this cluster as we used for the PostgreSQL cluster deployed within the EKS cluster so that only minimal changes have to be made. Please keep in mind that this is not a best practice and that this is being done only for the sake of this lab exercise.
+For convenience, we are using the same VPC, subnets, and security group as our EKS cluster. Similarly, we are also setting the same database user and password for this cluster as we used for the PostgreSQL cluster deployed within the EKS cluster so that only minimal changes have to be made. Please keep in mind that this is not a best practice and that this is being done only for the sake of this lab exercise. This CloudFormation stack is also creating our `bookstore` database by default so there is no need to manually create this. Since we're also using the admin credentials for the cluster we do not need to manually assign any privileges for `bookdbadmin` to this database.
 
 To create the CloudFormation stack please run the below command in your terminal. This command assumes that a Managed Nodegroup cluster was created using the file `eks/create-mng-python.yaml`. If instead a Fargate cluster was created using the file `eks/create-fargate-python.yaml` please update the `ClusterType` parameter to `Fargate` before running so that the stack can use the subnet and security group values exported from the EKS stack.
 
@@ -46,7 +46,7 @@ The output should look as follows:
 
 The CloudFormation stack will take between 15 and 20 minutes to run so now will be a good time for a coffee break ☕.
 
-## Recreate the fastapi-secret Object with the New Database Connection URL
+## 2. Recreate the fastapi-secret Object with the New Database Connection URL
 
 Now that we've had a cup of coffee and our CloudFormation stack has completed, we can move on to updating the secret `fastapi-secret` with the new database endpoint.
 
@@ -82,50 +82,7 @@ secret "fastapi-secret" deleted
 secret/fastapi-secret created
 ```
 
-## Create the Application's Database Using psql
-
-We're in the home stretch now and our last step will be creating the `bookstore` database our application will be using. To accomplish this, we're going to run an Amazon Linux 2023 image, install the PostgreSQL client (psql), connect to our cluster, and then create our `bookstore` database.
-
-Firstly, let's create our pod and get a shell to it:
-
-```bash
-kubectl run -it pgclient --image amazonlinux:2023
-```
-
-Next, we need to install `postgresql15`:
-
-```bash
-yum install postgresql15 -y
-```
-
-Now let's connect to our database and run the following commands:
-
-```bash
-psql -h eksworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com -p 5432 -U bookdbadmin -d postgres
-```
-
-This will then prompt to put in the password for user `bookdbadmin`. We can type in `dbpassword` and press the enter key. We should now see a prompt like this:
-
-```bash
-psql (15.4, server 13.12)
-SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
-Type "help" for help.
-
-postgres=>
-```
-
-Now we'll run the following commands to create our database, grant permissions for our user on that database, close our connection, exit the pod, and delete the pod:
-
-```bash
-CREATE DATABASE bookstore;
-ALTER DATABASE bookstore OWNER TO bookdbadmin;
-GRANT ALL PRIVILEGES ON DATABASE bookstore TO bookdbadmin;
-\q
-exit
-kubectl delete pod pgclient
-```
-
-## 4. Restart the FastAPI Deployment and Confirm Connectivity
+## 3. Restart the FastAPI Deployment and Confirm Connectivity
 
 With all of the pieces in place we can now restart the deployment `fastapi-deployment` which will get the new database URL from `fastapi-secret` and will create our database schema for us automatically:
 
