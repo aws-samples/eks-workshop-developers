@@ -27,10 +27,18 @@ Deploying an Amazon Aurora Serverless v2 PostgreSQL database cluster using Cloud
 
 For convenience, we are using the same VPC, subnets, and security group as our EKS cluster. Similarly, we are also setting the same database user and password for this cluster as we used for the PostgreSQL cluster deployed within the EKS cluster so that only minimal changes have to be made. Please keep in mind that this is not a best practice and that this is being done only for the sake of this lab exercise. This CloudFormation stack is also creating our `bookstore` database by default so there is no need to manually create this. Since we're also using the admin credentials for the cluster we do not need to manually assign any privileges for `bookdbadmin` to this database.
 
+:::info
+Before running any of the commands in this exercise, please ensure that you have updated the file `.env` to set `AWS_REGION` to the same region where your EKS cluster was created. Run the following command to source these variables into your terminal:
+
+```bash
+source .env
+```
+:::
+
 To create the CloudFormation stack please run the below command in your terminal. This command assumes that a Managed Nodegroup cluster was created using the file `eks/create-mng-python.yaml`. If instead a Fargate cluster was created using the file `eks/create-fargate-python.yaml` please update the `ClusterType` parameter to `Fargate` before running so that the stack can use the subnet and security group values exported from the EKS stack.
 
 ```bash
-aws cloudformation create-stack \
+aws cloudformation create-stack --region $AWS_REGION \
   --stack-name eksworkshop-rds-cluster \
   --template-body file://eks/rds-serverless-postgress.json \
   --parameters ClusterType=ManagedNodegroup
@@ -53,7 +61,7 @@ Now that we've had a cup of coffee and our CloudFormation stack has completed, w
 To find this value, we can run the following command:
 
 ```bash
-aws rds describe-db-clusters --db-cluster-identifier eksworkshop-rds --query 'DBClusters[0].Endpoint' --output text
+aws rds describe-db-clusters --region $AWS_REGION --db-cluster-identifier eksworkshop-rds --query 'DBClusters[0].Endpoint' --output text
 ```
 
 The output should look as follows:
@@ -116,5 +124,5 @@ We can now visit our website and see that it's still working as expected:
 To clean up the resources provisioned during this lab we will just need to delete the CloudFormation stack using the command below:
 
 ```bash
-aws cloudformation delete-stack --stack-name eksworkshop-rds
+aws cloudformation delete-stack --region $AWS_REGION --stack-name eksworkshop-rds
 ```
