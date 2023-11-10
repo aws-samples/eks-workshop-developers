@@ -284,7 +284,7 @@ aws iam delete-policy --policy-arn $POLICY_ARN
 kubectl delete -f eks/deploy-app-python.yaml
 aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
 eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster managednode-quickstart --namespace my-cool-app
-aws iam delete-policy --policy-arn $POLICY_ARN
+aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN
 ```
 
   </TabItem>
