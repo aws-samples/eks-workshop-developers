@@ -185,7 +185,7 @@ export IMAGE_VERSION=2.0
 Let's get our credentials for ECR and login with Docker so we can push our image to our repository using this command:
 
 ```bash
-aws ecr get-login-password --region  | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 ```
 
 Now, we can run the following commands to build, tag, and push our image to ECR:
