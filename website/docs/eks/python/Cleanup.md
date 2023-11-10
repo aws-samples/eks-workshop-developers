@@ -1,6 +1,6 @@
 ---
 title: Cleaning Up Resources
-sidebar_position: 12
+sidebar_position: 13
 ---
 
 import Tabs from '@theme/Tabs';
