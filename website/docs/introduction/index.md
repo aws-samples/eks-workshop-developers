@@ -3,22 +3,20 @@ title: Introduction
 sidebar_position: 1
 ---
 # Welcome to the EKS Developers Workshop
-Transitioning to Amazon Elastic Kubernetes Service (EKS) represents a significant shift in application deployment and management. This workshop is tailored to streamline that transition, focusing on refactoring applications for containerized and Kubernetes environments.
-
-## Introduction
-Targeted at developers new to Kubernetes, this workshop introduces you to building multi-architecture container images suitable for Kubernetes, coupled with strategies to optimize resources and reduce expenses. Grounded in The Twelve-Factor App methodology, we don't just explain the principles—we embed them into the fabric of our hands-on lab exercises. Through the lens of stateful and stateless microservices, we offer an end-to-end learning experience, using a specially designed application and database as teaching tools. Starting with local deployments via Minikube, you'll build a solid understanding that prepares you for the complexities of Amazon EKS.
-
-The course then moves to EKS, highlighting the integration of AWS open-source projects. You'll learn to utilize essential services like AWS Open Telemetry for request tracing, AWS Secrets Manager for secure information storage, and Amazon RDS for PostgreSQL for database management. This practical comparison of managed and self-managed databases equips you with the knowledge to choose the right architecture for your needs.
-
-By the end of this workshop, you'll have a robust set of skills to deploy and manage Kubernetes workloads on AWS with confidence. Get ready to take control of your EKS journey. Welcome aboard!
-
+Welcome to the EKS Developers Workshop, a technical deep-dive into refactoring applications for Amazon Elastic Kubernetes Service (EKS). 
+## Who Should Attend?
+This workshop is designed for developers looking to expand their expertise into Kubernetes and EKS. It's particularly beneficial for those who have: 
+* A foundational understanding of container technologies and seek to increase their knowledge of Kubernetes-based application deployments.
+* Aim to transition traditional applications to cloud-native architectures, particularly within the AWS ecosystem.
+## What You Will Learn
+* **Application Refactoring:** Apply The Twelve-Factor App methodology in refactoring Python applications for optimized containerization.
+* **Containerization Techniques:** Master the creation and management of Docker containers, integrate Amazon ECR with Docker Compose, and handle multi-architecture containers.
+* **Kubernetes Deployment:** Execute the deployment of FastAPI and PostgreSQL microservices using minikube. Learn to manage Kubernetes resources effectively, including securing microservices with Kubernetes secrets.
+* **Amazon EKS Utilization:** Build your skills in microservice deployments, and integrations with AWS services like AWS Secrets Manager and Amazon RDS for PostgreSQL. 
+## Key Learning Outcomes
+* Refactor and containerize applications for Kubernetes and EKS.
+* Build and manage Docker containers, including multi-architecture variants.
+* Deploy and secure microservices in Kubernetes and EKS environments.
+* Leverage AWS services and tools for optimized Kubernetes management.
 ## Getting Started
-The workshop unfolds through a series of interconnected chapters:
-- [Introduction & Setup](docs/introduction/index.md)
-- [Understanding Containers](docs/containers/index.md)
-- [Managing Kubernetes](docs/kubernetes/index.md)
-- [Exploring Amazon EKS](docs/eks/index.md)
-
-
-## Ready to Dive In?
-Start with our [overview](./python/about-workshop.md) to get started.
+Dive into our [overview](./python/about-workshop.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.
