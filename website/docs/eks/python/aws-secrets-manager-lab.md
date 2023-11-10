@@ -188,12 +188,13 @@ Let's get our credentials for ECR and login with Docker so we can push our image
 aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 ```
 
-Now, we can run the following commands to build, tag, and push our image to ECR:
+Now, we can run the following commands to create our multi-architecture build environment, build, tag, and push our image to ECR:
 
 ```bash
-docker build -t fastapi-microservices .
-docker tag fastapi-microservices:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION
-docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION
+docker buildx create --name webBuilder
+docker buildx use webBuilder
+docker buildx inspect --bootstrap
+docker buildx build --platform linux/amd64,linux/arm64 -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION . --push
 ```
 
 With our new image successfully uploaded to ECR we can now update our deployment file `eks/deploy-app-python.yaml` to use our new image. First we'll get the URI we need to use:
