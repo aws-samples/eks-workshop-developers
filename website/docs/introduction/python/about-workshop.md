@@ -1,13 +1,14 @@
 ---
-title: Workshop Overview
+title: Python Workshop Overview
 sidebar_position: 1
 ---
 
-Welcome to the Python workshop! We'll embark on an end-to-end journey with the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, a Python-based application developed with FastAPI and PostgreSQL as the database. This workshop will guide you from the fundamentals of containerization, Kubernetes, and finally to deploying the application on Amazon Web Services (AWS).
+Welcome to the Python developers workshop! We'll embark on an end-to-end journey with the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, a Python-based application developed with FastAPI and PostgreSQL as the database. This workshop will guide you from the fundamentals of containerization, Kubernetes, and finally to deploying the application on Amazon Web Services (AWS).
 
 ## About This Workshop
-This workshop dives into the unique aspects of both stateless and stateful applications within the project, broken down into three key sections:
+This workshop dives into the unique aspects of both stateless and stateful applications within the project, broken down into the following sections:
 
+- **[Introduction](introduction/index.md)**: This chapter shows you the key principles we used to refactor the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project for Containers and Kubernetes environments, and how to setup your development environment. 
 - **[Containers](containers/index.md)**: This chapter shows you how to containerize applications using Docker and deploy a multi-architecture container image to [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/). 
 - **[Kubernetes](kubernetes/index.md)**: This chapter shows you how deploy your containerized application to a local Kubernetes cluster, providing an introduction into essential Kubernetes concepts such as service definitions, deployments, and secrets.
 - **[Amazon EKS](eks/index.md)**: This chapter shows you how to deploy your containerized application stored in Amazon ECR onto an [Amazon EKS](https://aws.amazon.com/eks/) cluster, exploring use-case specific cluster set-up and integration with other AWS services. 
