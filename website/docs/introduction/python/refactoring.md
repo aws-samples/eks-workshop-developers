@@ -341,7 +341,7 @@ volumes:
 command: uvicorn server.app.main:app --host 0.0.0.0 --port 8000
 ```
 
-* Ideally, a production application would have a separate frontend and backend Dockerfile. This would involve specifying the working directory and the destination path for copying code into the containers, both for the frontend and backend components.
+* Ideally, a production application would also have a separate frontend and backend Dockerfile. This would involve specifying the working directory and the destination path for copying code into the containers, both for the frontend and backend components.
 ```
 # Docker.frontend
 FROM python:3.9-slim-buster as frontend-builder
@@ -417,6 +417,83 @@ spec:
             port:
               number: 80
 ...
+```
+
+* Ideally, you would deploy a caching system, like [Redis](https://gallery.ecr.aws/ubuntu/redis), with a `Deployment` backed by a `PersistentVolume` for the cache data. This approach is essential for maintaining high availability and fast data access. For example:
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cache-deployment
+  namespace: my-cool-app
+spec:
+  ...
+  template:
+    ...
+    volumes:
+      - name: cache-volume
+        persistentVolumeClaim:
+          claimName: redis-cache-pvc
+```
+
+* Furthermore, you would ideally scale the cache deployment in response to varying traffic loads to sustain performance. Pair this with a stateless application frontend, also managed via a Deployment, programmed to consult the cache prior to making database calls. The app should, upon a cache miss, query the database and update the cache accordingly. For example:
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+  namespace: my-cool-app
+spec:
+  ...
+  template:
+    ...
+    containers:
+      - name: web
+        ...
+        env:
+          - name: CACHE_ENDPOINT
+            value: redis-cache-service.my-cool-app.svc.cluster.local
+```
+
+* To connect to the cache and the database, you would ideally establish Kubernetes Services that expose the Pods, allowing the stateless application to communicate with these components using DNS names. For example:
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cache-service
+  namespace: my-cool-app
+spec:
+  ...
+```
+
+* Configuration details, like cache expiration and service endpoints, should ideally be abstracted into ConfigMaps and mounted as volumes inside the stateless application Pods to maintain a clear separation between code and configuration:
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastapi-config
+  namespace: my-cool-app
+data:
+  CACHE_EXPIRATION: "3600"
+  ...
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+  namespace: my-cool-app
+spec:
+  ...
+  template:
+    ...
+    volumes:
+      - name: config-volume
+        configMap:
+          name: fastapi-config
 ```
 
 ### 7. Export services via port binding
