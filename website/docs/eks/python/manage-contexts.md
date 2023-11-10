@@ -9,7 +9,7 @@ This lab shows how to verify and switch Kubernetes contexts in an EKS cluster. W
 
 ## Prerequisites
 
-- [Creating an Amazon EKS Cluster](Create-Cluster.md)
+- [Creating an Amazon EKS Cluster](create-cluster.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
