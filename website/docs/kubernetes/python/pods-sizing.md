@@ -1,13 +1,19 @@
 ---
 title: Right-Sizing Your Pods with Minikube and Metrics Server
-sidebar_position: 7
+sidebar_position: 8
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+
 
 ## Objective
-This lab aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios. 
+This lab aims to equip you with the necessary skills to optimally size your Kubernetes pods according to your application's specific needs. You will learn how to install and configure the Kubernetes Metrics Server to monitor your pods' resource consumption. Additionally, you will utilize the ['hey' tool](https://github.com/rakyll/hey) to simulate real-world load scenarios.
 
 ## Prerequisites
 - [Accessing the FastAPI App](./access-app.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
+
 ## 1. Installing the 'hey' tool
 In a terminal, install 'hey' with [Homebrew](https://brew.sh/):
 ```bash

@@ -96,12 +96,11 @@ metadata:
 
 ### 3. Store config in the environment
 <!--@Joe -->
-
-Storing configurations in environment variables helps you adjust the system's behavior without modifying the code. It's a crucial aspect of software development, and more so in a containerized environment, as they allow us to manage application configurations without hardcoding them into our application. This offers numerous benefits, such as the ability to change configurations without modifying the application code, improved security by not exposing sensitive data, and enhanced portability across different environments (local, staging, production, etc.). To illustrate this, consider the following:
+An application's configuration is everything that one would expect to vary between deployment environments such as production, staging, development, etc. These may include resources such as database connection strings, credentials for external services, and logging verbosity. Rather than hardcoding these values into the application code, we instead look to use language features to read these values from environment variables and dynamically use these in our code. Using environment variables as opposed to configuration files improves our security posture by eliminating the chance of accidentally committing sensitive information into our version control systems. This method also improves our application's portability as there is only a single codebase which can be deployed into multiple environments without the need for any changes to per-environment configuration files. To illustrate this, consider the following examples:
 
 #### In App
 
-* This line in `connect.py` uses Python's built-in [`os` module](https://docs.python.org/3/library/os.html) to read the `DATABASE_URL` from an environment variable in `.env`, allowing you to change the configuration without modifying the codebase.
+* This line in `connect.py` uses Python's built-in [`os` module](https://docs.python.org/3/library/os.html) to read the value of the environment variable `DOCKER_DATABASE_URL`, allowing you to change the configuration without modifying the codebase.
 
 ```
 # connect.py
@@ -185,7 +184,7 @@ conn = psycopg2.connect(
 )
 ```
 
-* When we call `wait_for_db(DATABASE_URL)`, the `DATABASE_URL` value, an environment variable containing the PostgreSQL database connection string, is passed to the function. Inside the function, `db_url` becomes a local variable holding that connection string. Now, as for parsing `db_url`, this is done using the `urlparse` function from Python's built-in `urllib.parse` module. `urlparse` breaks down the URL into its components, like the scheme (http, https, etc.), netloc (the hostname and port), path (the specific resource in the server), query (any query parameters), etc. These are then used in [psycopg2](https://www.psycopg.org/docs/module.html)'s `connect` function to establish a connection to the database.
+* The `wait_for_db` function is invoked with `DATABASE_URL` as its argument, which is sourced from the `DOCKER_DATABASE_URL` environment variable holding the PostgreSQL connection string. Now, as for parsing `db_url`, this is done using the `urlparse` function from Python's built-in `urllib.parse` module. `urlparse` breaks down the URL into its components, like the scheme (http, https, etc.), netloc (the hostname and port), path (the specific resource in the server), query (any query parameters), etc. These are then used in [psycopg2](https://www.psycopg.org/docs/module.html)'s `connect` function to establish a connection to the database.
 
 ```
 result = urlparse(db_url)
@@ -232,7 +231,7 @@ Keeping build and run stages separate makes development and deployment cycles mo
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /server/wheels -r requirements.txt
 ```
 
-* The `web` service is designed to use a custom-built image, which is generated through a multi-stage build process specified in the `Dockerfile`. Later on, we also upload this optimized image to Amazon ECR and tag it with a version, which adds another layer of optimization and version control. This allows you to efficiently manage the container lifecycle and ensure that you are running the correct version of the image in production or staging environments.
+* The `web` service is designed to use a custom-built image, which is generated through a multi-stage build process specified in the `Dockerfile`. Later on, we also upload this optimized image to Amazon ECR and tag it with a version, which adds another layer of optimization and version control. This allows you to efficiently manage the container lifecycle and ensure that you are running the correct version of the image in production or staging environments. As a best practice, images are only tagged with the build version and never the `latest` tag as this necessitates the use of specific image versions rather than a tag which can update unexpectedly leading to potentially undesired results.
 
 ```
 # docker-compose.yml
@@ -421,7 +420,7 @@ spec:
 ### 7. Export services via port binding
 <!--@Joe -->
 
-Port binding is crucial for service discovery and guarantees the accessibility of your services. In Kubernetes, by exposing services through specific ports, you can effectively manage and scale them. We’ll show you how we’ve configured the port settings in our Docker containers and Kubernetes setup, allowing efficient routing and access to services. To illustrate this, consider the following:
+Port binding is an important facet to 12 Factor Apps and ensure that an application is completely self-contained. In this model, the application itself binds to a port and listens to incoming requests on that port. This is in contrast to applications which might run as a module inside a web server like HTTPD or Tomcat. That is to say, there is no reliance on the injection of a web server into the execution environment at runtime to have a web service. To illustrate this, consider the following:
 
 #### In Containers
 
@@ -430,19 +429,22 @@ Port binding is crucial for service discovery and guarantees the accessibility o
 ```
 # Dockerfile
 EXPOSE 8000
+CMD uvicorn server.app.main:app --host 0.0.0.0 --port 8000
 
 # docker-compose.yml
+ports:
+  - 8000:8000
 command: uvicorn server.app.main:app --host 0.0.0.0 --port 8000
 ```
 
 #### In Kubernetes
 
-* Kubernetes Service and Ingress objects allow you to expose services. This is the PostgreSQL database service being exposed on port 5432.
+* Kubernetes Service and Ingress objects allow you to expose services. This is the Python application service being exposed on port 8000 to align with the port being used in the `Dockerfile` entrypoint.
 
 ```
-# deploy-db-python.yaml
+# deploy-app-python.yaml
 ports:
-   - containerPort: 5432
+   - containerPort: 8000
 ```
 
 ### 8. Scale out via the process model

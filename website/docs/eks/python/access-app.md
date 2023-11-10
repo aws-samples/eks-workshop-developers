@@ -2,6 +2,7 @@
 title: Accessing the FastAPI App
 sidebar_position: 10
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
@@ -11,6 +12,9 @@ This guide aims to guide you through the process of accessing your microservices
 
 - [Deploying FastAPI and PostgreSQL Microservices to EKS](./deploy-app.md)
 
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Checking the Status of Pods
 
@@ -42,13 +46,13 @@ In the previous lab exercise, we used the AWS Load Balancer Controller (LBC) to 
 1. **Check the status**: Open the [Load Balancers](https://console.aws.amazon.com/ec2/#LoadBalancers:) page on the Amazon EC2 console and select the AWS Region in which your Amazon EKS cluster resides. Next, select your ALB name, such as "k8s-mycoolap-fastapii-8004c40e9c".
 2. **Open the app**: Open a new tab in your browser paste the ALB link, such as "k8s-mycoolap-fastapii-8114c40e9c-860636650.us-west-2.elb.amazonaws.com". You should see the welcome page:
 
-![](app-home.png)
+![](./images/app-home.png)
 
 ## 4. Verifying the Setup by Adding a Book
 
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
-![Image](app-create-book.png)
+![Image](./images/app-create-book.png)
 
 ## Conclusion
 

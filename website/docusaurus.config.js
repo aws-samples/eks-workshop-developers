@@ -1,5 +1,6 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const path = require('path');
 
 module.exports = {
   title: 'EKS Developers Workshop',
@@ -8,7 +9,9 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
+  organizationName: 'aws-samples',
+  projectName: 'eks-workshop-developers',
 
   presets: [
     [
@@ -16,7 +19,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/website/',
+          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/tree/main/website',
+          sidebarCollapsible: false,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -35,25 +39,25 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'intro/intro',
+          docId: 'introduction/index',
           position: 'left',
           label: 'Introduction',
         },
         {
           type: 'doc',
-          docId: 'containers/containers',
+          docId: 'containers/index',
           position: 'left',
           label: 'Containers',
         },
         {
           type: 'doc',
-          docId: 'kubernetes/kubernetes',
+          docId: 'kubernetes/index',
           position: 'left',
           label: 'Kubernetes',
         },
         {
           type: 'doc',
-          docId: 'eks/eks',
+          docId: 'eks/index',
           position: 'left',
           label: 'EKS',
         },
@@ -71,34 +75,30 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'GitHub',
+              href: 'https://github.com/aws-samples/eks-workshop-developers',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Other',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'Site Terms',
+              href: 'https://aws.amazon.com/terms/?nc1=f_pr',
+            },
+            {
+              label: 'Privacy',
+              href: 'https://aws.amazon.com/privacy/?nc1=f_pr',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()}, Amazon Web Services, Inc. or its affiliates. All rights reserved.`,
     },
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
     },
-  }
+  },
 };

@@ -4,6 +4,7 @@ sidebar_position: 6
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab shows you how to set up the [AWS Load Balancer Controller (LBC)](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) on your cluster, which enables the routing of external traffic to your Kubernetes services. We'll leverage the [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) we configured when we created our cluster, ensuring that the controller has the required permissions.
@@ -17,16 +18,18 @@ Classic Load Balancers and Network Load Balancers are not supported on pods runn
 ## Prerequisites
 - [Managing Kubernetes Contexts in EKS Cluster](./manage-contexts.md)
 
+<!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
+<GetEnvVars />
+
 ## 1. Set Environment Variables
-Before we start setting up our EKS cluster, we need to add an environment variable for our cluster name and VPC. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
+Before we start setting up our EKS cluster, we need to set a couple environment variables. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
 
 From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
 
 <Tabs>
-  <TabItem value="Fargate cluster" label="Fargate cluster" default>
+  <TabItem value="Fargate" label="Fargate" default>
 
 ```bash
-cd python-fastapi-demo-docker
 export CLUSTER_VPC=$(aws eks describe-cluster --name fargate-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
 ```
 
@@ -36,11 +39,11 @@ set your EKS cluster name as an environment variable:
 export CLUSTER_NAME=fargate-quickstart
 ```
 
-  </TabItem>
-    <TabItem value="Managed node group(EC2) Cluster" label="Managed node group(EC2) Cluster" default>
+</TabItem>
+
+<TabItem value="Managed Node Groups" label="Managed Node Groups" default>
 
 ```bash
-cd python-fastapi-demo-docker
 export CLUSTER_VPC=$(aws eks describe-cluster --name managednode-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
 ```
 

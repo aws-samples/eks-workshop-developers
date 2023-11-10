@@ -2,12 +2,16 @@
 title: Integrating Amazon ECR with Docker Compose
 sidebar_position: 4
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab shows to streamline the process of uploading Docker images to Amazon ECR and employing them within Docker Compose. By shifting the Docker image storage to Amazon ECR and harnessing them in Docker Compose, we aim to enhance deployment smoothness and the scalability of your microservices application.
 
 ## Prerequisites
 - [Uploading Container Images to Amazon ECR](upload-ecr.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Adjustments to the Dockerfile
 After the successful upload of Docker images to Amazon ECR, no changes are required in the Dockerfile, which serves as a consistent blueprint for defining the environment, dependencies, and image creation steps.
@@ -60,7 +64,7 @@ IMAGE_VERSION=1.1
 ```
 
 
-After editing `.env` make sure to [re-import your environment variables](../../intro/python/environment-setup#5-import-environment-variables) and verify if `IMAGE_VERSION` is updated.
+After editing `.env` make sure to [re-import your environment variables](../../introduction/python/environment-setup) and verify if `IMAGE_VERSION` is updated.
 
 ```bash
 echo $IMAGE_VERSION

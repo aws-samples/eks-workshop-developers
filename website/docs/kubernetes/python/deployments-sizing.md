@@ -1,12 +1,17 @@
 ---
 title: Updating Kubernetes Manifests with Appropriate Resource Limits and Requests
-sidebar_position: 8
+sidebar_position: 9
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab shows how to update the resource requests and limits data based on our load testing to ensure that our applications have enough resources to handle high load, while also optimizing the overall resource usage in our cluster.
 ## Prerequisites
 - [Right-Sizing Your Pods with Minikube and Metrics Server](./pods-sizing.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
+
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
 The [fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml) manifest contains the resources for our FastAPI application. We're going to adjust the resource requests and limits for this deployment based on the data we've gathered.
 

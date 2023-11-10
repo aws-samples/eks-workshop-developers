@@ -2,6 +2,7 @@
 title: Securing FastAPI Microservices with Kubernetes Secrets
 sidebar_position: 4
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 In the evolving world of microservices and cloud-native applications, managing sensitive data securely is paramount. Kubernetes offers a "Secret" resource, designed for storing sensitive data like passwords, OAuth tokens, and ssh keys, separating them from the container image to enhance security and modularity. This lab shows you how to create Kubernetes secrets for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. 
@@ -9,15 +10,14 @@ In the evolving world of microservices and cloud-native applications, managing s
 ## Prerequisites
 - [Initializing PostgreSQL Database with Kubernetes ConfigMaps](deploy-configmap.md)
 
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
+
 ## 1. Creating the Kubernetes Secret for Amazon ECR
 Our Amazon ECR repository is private, so we need to generate an Amazon ECR authorization token and create a Kubernetes Secret with it. This is a critical step because it ensures that your Kubernetes cluster can pull the necessary container images from your private ECR repository. Now, you might be wondering whether this ECR secret will survive pod restarts, especially considering that ECR tokens are only valid for 12 hours. Kubernetes will automatically refresh the secret when it nears expiration, ensuring uninterrupted access to your private ECR repository.
 
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../intro/python/environment-setup):
-```bash
-cd python-fastapi-demo-docker
-```
 
-Generate an Amazon ECR authorization token:
+From the root directory of the 'python-fastapi-demo-docker' project, generate an Amazon ECR authorization token:
 ```
 ECR_TOKEN=$(aws ecr get-login-password --region ${AWS_REGION})
 ```
