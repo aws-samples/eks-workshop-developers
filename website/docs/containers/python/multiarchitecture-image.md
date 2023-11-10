@@ -2,11 +2,16 @@
 title: Building and Running Multi-Architecture Containers
 sidebar_position: 5
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+
 ## Objective
 This lab shows you how to create a multi-architecture container image for the FastAPI application using [docker buildx](https://docs.docker.com/engine/reference/commandline/buildx/), which is essential when deploying to a Kubernetes cluster. The PostgreSQL database, utilizing the official "postgres:13" image, is sourced directly from Docker Hub, eliminating the necessity to construct and deploy a custom image for it. 
 
 ## Prerequisites
 - [Integrating Amazon ECR with Docker Compose](integration-ecr.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Logging into Amazon ECR
 From the 'python-fastapi-demo-docker' project directory, authenticate the Docker CLI to your Amazon ECR registry using:

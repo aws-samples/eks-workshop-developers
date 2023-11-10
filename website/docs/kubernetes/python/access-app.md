@@ -2,12 +2,17 @@
 title: Accessing the FastAPI App
 sidebar_position: 6
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab aims to guide you through the process of accessing your microservices deployed onto a minikube cluster. By using minikube's 'port forwarding' feature and enabling a network tunnel, we'll expose the FastAPI service, allowing you to interact with it from your local machine's web browser. This process is especially crucial for LoadBalancer service types, as they require an additional network route from the host to the service's cluster.
 
 ## Prerequisites
 - [Deploying FastAPI and PostgreSQL Microservices to Kubernetes using Minikube](./deploy-app.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
+
 ## 1. Checking the Status of Pods
 Before we try to access our application, we need to ensure that all of our pods are running correctly. To check the status of all pods, run the following command:
 ```bash

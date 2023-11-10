@@ -2,12 +2,16 @@
 title: Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS
 sidebar_position: 8
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab will help you secure sensitive information in your Amazon EKS Kubernetes cluster. By the end of it, you will be able to create Kubernetes secrets from an environment file and verify the creation of these secrets.
 
 ## Prerequisites
 - [Setting up Scalable Storage with the EBS CSI Driver in Amazon EKS](./setup-storage.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
+<GetEnvVars />
 
 ## 1. Creating a Generic Kubernetes Secret from the .env File
 Create the Kubernetes Secret in the "my-cool-app" namespace:

@@ -2,17 +2,16 @@
 title: Building and Running the Docker Containers
 sidebar_position: 2
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 ## Prerequisites
 - [Setting up the Development Environment](../../introduction/python/environment-setup.md)
 
-## Initial Setup
-Navigate to the root directory of the 'python-fastapi-demo-docker' project where your [environment variables are sourced](../../introduction/python/environment-setup):
-```bash
-cd python-fastapi-demo-docker
-```
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
+
 ## 1. Building Docker Images for Each Service
 Build Docker images for the application and database services by running:
 

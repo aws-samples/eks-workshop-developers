@@ -2,14 +2,18 @@
 title: Monitoring Kubernetes Resources Using the Dashboard
 sidebar_position: 7
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
 This lab walks you through the process of using the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard) to view and manage Kubernetes resources. This user-friendly web-based GUI facilitates the management and troubleshooting of applications within your minikube cluster.
 
 ## Prerequisites
-
 - [Accessing the FastAPI App](./access-app.md)
+
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Installing the Kubernetes Dashboard
 

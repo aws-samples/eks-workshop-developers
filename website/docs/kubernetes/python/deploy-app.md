@@ -2,6 +2,8 @@
 title: Deploying FastAPI and PostgreSQL Microservices to Kubernetes using Minikube
 sidebar_position: 5
 ---
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+import GetECRURI from '../../../src/includes/get-ecr-uri.md';
 
 ## Objective
 
@@ -10,6 +12,9 @@ This lab is designed to equip you with the necessary skills for efficient deploy
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<GetEnvVars />
 
 ## 1. Creating the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
@@ -24,7 +29,6 @@ Take note that the Kubernetes service name of 'db' **must** match the service na
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
 
 ```bash
-cd python-fastapi-demo-docker
 kubectl apply -f kubernetes/postgres-db.yaml
 ```
 
@@ -40,25 +44,10 @@ persistentvolumeclaim/postgres-pvc created
 
 The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)' manifest consists of two primary Kubernetes resources: a Service and a Deployment.
 
-To identify the ECR repository URI execute the following command.
+<!--This is a shared file at src/includes/get-ecr-uri.md that shows users how to get their ECR URI.-->
+<GetECRURI />
 
-```bash
-aws ecr describe-repositories --repository-names  fastapi-microservices --output table --query "repositories[*].{repositoryUri:repositoryUri}"
-```
-
-The expected output should look like this:
-
-```bash
--------------------------------------------------------------------------------
-|                            DescribeRepositories                             |
-+-----------------------------------------------------------------------------+
-|                                repositoryUri                                |
-+-----------------------------------------------------------------------------+
-|  999999999999.dkr.ecr.us-west-2.amazonaws.com/fastapi-microservices         |
-+-----------------------------------------------------------------------------+
-```
-
-Open fastapi-app.yaml and replace `01234567890.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0` with your ECR repository URI image and tag(`1.0`).
+Next, open **[kubernetes/fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** and replace the sample value with your ECR repository URI image and tag (e.g., `1.0`).
 
 ```bash
 cd python-fastapi-demo-docker
