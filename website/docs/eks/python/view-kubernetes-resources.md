@@ -53,7 +53,7 @@ If the IAM principal logged into the EKS console is the creator of the EKS clust
 
 :::
 
-To register the IAM principal ARN logged into the EKS console to the ConfigMap 'aws-auth', execute the following command. Specify the IAM principal's ARN as the value for the '--arn' argument:
+**Optionally**, you can register an existing IAM principal ARN logged into the EKS console to the ConfigMap 'aws-auth' by running the following command. Make sure to substitute the sample value with your _existing_ IAM principal ARN as the value for the `--arn` argument:
 
 <Tabs>
   <TabItem value="Fargate cluster" label="Fargate cluster" default>
