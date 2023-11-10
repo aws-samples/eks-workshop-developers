@@ -261,3 +261,31 @@ Database URL: postgresql://bookdbadmin:dbpassword@db:5432/bookstore
 INFO:     192.168.33.158:42464 - "GET / HTTP/1.1" 200 OK
 INFO:     192.168.25.22:30050 - "GET / HTTP/1.1" 200 OK
 ```
+
+## 4. Cleanup Resources
+
+To delete the resources we created during this lab run the following commands:
+
+<Tabs>
+  <TabItem value="Fargate" label="Fargate" default>
+
+```bash
+kubectl delete -f eks/deploy-app-python.yaml
+aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
+eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster fargate-quickstart --namespace my-cool-app
+aws iam delete-policy --policy-arn $POLICY_ARN
+```
+
+  </TabItem>
+  <TabItem value="Managed Node Groups" label="Managed Node Groups">
+
+
+```bash
+kubectl delete -f eks/deploy-app-python.yaml
+aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
+eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster managednode-quickstart --namespace my-cool-app
+aws iam delete-policy --policy-arn $POLICY_ARN
+```
+
+  </TabItem>
+</Tabs>
