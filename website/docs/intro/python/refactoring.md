@@ -12,8 +12,7 @@ This guide provides an overview of [The Twelve-Factor App](https://12factor.net/
 ### 1. One codebase tracked in revision control, many deploys 
 <!--@Smruti -->
 
-It's important to use one codebase when working in multiple environments to maintain consistency and efficiency. This helps avoid different code paths and makes CI/CD pipelines more efficient. By following this principle, you'll be able to manage multiple deployments, such as staging or production environments, without added confusion or overhead. Production, staging and test environments releases can be segregated with branches or with [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_git_tagging). The specific branch or the release tag can be deployed in the environment using GitOps. Follow this link to know more about [Gitops](https://www.eksworkshop.com/docs/automation/gitops/). We've organized the FastAPI application, Docker configurations, and Kubernetes YAML files in the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project to make management and deployments easier. To illustrate this, consider the following:
-
+It's important to use one codebase when working in multiple environments to maintain consistency and efficiency. This helps avoid different code paths and makes CI/CD pipelines more efficient. By following this principle, you'll be able to manage multiple deployments, such as staging or production environments, without added confusion or overhead. An effective strategy to manage these deployments is through the use of branches or tags in your version control system. Production, staging, and test environment releases can be segregated using either distinct branches or with [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_git_tagging). This allows for specific branches or release tags to be deployed in each environment using GitOps principles, ensuring a streamlined and organized deployment process. For more information, see [GitOps](https://www.eksworkshop.com/docs/automation/gitops/). In the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, we've organized the FastAPI application, Docker configurations, and Kubernetes YAML files to facilitate easy management and deployments. To illustrate this, consider the following:
 
 #### In App
 
@@ -250,7 +249,7 @@ FROM python:3.9-slim-buster as builder
 ...
 FROM python:3.9-slim-buster as runner
 ```
-Further you can manage the build and deployment as separate stages using CICD tools like GitOps or CodeCatalyst. 
+Ideally, you would manage the build and deployment as separate stages using CI/CD tools like GitOps or [Amazon CodeCatalyst](https://codecatalyst.aws/).
 <!-- In this link(link to codecatalyst) we show how you can use codecatalyst to manage the build and deployment stages.-->
 
 #### In Kubernetes
