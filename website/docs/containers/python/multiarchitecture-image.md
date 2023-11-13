@@ -138,7 +138,7 @@ This halts your services, rebuilds the Docker images, and reboots the services w
 
 ## Cleanup
 
-To clean up created images run the following command:
+**Optionally**, if you want to stop the workshop at this point, run the following command to clean up created images:
 
 ```bash
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
