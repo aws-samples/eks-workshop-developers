@@ -83,3 +83,6 @@ printenv
 
 ## 6. Install Other Tools (Recommended)
 - Consider installing the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview). This tool simplifies the management of container images and allows you to access container logs and console output directly from VS Code 🔥.
+
+## What's Next?
+- [Containers](../../containers/index.md)

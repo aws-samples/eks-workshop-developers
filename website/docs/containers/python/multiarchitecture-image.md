@@ -147,3 +147,6 @@ docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws
 
 ## Conclusion
 This lab explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.
+
+## What's Next?
+- [Kubernetes](../../kubernetes/index.md)

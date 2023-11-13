@@ -32,7 +32,7 @@ Instead, use the pre-built Docker image hosted on Amazon ECR:
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-## 3. Runing Docker Compose
+## 3. Running Docker Compose
 Authenticate your Docker CLI to your Amazon ECR registry before running Docker Compose:
 ```bash
 aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
