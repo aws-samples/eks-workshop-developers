@@ -15,11 +15,12 @@ We'll go through the following steps as part of the instrumentation process:
 5. Visualize request tracing in the AWS X-Ray console
 
 ## Prerequisites
+
 * [Securing FastAPI Microservices with Kubernetes Secrets](../python/deploy-secrets.md)
 * [Deploying FastAPI and PostgreSQL Microservices to EKS](../python/deploy-app.md)
 
-
 ## 1. Prepare Your Environment
+
 In the `python-fastapi-demo-docker` project where your [environment variables](../../introduction/python/environment-setup) are sourced, check-out the 'aws-opentelemetry' branch using the following command:
 
 ``` bash
@@ -35,7 +36,6 @@ metadata:
   name: managednode-quickstart
   region: us-west-1
 ```
-
 
 ## 2. Instrument the Application Code with Manual Instrumentation in Local Environment
 
@@ -54,11 +54,25 @@ We’ll be creating a new and improved multi-architecture image in this lab exer
 docker buildx rm webBuilder
 ```
 
+Or if using Finch, find the image by name and then remove it by running:
+
+```bash
+finch images --filter reference=webbuilder 
+finch rmi webbuilder
+```
+
 To test the tracing locally, build the instrumented application code locally using the following command:
 
 ```bash
 docker-compose build 
 ```
+
+Using Finch, run:
+
+```bash
+finch compose build
+```
+
 docker-compose will use the local image and not the ECR image. In dev set up while doing the changes it is easier to refer to the local image rather than the remote repository image.
 
 Update the `.env` file by adding the following lines:
@@ -70,9 +84,17 @@ OTEL_SERVICE_NAME = "BookManagemment-App"
 ```
 
 Start the application using the following command:
+
 ```bash
 docker-compose up 
 ```
+
+When using Finch start the application by running the following command:
+
+```bash
+finch compose up
+```
+
 Play with the application by adding a couple new books at [http://0.0.0.0:8000](http://0.0.0.0:8000) to generate traces. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
 
 ![Trace Map](./images/Local-tracing.png)
@@ -84,38 +106,62 @@ Scroll down to view details of the requests in the trace:
 ## 4. Build and Push the Multi-Architecture Container
 
 After running a few requests, we'll now push the image to Amazon ECR. First, authenticate the Docker CLI to your Amazon ECR registry using:
-```
+
+```bash
 aws ecr get-login-password \
 --region ${AWS_REGION} | docker login \
 --username AWS \
 --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
 
+using Finch to authenticate, run the following:
+
+```bash
+aws ecr get-login-password \
+--region ${AWS_REGION} | finch login \
+--username AWS \
+--password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+```
+
 Next, create and start new builder instances for the web service by running the following commands:
+
 ```bash
 docker buildx create --name webBuilder
 docker buildx use webBuilder
 docker buildx inspect --bootstrap
 ```
 
+>Note: There is no direct equivalent for `buildx` using Finch. You can target a set of platforms though.
+>The `finch build` command allows targeting different platforms via the `--platform` flag, similar to buildx. You can build binaries for Linux, macOS, and Windows on AMD64 or ARM architectures. For example: `finch build --platform=amd64,arm64 .` to target both AMD and ARM architectures.
+
 Build and push the images for your web service by running the following commands:
+
 ```bash
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
+
+Using finch we can target the desired platform using the  following command:
+
+```bash
+finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
+```
+
 Display your Amazon ECR URI:
+
 ```bash
 echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
 Replace the sample image in the [eks/deploy-app-with-adot-sidecar.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35) file with your Amazon ECR URI. For example:
+
 ```bash
 image: 01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
 ```
 
 ## 5. Deploy the ADOT Add-On
 
-The '[cert-manager](https://cert-manager.io/docs/)' is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in EKS official documentation. 
+The '[cert-manager](https://cert-manager.io/docs/)' is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in EKS official documentation.
 
 Deploy the 'cert-manager' add-on in your cluster using the following command:
 
@@ -138,19 +184,20 @@ cert-manager-cainjector-abcdef0123-45678   1/1     Running   0          12s
 cert-manager-webhook-021345abcd-ef678      1/1     Running   0          12s
 ```
 
-
 Run the following command to install the EKS ADOT add-on:
+
 ``` bash
 eksctl create addon -f eks/create-adot-add-on-python.yaml
 ```
 
 ### Create the OpenTelemetryCollector Custom Resource Definition (CRD)
 
-Now we'll create the OpenTelemetryCollector CRD object, which contains the configuration required for deploying the OTel Collector as a sidecar container. 
+Now we'll create the OpenTelemetryCollector CRD object, which contains the configuration required for deploying the OTel Collector as a sidecar container.
 
 First, replace the sample region in the [eks/opentelemetrycollector.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L34).
 
 Next, run the following command to create the CRD:
+
 ``` bash
 kubectl apply -f eks/opentelemetrycollector.yaml
 ```
@@ -179,7 +226,7 @@ Events:              <none>
 
 ## 6. Deploy the Application with the ADOT Collector Side Car Container
 
-To deploy the add-on with the ADOT side car container, we'll use the  `sidecar.opentelemetry.io/inject: "true"` annotation in our app deployment's pod specification. 
+To deploy the add-on with the ADOT side car container, we'll use the  `sidecar.opentelemetry.io/inject: "true"` annotation in our app deployment's pod specification.
 
 First, let's do a little clean up to remove redundant resources. We'll be redeploying these resources with a few additional modifications. Run the following command to delete FastAPI resources:
 
@@ -193,7 +240,6 @@ Make sure **not** to take any additional steps to delete `fastapi-secret` secret
 
 :::  
 
-
 Deploy the new FastAPI application resources using the following command:
 
 ``` bash
@@ -201,6 +247,7 @@ kubectl apply -f eks/deploy-app-with-adot-sidecar.yaml
 ```
 
 The expected output should look like this:
+
 ```bash
 service/fastapi-service created
 deployment.apps/fastapi-deployment created
@@ -208,10 +255,13 @@ ingress.networking.k8s.io/fastapi-ingress created
 ```
 
 Run the following command to get the ALB URL:
+
 ```bash
 kubectl get ingress -n my-cool-app
 ```
+
 The expected output should look like this:
+
 ```bash
 NAME              CLASS    HOSTS   ADDRESS                                                                  PORTS   AGE
 
@@ -219,7 +269,7 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us
 
 ```
 
-Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, “http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/”. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example: 
+Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, “<http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/”>. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
 
 ![Trace Map](./images/k8-app-trace.png)
 
@@ -228,7 +278,6 @@ We've used 'resourcedetection' in [eks/opentelemetrycollector.yaml](https://gith
 ![Raw Trace](./images/raw-trace-snippet.png)
 
 ![Metadata](./images/Metadata.png)
-
 
 You can filter for traces by creating queries in a time duration. To learn more, see [Using filter expressions](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html) in AWS X-Ray documentation.
 
@@ -248,11 +297,3 @@ kubectl apply -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
 eksctl delete cluster -f eks/create-mng-python.yaml
 ```
-
-
-
-
-
-
-
-

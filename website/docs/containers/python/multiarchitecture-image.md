@@ -79,6 +79,12 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
+For Finch you can target the platform architecture using the following command:
+
+```bash
+finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
+```
+
 This builds Docker images based on the Dockerfile instructions and pushes them to your ECR repository.
 The expected output should look like this :
 
@@ -145,6 +151,12 @@ After building the images, start the application and database services in separa
 docker-compose up
 ```
 
+The Finch command to start the the application and database services:
+
+```bash
+finch compose up
+```
+
 This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
 
 ## 5. Stopping the Services and Their Containers
@@ -153,6 +165,12 @@ Stop and remove the containers of both services by pressing `CTRL + C` or runnin
 
 ```bash
 docker-compose down
+```
+
+To stop and remove the containers using Finch:
+
+```bash
+finch compose down
 ```
 
 ## 6. Rebuilding and Restarting Docker Services
@@ -164,6 +182,12 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
+The Finch command to rebuild the multi-architecture image:
+
+```bash
+finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
+```
+
 This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
 
 ## Cleanup
@@ -172,6 +196,13 @@ This halts your services, rebuilds the Docker images, and reboots the services w
 
 ```bash
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
+```
+
+The Finch commands to clean up created images including dangling:
+
+```bash
+finch rmi -f $(finch images --filter reference=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com -q)
+finch rmi $(finch images -f "dangling=true" -q)      
 ```
 
 ## Conclusion
