@@ -5,17 +5,21 @@ sidebar_position: 5
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
-This lab shows you how to create a multi-architecture container image for the FastAPI application using [docker buildx](https://docs.docker.com/engine/reference/commandline/buildx/), which is essential when deploying to a Kubernetes cluster. The PostgreSQL database, utilizing the official "postgres:13" image, is sourced directly from Docker Hub, eliminating the necessity to construct and deploy a custom image for it. 
+
+This lab shows you how to create a multi-architecture container image for the FastAPI application using [docker buildx](https://docs.docker.com/engine/reference/commandline/buildx/), which is essential when deploying to a Kubernetes cluster. The PostgreSQL database, utilizing the official "postgres:13" image, is sourced directly from Docker Hub, eliminating the necessity to construct and deploy a custom image for it.
 
 ## Prerequisites
+
 - [Integrating Amazon ECR with Docker Compose](integration-ecr.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
 
 ## 1. Logging into Amazon ECR
+
 From the 'python-fastapi-demo-docker' project directory, authenticate the Docker CLI to your Amazon ECR registry using:
-```
+
+```bash
 aws ecr get-login-password \
 --region ${AWS_REGION} | docker login \
 --username AWS \
@@ -24,10 +28,21 @@ aws ecr get-login-password \
 
 You should see the following response output: “Login Succeeded”.
 
+For Finch authenticate to your Amazon ECR registry using:
+
+```bash
+aws ecr get-login-password \
+--region ${AWS_REGION} | finch login \
+--username AWS \
+--password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+```
+
 ## 2. Building Multi-Architecture Docker Image for the Web Service
+
 You can use 'docker buildx' to build Docker images for application and database services that are compatible with multiple architectures, including Kubernetes clusters.
 
 First, create and start new builder instances for the web service:
+
 ```bash
 docker buildx create --name webBuilder
 docker buildx use webBuilder
@@ -35,6 +50,7 @@ docker buildx inspect --bootstrap
 ```
 
 The expected output should look like this:
+
 ```bash
 webBuilder
 [+] Building 2.7s (1/1) FINISHED
@@ -51,14 +67,21 @@ Status:    running
 Platforms: linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/mips64le, linux/mips64, linux/arm/v7, linux/arm/v6
 ```
 
+> Note: There is no direct equivalent for `buildx` using Finch. You can target a set of platforms though.
+>The `finch build` command allows targeting different platforms via the `--platform` flag, similar to buildx. You can build binaries for Linux, macOS, and Windows on AMD64 or ARM architectures. For example: `finch build --platform=amd64,arm64 .` to target both AMD and ARM architectures.
+
 ## 3. Pushing the Image to Amazon ECR
+
 Next, build and push the images for your web service by running the following commands:
+
 ```bash
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
-This builds Docker images based on the Dockerfile instructions and pushes them to your ECR repository. 
+
+This builds Docker images based on the Dockerfile instructions and pushes them to your ECR repository.
 The expected output should look like this :
+
 ```bash
 [+] Building 305.4s (30/30) FINISHED
  => [internal] load build definition from Dockerfile                                                                       0.1s
@@ -113,8 +136,11 @@ The expected output should look like this :
  => => pushing manifest for ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0@sha256:894e90606e81e42  1.2s
  => [auth] sharing credentials for ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 ```
+
 ## 4. Running the Services as Docker Containers
+
 After building the images, start the application and database services in separate Docker containers using Docker Compose:
+
 ```bash
 docker-compose up
 ```
@@ -122,13 +148,17 @@ docker-compose up
 This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
 
 ## 5. Stopping the Services and Their Containers
+
 Stop and remove the containers of both services by pressing `CTRL + C` or running the following command:
+
 ```bash
 docker-compose down
 ```
 
 ## 6. Rebuilding and Restarting Docker Services
+
 If you make changes to your application, rebuild the multi-architecture images and restart the services simultaneously using the following commands:
+
 ```bash
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
@@ -144,9 +174,10 @@ This halts your services, rebuilds the Docker images, and reboots the services w
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
 ```
 
-
 ## Conclusion
+
 This lab explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.
 
 ## What's Next?
+
 - [Kubernetes](../../kubernetes/index.md)
