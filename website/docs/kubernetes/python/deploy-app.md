@@ -185,9 +185,13 @@ fastapi-postgres-0                    1/1     Running   0          19m
 
 Now let's take a look at the Pod 'fastapi-deployment'. This Pod read our environment variables from a Secret. It also loads a [credential](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) for private ECR repositories. This makes it possible to pull container images from the ECR repository.
 
-``` bash
+Inspect the 'fastapi-deployment' Pod, including its configuration and secrets:
+```bash
 kubectl get po -n my-cool-app fastapi-deployment-5cf4f4dcc4-62jgb -o yaml
+```
 
+The expected output should look like this:
+``` bash
 apiVersion: v1
 kind: Pod
 metadata:
@@ -210,11 +214,13 @@ spec:
 
 See [the repository](https://github.com/aws-samples/python-fastapi-demo-docker/tree/main/server) for application details.
 
-Next, let's take a look at the Pod db.
-
+Next, let's take a look at the Pod 'db'.
 ```bash
 kubectl get po -n my-cool-app fastapi-postgres-0 -o yaml
+```
 
+The expected output should look like this:
+```bash
 apiVersion: v1
 kind: Pod
 metadata:
@@ -257,9 +263,14 @@ The container image [postgres](https://hub.docker.com/_/postgres) is a public im
 
 Let's take a look at init.sh. You can see that the database initialization processes such as database creation, permission grant, table creation, and connection to the database are executed.
 
+Display the contents of the 'init.sh' script from the 'fastapi-postgres-0' Pod, which is used for initializing the PostgreSQL database.
+
 ```bash
 kubectl exec -it -n my-cool-app fastapi-postgres-0 -- cat /docker-entrypoint-initdb.d/init.sh
+```
 
+The expected output should look like this:
+```bash
 #!/bin/bash
 
 set -e
@@ -267,22 +278,22 @@ set -u
 
 # Create custom database
 create_database() {
-	psql -v ON_ERROR_STOP=1 -U "$POSTGRES_MASTER" <<-EOSQL
+    psql -v ON_ERROR_STOP=1 -U "$POSTGRES_MASTER" <<-EOSQL
         CREATE USER $WORKSHOP_POSTGRES_USER WITH PASSWORD '$WORKSHOP_POSTGRES_PASSWORD';
         ALTER USER $WORKSHOP_POSTGRES_USER WITH SUPERUSER;
-	CREATE DATABASE $WORKSHOP_POSTGRES_DB;
+    CREATE DATABASE $WORKSHOP_POSTGRES_DB;
         ALTER DATABASE $WORKSHOP_POSTGRES_DB OWNER TO $WORKSHOP_POSTGRES_USER;
 EOSQL
 }
 
 grant_permissions() {
-	psql -v ON_ERROR_STOP=1 -U "$POSTGRES_MASTER" <<-EOSQL
-	GRANT ALL PRIVILEGES ON DATABASE $WORKSHOP_POSTGRES_DB TO $WORKSHOP_POSTGRES_USER;
+    psql -v ON_ERROR_STOP=1 -U "$POSTGRES_MASTER" <<-EOSQL
+    GRANT ALL PRIVILEGES ON DATABASE $WORKSHOP_POSTGRES_DB TO $WORKSHOP_POSTGRES_USER;
 EOSQL
 }
 
 create_table() {
-	psql -v ON_ERROR_STOP=1 -U "$WORKSHOP_POSTGRES_USER" -d "$WORKSHOP_POSTGRES_DB" <<-EOSQL
+    psql -v ON_ERROR_STOP=1 -U "$WORKSHOP_POSTGRES_USER" -d "$WORKSHOP_POSTGRES_DB" <<-EOSQL
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
@@ -293,7 +304,7 @@ EOSQL
 }
 
 connect_database() {
-	psql -U "$WORKSHOP_POSTGRES_USER" -d "$WORKSHOP_POSTGRES_DB"
+    psql -U "$WORKSHOP_POSTGRES_USER" -d "$WORKSHOP_POSTGRES_DB"
 }
 
 create_database
@@ -302,4 +313,5 @@ create_table
 connect_database
 ```
 
-If the Deployment is running correctly, go to the next section.
+## Conclusion
+In this lab, we successfully deployed FastAPI and PostgreSQL microservices on Kubernetes using Minikube and Amazon ECR. The steps involved creating a PostgreSQL StatefulSet, Service, PersistentVolumeClaim, and the FastAPI Deployment and Service. We inspected the key components and configurations, ensuring a secure and efficient deployment process. This involved configuring environment variables and secrets for secure communication, customizing the PostgreSQL container with an initialization script, and utilizing Minikube's features for local testing and validation.
