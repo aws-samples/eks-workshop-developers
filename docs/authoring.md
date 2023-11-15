@@ -2,8 +2,8 @@
 This guide provides instructions for setting up and running [Docusaurus](https://docusaurus.io/) for contributors to the EKS Developers Workshop documentation. It includes steps to create a fork, manage branches, and best practices for contributing.
 
 ### Prerequisites
-- [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 16.x or higher)
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 8.x or higher)
+- [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 16.x or higher). To check your version, run: `node --version`.
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (version 8.x or higher). To check your version, run: `npm --version`.
 
 ### Setup
 Before you can start contributing to the documentation, you need to set up Docusaurus locally. 
