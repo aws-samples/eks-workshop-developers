@@ -19,7 +19,7 @@ If you're planning to complete the Python workshop in full, make sure you've set
 - [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [Install Helm](https://helm.sh/docs/intro/install/)
 
-Optionally, if you are using macOS catalina (10.15) or higher, you can use Finch in place of docker. Finch is an open source tool for local container development. Finch is available for developers using macOS on Intel and Apple Silicon.
+Optionally, if you are using macOS catalina (10.15) or higher, you can use Finch in place of Docker. Finch is an open source tool for local container development. Finch is available for developers using macOS on Intel and Apple Silicon. Finch and Docker can be installed together, however for performing the workshop exercises it is recommend to use either Finch or Docker for all the steps.
 
 - [Install Finch](https://runfinch.com/docs/managing-finch/macos/installation/)
 

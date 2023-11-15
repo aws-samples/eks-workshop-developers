@@ -6,7 +6,7 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
-This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
+This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose and providing the Finch equivalent commands. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 
 ## Prerequisites
 
