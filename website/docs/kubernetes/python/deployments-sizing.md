@@ -15,7 +15,7 @@ This lab shows how to update the resource requests and limits data based on our 
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
 The [fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml) manifest contains the resources for our FastAPI application. We're going to adjust the resource requests and limits for this deployment based on the data we've gathered.
 
-From the 'python-fastapi-demo-docker' project directory, open the **fastapi-deployment.yaml** in a text editor and find the section that defines the resources for the **web** container:
+From the 'python-fastapi-demo-docker' project directory, open the **[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** in a text editor and find the section that defines the resources for the **web** container:
 ```bash
         resources:
           requests:
