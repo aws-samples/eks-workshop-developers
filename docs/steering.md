@@ -46,8 +46,8 @@ Chairs are the strategic leaders and visionaries of our workshop chapters. Their
     * **Ongoing Improvement**: Share these comments in monthly committee meetings and within your working group to drive iterative improvements, even when quantitative thresholds are not met.
 * **Responsibility Assignment**:
     * **Role of the Chair**: Responsible for monitoring metrics, initiating discussions and driving improvements within the working group. This ensures accountability and keeps the focus on quality and relevance.
-    * **Collaboration and Approval**: While the chair initiates changes, they should collaborate with maintainers and the broader community for diverse insights. Significant changes can be presented to the steering committee for approval.
-    * **Major Changes**: Use [FEATURES](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/FEATURES.md) to communicate major app enhancements to the broader community, of which would be paired with a corresponding lab exercise.
+    * **Collaboration and Approval**: While the chair initiates changes, they should collaborate with maintainers and the broader community for diverse insights. Significant changes should be presented to the steering committee for approval.
+    * **Major Changes**: Use [FEATURES](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/FEATURES.md) to communicate major app enhancements to the broader community. Major app enhancements should be paired with a corresponding lab exercise.
 * **Process for Redesign**:
     * **Initiating Redesign**: If a lab exercise falls below the set thresholds, the chair convenes the working group to analyze feedback and propose redesigns.
     * **Community Involvement**: Consider involving the community members who provided feedback in the friction logging process, either through targeted outreach or open calls for contributions or feedback.
