@@ -40,7 +40,7 @@ Based on our load testing results, increase the limits to allow the application 
 ## 2. Updating postgres-db.yaml for Efficient Resource Utilization
 The [postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml) manifest contains the resources for our PostgreSQL database. We'll adjust the resource requests and limits for this deployment as well. 
 
-Open the **postgres-db.yaml** file in a text editor and find the section that defines the resources for the **db** container:
+From the 'python-fastapi-demo-docker' project directory, open the **[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml)** file in a text editor and find the section that defines the resources for the **db** container:
 ```bash
         resources:
           requests:
@@ -76,7 +76,8 @@ Since new pod names were generated based on our changes, let's retrieve the name
 ```bash
 kubectl get pods -n my-cool-app
 ```
-You should see something like this:
+
+The expected output should look like this:
 ```bash
 NAME                                  READY   STATUS    RESTARTS   AGE
 fastapi-deployment-86574858b9-n2c8t   1/1     Running   0          2m32s
