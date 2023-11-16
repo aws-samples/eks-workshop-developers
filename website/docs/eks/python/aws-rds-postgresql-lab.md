@@ -2,6 +2,8 @@
 title: Migrating to Amazon Aurora PostgreSQL Database
 sidebar_position: 12
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
@@ -39,14 +41,32 @@ source .env
 ```
 :::
 
-To create the CloudFormation stack please run the below command in your terminal. This command assumes that a Managed Nodegroup cluster was created using the file `eks/create-mng-python.yaml`. If instead a Fargate cluster was created using the file `eks/create-fargate-python.yaml` please update the `ClusterType` parameter to `Fargate` before running so that the stack can use the subnet and security group values exported from the EKS stack.
+To create the CloudFormation stack please run correct command below based on whether you created a Fargate or Managed Node Group cluster.
+
+
+<Tabs>
+  <TabItem value="Fargate" label="Fargate" default>
 
 ```bash
 aws cloudformation create-stack --region $AWS_REGION \
   --stack-name eksworkshop-rds-cluster \
-  --template-body file://eks/rds-serverless-postgress.json \
-  --parameters ClusterType=ManagedNodegroup
+  --template-body file://eks/rds-serverless-postgres.json \
+  --parameters ParameterKey=ClusterType,ParameterValue=Fargate
 ```
+
+  </TabItem>
+  <TabItem value="Managed Node Groups" label="Managed Node Groups">
+
+```bash
+aws cloudformation create-stack --region $AWS_REGION \
+  --stack-name eksworkshop-rds-cluster \
+  --template-body file://eks/rds-serverless-postgres.json \
+  --parameters ParameterKey=ClusterType,ParameterValue=ManagedNodeGroup
+```
+
+  </TabItem>
+</Tabs>
+
 
 The output should look as follows:
 
