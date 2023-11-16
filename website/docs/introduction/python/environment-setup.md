@@ -13,7 +13,7 @@ If you're planning to complete the Python workshop in full, make sure you've set
 - [Install Python 3.9+](https://www.python.org/downloads/release/python-390/)
 - [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
-- [Install eksctl](https://eksctl.io/introduction/#installation)
+- [Install eksctl](https://eksctl.io/installation)
 - [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [Install Helm](https://helm.sh/docs/intro/install/)
 
