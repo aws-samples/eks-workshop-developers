@@ -14,22 +14,22 @@ git clone https://github.com/your-gh-user-name/eks-workshop-developers.git
 cd eks-workshop-developers/website
 ```
 
-1. Run the following command to install the required dependencies.
+3. Run the following command to install the required dependencies.
 ```bash
 npm install
 ```
 
-1. Generate the static files for the documentation site:
+4. Generate the static files for the documentation site:
 ```bash
 npm run build
 ```
 This command will create a `/build` directory.
 
-1. To view the documentation site locally, run:
+5. To view the documentation site locally, run:
 ```bash
 npm run serve
 ```
-This will start a local development server. You will be redirected to documentation in your browser. Most changes are reflected live without having to restart the server.
+This will start a local development server. You will be redirected to workshop documentation in your browser. If you run into any issues building the documentation, see our troubleshooting guidance in the [Docusaurus Maintenance Guide](maintenance.md).
 
 ## Contributing
 When you're ready to contribute to the documentation, follow these steps:
