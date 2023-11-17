@@ -41,38 +41,41 @@ If you're planning significant updates such as modifying the contents of an exis
 - Depending on the nature of the update, it might be necessary to apply your changes to multiple branches.
 - Always check the relevance of your update to each branch and coordinate with project maintainers for guidance on multi-branch updates.
 
-### Create a Feature Branch
+### Steps
+#### 1. Create a Feature Branch
 From your forked repository, create a new branch for your feature or fix:
 ```bash
 git checkout -b feature/your-feature-name
 ```
 Replace `your-feature-name` with a descriptive name for your feature.
 
-### Make Your Changes
+#### 2. Make Your Changes
 - Make changes to the content or documentation as needed.
 - Add or update markdown files within the docs directory.
 - Follow [Markdown Syntax](https://www.markdownguide.org/basic-syntax/) and [Docusaurus Syntax](https://docusaurus.io/docs) to format your documentation.
 
 
-### Test Your Changes
+#### 3. Test Your Changes
 - Ensure your changes are working as expected.
 - Run the development server to preview the changes.
 
+#### 4. Verify Style Guide
+- Make sure your changes adhere to the principles in our minimal [Documentation Style Guide](style-guide.md).
 
-### Commit Your Changes
+#### 5. Commit Your Changes
 Stage your changes and commit them with a meaningful message:
 ```bash
 git add .
 git commit -m "Add a meaningful description of your changes"
 ```
 
-### Push to GitHub
+#### 6. Push to GitHub
 Push your feature branch to your forked repository:
 ```bash
 git push origin feature/your-feature-name
 ```
 
-### Create a Pull Request
+#### 7. Create a Pull Request
 - Go to your forked repository on GitHub and click "Pull request" to open a new pull request against our repository.
 
 ## Best Practices
