@@ -35,7 +35,7 @@ aws ecr get-login-password \
 --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
 
-Authenticate your Finch CLI to the Amazon ECR repository:
+Alternatively, if you're using Finch, run the following command to authenticate:
 
 ```bash
 aws ecr get-login-password \
@@ -56,7 +56,7 @@ Tag your Docker image for the ECR repository:
 docker tag fastapi-microservices:${IMAGE_VERSION} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-Using Finch tag your iamge for the ECR repository:
+Alternatively, if you're using Finch, run the following command to tag your image:
 
 ```bash
 finch tag fastapi-microservices:${IMAGE_VERSION} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
@@ -68,7 +68,7 @@ Push the tagged image to the ECR repository:
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-Using finch to push the image:
+Alternatively, if you're using Finch, run the following command to push the image:
 
 ```bash
 finch push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
@@ -82,7 +82,7 @@ Retrieve the Docker image from your ECR repository with this command:
 docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-Using Finch, retrieve the container image from your ECR repository with this command:
+Alternatively, if you're using Finch, run the following command to retrieve the container image from your ECR repository:
 
 ```bash
 finch pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}

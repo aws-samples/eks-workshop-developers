@@ -28,7 +28,7 @@ aws ecr get-login-password \
 
 You should see the following response output: “Login Succeeded”.
 
-For Finch authenticate to your Amazon ECR registry using:
+Alternatively, if you're using Finch, run the following command to authenticate to your Amazon ECR registry:
 
 ```bash
 aws ecr get-login-password \
@@ -79,7 +79,7 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-For Finch you can target the platform architecture using the following command:
+Alternatively, if you're using Finch, you can target the platform architecture using the following command:
 
 ```bash
 finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
@@ -151,7 +151,7 @@ After building the images, start the application and database services in separa
 docker-compose up
 ```
 
-The Finch command to start the the application and database services:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose up
@@ -167,7 +167,7 @@ Stop and remove the containers of both services by pressing `CTRL + C` or runnin
 docker-compose down
 ```
 
-To stop and remove the containers using Finch:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose down
@@ -182,7 +182,7 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-The Finch command to rebuild the multi-architecture image:
+Alternatively, if you're using Finch, run the following command to rebuild the multi-architecture image:
 
 ```bash
 finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
@@ -198,7 +198,7 @@ This halts your services, rebuilds the Docker images, and reboots the services w
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
 ```
 
-The Finch commands to clean up created images including dangling:
+Alternatively, if you're using Finch, run the following command to clean-up created images, including dangling images:
 
 ```bash
 finch rmi -f $(finch images --filter reference=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com -q)

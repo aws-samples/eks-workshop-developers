@@ -54,7 +54,7 @@ We’ll be creating a new and improved multi-architecture image in this lab exer
 docker buildx rm webBuilder
 ```
 
-Or if using Finch, find the image by name and then remove it by running:
+Alternatively, if you're using Finch, run the following commands to find the image by name and then remove it:
 
 ```bash
 finch images --filter reference=webbuilder 
@@ -67,7 +67,7 @@ To test the tracing locally, build the instrumented application code locally usi
 docker-compose build 
 ```
 
-Using Finch, run:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose build
@@ -89,7 +89,7 @@ Start the application using the following command:
 docker-compose up 
 ```
 
-When using Finch start the application by running the following command:
+Alternatively, if you're using Finch, run the following command to start the application:
 
 ```bash
 finch compose up
@@ -114,7 +114,7 @@ aws ecr get-login-password \
 --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
 
-using Finch to authenticate, run the following:
+Alternatively, if you're using Finch, run the following command to authenticate:
 
 ```bash
 aws ecr get-login-password \
@@ -141,7 +141,7 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-Using finch we can target the desired platform using the  following command:
+Alternatively, if you're using Finch, we can target the desired platform using the following command:
 
 ```bash
 finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true

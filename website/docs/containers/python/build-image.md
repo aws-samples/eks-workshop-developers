@@ -23,10 +23,10 @@ Build Docker images for the application and database services by running:
 docker-compose build
 ```
 
-Using Finch to build the container images for the application and database.
+Alternatively, if you're using Finch, run the following command to build the container images for the application and database:
 
 ```bash
-finch compose build
+finch compose build --platform linux/amd64
 ```
 
 This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
@@ -39,7 +39,7 @@ After building the images, start the application and database services in separa
 docker-compose up
 ```
 
-For Finch start the application and database services in separate Docker containers using:
+Alternatively, if you're using Finch, run the following command to start the application and database services:
 
 ```bash
 finch compose up
@@ -69,7 +69,7 @@ Stop and remove the containers of both services by pressing `CTRL + C` or runnin
 docker-compose down
 ```
 
-Press `CTRL + C` or run the following command using Finch:
+Alternatively, if you're using Finch, press CTRL + C or run the following command to stop and remove the containers:
 
 ```bash
 finch compose down
@@ -91,7 +91,7 @@ To rebuild the images and restart the services simultaneously, execute the follo
 docker-compose up --build
 ```
 
-For Finch, execute the following command:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose up --build

@@ -46,7 +46,7 @@ Authenticate your Docker CLI to your Amazon ECR registry before running Docker C
 aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
 
-Using Finch to login to Amazon ECR:
+Alternatively, if you're using Finch, run the following command to login to Amazon ECR:
 
 ```bash
 aws ecr get-login-password --region ${AWS_REGION} | finch login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
@@ -58,7 +58,7 @@ Now, initiate the services with Docker Compose, pulling the image from Amazon EC
 docker-compose up
 ```
 
-Using Finch to compose and pull the image from Amazon ECR:
+Alternatively, if you're using Finch, run the following command to compose and pull the image from Amazon ECR:
 
 ```bash
 finch compose up
@@ -76,7 +76,7 @@ To pull the latest image, run:
 docker-compose pull web
 ```
 
-Pull the latest image using Finch:
+Alternatively, if you're using Finch, run the following command to pull the latest image:
 
 ```bash
 finch compose pull web
@@ -88,7 +88,7 @@ To start your services, run:
 docker-compose up
 ```
 
-If using Finch, run:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose up
@@ -113,7 +113,7 @@ To build a new image for your application, run:
 docker-compose build web
 ```
 
-With Finch, run:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch compose build web
@@ -127,10 +127,15 @@ AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.1     
 AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.0                             abc11f568055   2 hours ago     233MB
 ```
 
-If using Finch run the following command:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch image ls | grep amazonaws.com/fastapi-microservices
+```
+
+The expected output should look like this:
+
+```text
 AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.1                             defd60e3e376   6 minutes ago   233MB
 AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/fastapi-microservices   1.0                             abc11f568055   2 hours ago     233MB
 ```
@@ -141,7 +146,7 @@ To push the new image to your ECR repository, run:
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-Push the new image using Finch, run:
+Alternatively, if you're using Finch, run the following command to push the new image:
 
 ```bash
 finch push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
@@ -155,7 +160,7 @@ To clean up created images run the following command:
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
 ```
 
-Using Finch to clean up, run the following command:
+Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch rmi -f $(finch images --filter reference=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com -q)
