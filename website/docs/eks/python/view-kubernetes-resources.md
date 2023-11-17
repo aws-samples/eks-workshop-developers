@@ -24,7 +24,7 @@ Make sure that the IAM principal you are using to logg into the EKS console has 
 
 :::caution
 
-If the IAM principal logged into the EKS console is the creator of the EKS cluster, skip this step and proceed to step '[4. View Kubernetes resources](#4-view-your-kubernetes-resources)'. This is because this IAM principal already has the necessary RBAC permissions.
+If the IAM principal logged into the EKS console is the creator of the EKS cluster, skip this step and proceed to step '[4. View Kubernetes resources](#4-viewing-your-kubernetes-resources)'. This is because this IAM principal already has the necessary RBAC permissions.
 
 :::
 
@@ -49,7 +49,7 @@ You can also view Kubernetes resources limited to a specific namespace. Refer to
 
 :::caution
 
-If the IAM principal logged into the EKS console is the creator of the EKS cluster, skip this step and proceed to step '[4. View Kubernetes resources](#4-view-your-kubernetes-resources)'. Performing this step by mistake will overwrite the original super-user permissions in the ConfigMap 'aws-auth', which can make the EKS cluster difficult to manage.
+If the IAM principal logged into the EKS console is the creator of the EKS cluster, skip this step and proceed to step '[4. View Kubernetes resources](#4-viewing-your-kubernetes-resources)'. Performing this step by mistake will overwrite the original super-user permissions in the ConfigMap 'aws-auth', which can make the EKS cluster difficult to manage.
 
 :::
 
