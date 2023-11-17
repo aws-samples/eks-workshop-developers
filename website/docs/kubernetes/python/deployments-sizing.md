@@ -15,7 +15,7 @@ This lab shows how to update the resource requests and limits data based on our 
 ## 1. Updating fastapi-app.yaml for Enhanced Resource Management
 The [fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml) manifest contains the resources for our FastAPI application. We're going to adjust the resource requests and limits for this deployment based on the data we've gathered.
 
-From the 'python-fastapi-demo-docker' project directory, open the **fastapi-deployment.yaml** in a text editor and find the section that defines the resources for the **web** container:
+From the 'python-fastapi-demo-docker' project directory, open the **[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** in a text editor and find the section that defines the resources for the **web** container:
 ```bash
         resources:
           requests:
@@ -40,7 +40,7 @@ Based on our load testing results, increase the limits to allow the application 
 ## 2. Updating postgres-db.yaml for Efficient Resource Utilization
 The [postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml) manifest contains the resources for our PostgreSQL database. We'll adjust the resource requests and limits for this deployment as well. 
 
-Open the **postgres-db.yaml** file in a text editor and find the section that defines the resources for the **db** container:
+From the 'python-fastapi-demo-docker' project directory, open the **[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/postgres-db.yaml)** file in a text editor and find the section that defines the resources for the **db** container:
 ```bash
         resources:
           requests:
@@ -76,7 +76,8 @@ Since new pod names were generated based on our changes, let's retrieve the name
 ```bash
 kubectl get pods -n my-cool-app
 ```
-You should see something like this:
+
+The expected output should look like this:
 ```bash
 NAME                                  READY   STATUS    RESTARTS   AGE
 fastapi-deployment-86574858b9-n2c8t   1/1     Running   0          2m32s
