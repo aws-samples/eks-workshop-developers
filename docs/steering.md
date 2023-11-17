@@ -1,9 +1,5 @@
 # Steering Committee and Chapter Leads
-
-## Emeritus
-|Name	|Project Role	|
-|---	|---	|
-|[Jesse Butler](https://github.com/jlbutler)	| Principal Technologist, AWS Kubernetes	|
+This page describes the organizational structure and roles of the steering committee, working groups, and chapter leads of the EKS Developers Workshop.
 
 ## Steering Committee
 
