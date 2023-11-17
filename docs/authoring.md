@@ -34,6 +34,13 @@ This will start a local development server. You will be redirected to documentat
 ## Contributing
 When you're ready to contribute to the documentation, follow these steps:
 
+### Major Updates to Lab Exercises
+If you're planning significant updates such as modifying the contents of an existing lab exercise (like Dockerfile, docker-compose.yml, Kubernetes manifests, etc.) or creating new lab exercises, please adhere to our branching strategy:
+
+- We maintain three primary branches in the **python-fastapi-demo-docker** repository: [main](https://github.com/aws-samples/python-fastapi-demo-docker/tree/main), [aws-opentelemetry](https://github.com/aws-samples/python-fastapi-demo-docker/tree/aws-opentelemetry), and [aws-secrets-manager-lab](https://github.com/aws-samples/python-fastapi-demo-docker/tree/aws-secrets-manager-lab).
+- Depending on the nature of the update, it might be necessary to apply your changes to multiple branches.
+- Always check the relevance of your update to each branch and coordinate with project maintainers for guidance on multi-branch updates.
+
 ### Create a Feature Branch
 From your forked repository, create a new branch for your feature or fix:
 ```bash
