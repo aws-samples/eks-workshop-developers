@@ -8,7 +8,9 @@ This guide shows you how to up the necessary tools and environment to leverage t
 
 ## 1. Installing Required Tools
 
-If you're planning to complete the Python workshop in full, make sure you've set-up the following on your local machine.
+To facilitate a beginner-friendly introduction to Kubernetes, this workshop is structured with user-friendly tools at its core. Central to this approach is the use of [eksctl](https://eksctl.io/), an Infrastructure as Code (IaC) tool that allows you to update the control plane, manage add-ons, and oversee worker node updates. 
+
+If you're planning to complete the workshop in full, make sure you've set up the following tools on your local machine.
 
 - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Create a DockerHub Account](https://hub.docker.com/)
@@ -19,11 +21,12 @@ If you're planning to complete the Python workshop in full, make sure you've set
 - [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [Install Helm](https://helm.sh/docs/intro/install/)
 
-Optionally, if you are using macOS catalina (10.15) or higher, you can use Finch in place of Docker. Finch is an open source tool for local container development. Finch is available for developers using macOS on Intel and Apple Silicon. Finch and Docker can be installed together, however for performing the workshop exercises it is recommend to use either Finch or Docker for all the steps.
+## 2. (Optional) Alternative Tools
+Optionally, if you are using macOS catalina (10.15) or higher, you can use Finch, instead of Docker. Finch is an open source tool for local container development. It is available for macOS on Intel and Apple Silicon. Finch and Docker can be installed together; however, for performing the workshop exercises, we recommend using either Finch or Docker consistently for all the steps.
 
 - [Install Finch](https://runfinch.com/docs/managing-finch/macos/installation/)
 
-## 2. Configuring the Shell Environment
+## 3. Configuring the Shell Environment
 
 First, configure your AWS credentials to be able to create AWS resources from the command line. Configure the AWS CLI by running:
 
@@ -40,7 +43,7 @@ Default region name [None]: us-east-2
 Default output format [None]: json
 ```
 
-## 3. Setting Up the Application
+## 4. Setting Up the Application
 
 Clone the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) repository and navigate into the project directory:
 
@@ -50,7 +53,7 @@ git clone https://github.com/aws-samples/python-fastapi-demo-docker.git
 
 If you prefer not to use git, you can alternatively [download the Zip file](https://github.com/aws-samples/python-fastapi-demo-docker/archive/refs/heads/main.zip).
 
-## 4. Creating the .env File
+## 5. Creating the .env File
 
 We'll be heavily reliant on environment variables to ease the set-up process throughout this workshop.
 
@@ -76,7 +79,7 @@ Update the sample value with your [DockerHub](https://hub.docker.com/) user name
 DOCKER_USERNAME=frank9
 ```
 
-## 5. Import Environment Variables
+## 6. Import Environment Variables
 
 Next, from the root directory of the 'python-fastapi-demo-docker' project, import all environment variables by running the following commands.
 
@@ -102,7 +105,7 @@ source .env
 printenv
 ```
 
-## 6. Install Other Tools (Recommended)
+## 7. Install Other Tools (Recommended)
 
 - Consider installing the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview). This tool simplifies the management of container images and allows you to access container logs and console output directly from VS Code 🔥.
 
