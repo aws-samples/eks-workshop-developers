@@ -269,7 +269,7 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us
 
 ```
 
-Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, “<http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/”>. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
+Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, `http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/`. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
 
 ![Trace Map](./images/k8-app-trace.png)
 
