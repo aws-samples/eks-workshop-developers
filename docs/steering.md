@@ -18,6 +18,11 @@ This page describes the organizational structure and roles of the steering commi
 |Kubernetes	|[Kenichiro Hiraiwa](https://github.com/hiraken-w)	|[Asiel Bencomo](https://github.com/abencomoc), [Premdass Ravidass](https://github.com/premdass), [Sahil Sethi](https://github.com/21sahilsethi), [Dola Krishnudu Battula](https://github.com/kakarotbyte)	|
 |EKS	|[Joe North](https://github.com/JoeNorth)	|[Smruti Ranjan Tripathy](https://github.com/smrutiranjantripathy), [Dola Krishnudu Battula](https://github.com/kakarotbyte), [Leah Tucker](https://github.com/tucktuck9), [Jan Klotter](https://github.com/awsjkl), [Deepankar Tiwari](https://github.com/deeptiwa), [Premdass Ravidass](https://github.com/premdass), [Sanketh Jain](https://github.com/jsanketh), [Udit Sidana](https://github.com/uditac25), [Sahil Sethi](https://github.com/21sahilsethi), [Pankaj Walke](https://github.com/punkwalker), [Asiel Bencomo](https://github.com/abencomoc)	|
 
+## Tenets
+* **Kubernetes Beginner-Friendly**: Our goal is to employ Kubernetes and container tools that are straightforward and easy to grasp, while demystifying fundamental Kubernetes concepts for newcomers embarking on their Kubernetes journey.
+* **Comprehensive Transparency**: We strive to reveal the inner workings, from the application level to containers and Kubernetes, enabling developers to understand and fully adopt our practices.
+* **Customer-Centric Focus**: We are committed to actively utilizing insights from the [feedback survey](https://pulse.aws/survey/IQNXSTCC) to guide and refine our workshop's future development, ensuring it continually meets and exceeds user needs.
+
 ## Chapters
 
 * [**Introduction (a.k.a., Refactoring)**](https://github.com/aws-samples/eks-workshop-developers/tree/main/website/docs/introduction). This programming language-heavy chapter provides EKS developers with essential guidance to refactor their applications for containers and Kubernetes, including application programming and development using [the twelve-factor app](https://12factor.net/) principles.
