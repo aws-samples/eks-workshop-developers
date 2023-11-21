@@ -19,11 +19,5 @@ This workshop is tailored for developers that want to refactor an application fo
 * **Kubernetes Deployment:** Learn how to deploy your application as microservices in a local minikube cluster, including securing microservices with Kubernetes secrets.
 * **Amazon EKS Deployment:** Build your skills in microservice deployments in production on Amazon EKS, integrating with AWS services like AWS Secrets Manager and Amazon RDS for PostgreSQL. 
 
-## Key Learning Outcomes
-* Refactor and containerize applications for Kubernetes and EKS.
-* Build and manage Docker containers, including multi-architecture variants.
-* Deploy and secure microservices in Kubernetes and EKS environments.
-* Leverage AWS services and tools for optimized Kubernetes management.
-
 ## Getting Started
 Dive into our [overview](./python/about-workshop.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.
