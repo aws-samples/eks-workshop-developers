@@ -81,34 +81,22 @@ metadata:
   uid: 2086b1c0-de23-4386-ae20-19d51b7db4a1
 ```
 
-## 3. Deploy Custom Resource Definitions (CRDs)
-For the AWS Load Balancer controller to create a load balancer and define the TargetGroupBinding object, we need to create some Custom Resource Definitions (CRDs).
+## 3. Add and Update EKS chart repository to Helm:
 
 Add the EKS chart repository to Helm:
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
 ```
 
-Install the CRDs for the AWS Load Balancer controller:
-```bash
-kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"
-```
-The expected output should look like this:
-```bash
-customresourcedefinition.apiextensions.k8s.io/ingressclassparams.elbv2.k8s.aws configured
-customresourcedefinition.apiextensions.k8s.io/targetgroupbindings.elbv2.k8s.aws configured
-```
-
-## 4. Updating Your Helm Repos
-Next, update the repositories to ensure Helm is aware of the latest versions of the charts:
+Update the repositories to ensure Helm is aware of the latest versions of the charts:
 ```bash
 helm repo update
 ```
 
-## 5. Deploy the Load Balancer Controller
+## 4. Deploy the Load Balancer Controller
 To install the AWS Load Balancer Controller in the "kube-system" namespace of the EKS cluster, run the following Helm command, replacing region with your specific region:
 ```bash
-helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
     --set clusterName=${CLUSTER_NAME} \
     --set serviceAccount.create=false \
     --set region=${AWS_REGION} \

@@ -29,5 +29,5 @@ The **data plane** consists of nodes, which act as the worker machines that run 
 ## Tools
 Before you begin, make sure you've completed the following:
 
-* [Install minikube](https://minikube.sigs.k8s.io/docs/)
+* [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
 * [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
