@@ -75,13 +75,7 @@ Alternatively, if you're using Finch, press CTRL + C or run the following comman
 finch compose down
 ```
 
-This command halts the containers and, by default, also removes the containers, networks, and volumes as described in your docker-compose.yml file. You should receive the following response output:
-
-```text
-Removing python-fastapi-demo-docker_web_1 ... done
-Removing python-fastapi-demo-docker_db_1  ... done
-Removing network python-fastapi-demo-docker_webnet
-```
+This command halts the containers and, by default, also removes the containers, networks, and volumes as described in your docker-compose.yml file.
 
 ## 6. Rebuilding and Restarting Docker Services
 
