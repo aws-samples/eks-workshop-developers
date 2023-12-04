@@ -6,7 +6,7 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
-This lab shows you how to create a multi-architecture container image for the FastAPI application using [docker buildx](https://docs.docker.com/engine/reference/commandline/buildx/), which is essential when deploying to a Kubernetes cluster. The PostgreSQL database, utilizing the official "postgres:13" image, is sourced directly from Docker Hub, eliminating the necessity to construct and deploy a custom image for it.
+This lab shows you how to create a multi-architecture container image for the FastAPI application using [docker buildx](https://github.com/docker/buildx), which is Docker CLI plugin for extended build capabilities with BuildKit. The PostgreSQL database, utilizing the official "postgres:13" image, is sourced directly from Docker Hub, eliminating the necessity to construct and deploy a custom image for it.
 
 ## Prerequisites
 
