@@ -95,11 +95,6 @@ helm repo update
 
 ## 4. Deploy the Load Balancer Controller
 To install the AWS Load Balancer Controller in the "kube-system" namespace of the EKS cluster, run the following Helm command, replacing region with your specific region:
-
-:::note
-If below commands fails with error similar to : "Error: INSTALLATION FAILED: cannot re-use a name that is still in use", it means aws load balancer controller is already installed. In this case, to ensure the latest version of controller and helm chart, replace "helm install" with "helm upgrade -i" in this command :
-:::
-
 ```bash
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
     --set clusterName=${CLUSTER_NAME} \
