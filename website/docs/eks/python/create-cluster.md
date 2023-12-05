@@ -63,6 +63,7 @@ default           Active   27m
 kube-node-lease   Active   27m
 kube-public       Active   27m
 kube-system       Active   27m
+my-cool-app       Active   27m
 ```
 
 :::tip
@@ -72,7 +73,7 @@ kube-system       Active   27m
 :::   
 
 ## 4. Creating a Namespace
-While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands:
+While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands after updating the names in both commands:
 ```bash
 kubectl create namespace my-cool-app
 ```
@@ -82,7 +83,7 @@ aws eks create-fargate-profile \
     --region ${AWS_REGION} \
     --cluster fargate-quickstart \
     --fargate-profile-name fp-dev \
-    --pod-execution-role-arn arn:aws:iam::0123456789:role/AmazonEKSFargatePodExecutionRole
+    --pod-execution-role-arn arn:aws:iam::0123456789:role/AmazonEKSFargatePodExecutionRole \
     --selectors namespace=my-cool-app
 ```
 
@@ -136,6 +137,7 @@ default           Active   41h
 kube-node-lease   Active   41h
 kube-public       Active   41h
 kube-system       Active   41h
+my-cool-app       Active   41h
 ```
 
 :::tip
@@ -143,12 +145,6 @@ kube-system       Active   41h
 - If you receive authentication errors, update kubeconfig using the following command `aws eks update-kubeconfig --name managednode-quickstart`
 
 :::   
-
-## 4. Creating a Namespace
-Run the following command to create the "my-cool-app" namespace for the workshop:
-```bash
-kubectl create namespace my-cool-app
-```
 
 ## Conclusion
 This tutorial walked you through the process of creating and connecting to an Amazon EKS cluster using managed node groups for the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) application. By using the eksctl tool and understanding the ClusterConfig file, you are now better equipped to deploy and manage Kubernetes applications, while AWS takes care of the node lifecycle management.

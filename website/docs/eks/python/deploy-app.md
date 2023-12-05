@@ -23,7 +23,6 @@ This lab shows you how to deploy the microservices of the [python-fastapi-demo-d
 Run the following command from `python-fastapi-demo-docker` directory to create config map
 
 ```bash
-cd python-fastapi-demo-docker
 kubectl create configmap db-init-script --from-file=init.sh=server/db/init.sh -n my-cool-app
 ```
 
