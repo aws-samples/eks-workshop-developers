@@ -2,6 +2,10 @@
 title: Adding OpenTelemetry Instrumentation for Distributed Tracing
 sidebar_position: 11
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+import GetECRURI from '../../../src/includes/get-ecr-uri.md';
 
 ## Objective
 
@@ -31,15 +35,30 @@ You may receive an error like `error: Your local changes to the following files 
 git checkout aws-opentelemetry
 ```
 
-Next, open the [eks/create-adot-add-on-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
+<Tabs>
+  <TabItem value="Fargate" label="Fargate" default>
+Next, open the [eks/create-adot-add-on-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python-fargate.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
+  ```bash
+  apiVersion: eksctl.io/v1alpha5
+  kind: ClusterConfig
+  metadata:
+    name: fargate-quickstart
+    region: us-west-2
+  ```
+  </TabItem>
+  <TabItem value="Managed Node Groups" label="Managed Node Groups">
+  Next, open the [eks/create-adot-add-on-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
 
-```bash
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
-metadata:
-  name: managednode-quickstart
-  region: us-west-1
-```
+   ```bash
+  apiVersion: eksctl.io/v1alpha5
+  kind: ClusterConfig
+  metadata:
+    name: managednode-quickstart
+    region: us-west-2
+  ``` 
+
+  </TabItem> 
+</Tabs>
 
 ## 2. Instrument the Application Code with Manual Instrumentation in Local Environment
 
@@ -165,15 +184,15 @@ image: 012345678901.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
 
 ## 5. Deploy the ADOT Add-On
 
-The [`cert-manager`](https://cert-manager.io/docs/) add-on is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in the EKS official documentation.
-
+The [`cert-manager`](https://cert-manager.io/docs/) add-on is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://aws-otel.github.io/docs/getting-started/adot-eks-add-on/requirements) in AWS Otel official documentation.
 Deploy the `cert-manager` add-on in your cluster using the following command:
 
 ``` bash
 kubectl apply -f eks/cert-manager.yaml
 ```
 
-Verify that `cert-manager` is ready:
+It would take a minute or two for the pods to deploy successfully.
+Verify that 'cert-manager' is ready:
 
 ``` bash
 kubectl get pod -w -n cert-manager
@@ -189,10 +208,21 @@ cert-manager-webhook-021345abcd-ef678      1/1     Running   0          12s
 ```
 
 Run the following command to install the EKS ADOT add-on:
+<Tabs>
+ <TabItem value="Fargate" label="Fargate" default>
+  ``` bash
+  eksctl create addon -f eks/create-adot-add-on-python-fargate.yaml
+  ```
+ </TabItem>
+ <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
-``` bash
-eksctl create addon -f eks/create-adot-add-on-python.yaml
-```
+  ``` bash
+  eksctl create addon -f eks/create-adot-add-on-python.yaml
+  ```
+</TabItem>
+</Tabs>
+
+
 
 ### Create the OpenTelemetryCollector Custom Resource Definition (CRD)
 
@@ -289,15 +319,35 @@ You can filter for traces by creating queries in a time duration. To learn more,
 
 To clean up all resources created in this lab exercise and the workshop up to this point, run the following commands.
 
-``` bash
+<Tabs>
+ <TabItem value="Fargate" label="Fargate" default>
+    ``` bash
+cd python-fastapi-demo-docker
+aws ecr delete-repository --repository-name fastapi-microservices --force
+kubectl delete -f eks/deploy-db-python-fargate.yaml
+kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
+kubectl delete -f eks/opentelemetrycollector.yaml
+eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve 
+eksctl delete addon -f eks/create-adot-add-on-python-fargate.yaml
+kubectl delete -f eks/cert-manager.yaml
+kubectl delete pdb coredns ebs-csi-controller -n kube-system
+eksctl delete cluster -f create-fargate-python.yaml
+```
+ </TabItem>
+ <TabItem value="Managed Node Groups" label="Managed Node Groups">
+
+  ``` bash
 cd python-fastapi-demo-docker
 aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
-eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve 
-eksctl delete addon -f eks/create-adot-add-on-python.yaml
-kubectl apply -f eks/cert-manager.yaml
+eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart 
+eksctl delete addon --name adot --cluster managednode-quickstart
+kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
 eksctl delete cluster -f eks/create-mng-python.yaml
 ```
+</TabItem>
+</Tabs>
+
