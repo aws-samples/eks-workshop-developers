@@ -261,7 +261,7 @@ kind: Deployment
 ...
    containers:
     - name: web
-      image: 01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.1
+      image: 012345678901.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.1
 ```
 
 ### 6. Execute the app as one or more stateless processes

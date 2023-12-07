@@ -11,7 +11,7 @@ This lab shows you how to set up the [AWS Load Balancer Controller (LBC)](https:
 
 :::info
 
-Classic Load Balancers and Network Load Balancers are not supported on pods running on Fargate.
+Classic Load Balancers are not supported for pods running on Fargate. Network Load Balancers are only supported when using the AWS Load Balancer Controller and IP target type mode.
 
 :::
 
@@ -22,9 +22,9 @@ Classic Load Balancers and Network Load Balancers are not supported on pods runn
 <GetEnvVars />
 
 ## 1. Set Environment Variables
-Before we start setting up our EKS cluster, we need to set a couple environment variables. Optionally, you can add these to the `.env` file at the root of the 'python-fastapi-demo-docker' project directory.
+Before we start setting up our EKS cluster, we need to set a couple environment variables. Optionally, you can add these to the `.env` file at the root of the `python-fastapi-demo-docker` project directory.
 
-From the 'python-fastapi-demo-docker' project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
+From the `python-fastapi-demo-docker` project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
 
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
@@ -71,7 +71,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::01234567890:role/eksctl-fargate-quickstart-addon-iamserviceac-Role1-J2T54L9SG5L0
+    eks.amazonaws.com/role-arn: arn:aws:iam::012345678901:role/eksctl-fargate-quickstart-addon-iamserviceac-Role1-J2T54L9SG5L0
   creationTimestamp: "2023-05-30T23:09:32Z"
   labels:
     app.kubernetes.io/managed-by: eksctl
@@ -84,11 +84,13 @@ metadata:
 ## 3. Add and Update EKS chart repository to Helm:
 
 Add the EKS chart repository to Helm:
+
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
 ```
 
 Update the repositories to ensure Helm is aware of the latest versions of the charts:
+
 ```bash
 helm repo update
 ```

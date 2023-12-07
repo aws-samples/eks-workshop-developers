@@ -12,8 +12,7 @@ This guide aims to guide you through the process of accessing your microservices
 
 - [Deploying FastAPI and PostgreSQL Microservices to EKS](./deploy-app.md)
 
-
-<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
+<!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the `python-fastapi-demo-docker` directory where their environment variables are sourced.-->
 <GetEnvVars />
 
 ## 1. Checking the Status of Pods
@@ -23,6 +22,7 @@ Before we try to access our application, we need to ensure that all of our pods 
 ```bash
 kubectl get pods -n my-cool-app
 ```
+
 All your pods should be in the "Running" state. If they're not, you will need to troubleshoot the deployment before proceeding.
 
 ## 2. Getting the ALB URL
@@ -41,10 +41,11 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-8114c40e9c-860636650.us
 ```
 
 ## 3. Accessing the FastAPI Service
+
 In the previous lab exercise, we used the AWS Load Balancer Controller (LBC) to dynamically provision an [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html). Note that it takes several minutes or more before the ALB has finished provisioning. 
 
-1. **Check the status**: Open the [Load Balancers](https://console.aws.amazon.com/ec2/#LoadBalancers:) page on the Amazon EC2 console and select the AWS Region in which your Amazon EKS cluster resides. Next, select your ALB name, such as "k8s-mycoolap-fastapii-8004c40e9c".
-2. **Open the app**: Open a new tab in your browser paste the ALB link, such as "k8s-mycoolap-fastapii-8114c40e9c-860636650.us-west-2.elb.amazonaws.com". You should see the welcome page:
+1. **Check the status**: Open the [Load Balancers](https://console.aws.amazon.com/ec2/#LoadBalancers:) page on the Amazon EC2 console and select the AWS Region in which your Amazon EKS cluster resides. Next, select your ALB name, such as `k8s-mycoolap-fastapii-8004c40e9c`.
+2. **Open the app**: Open a new tab in your browser paste the ALB link, such as `k8s-mycoolap-fastapii-8114c40e9c-860636650.us-west-2.elb.amazonaws.com`. You should see the welcome page:
 
 ![](./images/app-home.png)
 
@@ -52,8 +53,8 @@ In the previous lab exercise, we used the AWS Load Balancer Controller (LBC) to 
 
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
-![Image](./images/app-create-book.png)
+![](./images/app-create-book.png)
 
 ## Conclusion
 
-This guide has walked you through the steps necessary to access your microservices, specifically the FastAPI service, deployed on a EKS cluster. We've shown how to check the status of your pods and verify your setup by interacting with the FastAPI service.
+This guide has walked you through the steps necessary to access the FastAPI service deployed on an EKS cluster. We've shown you how to check the status of your pods and verify your setup by interacting with the FastAPI service.

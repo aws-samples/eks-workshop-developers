@@ -76,7 +76,7 @@ The output should look as follows:
 }
 ```
 
-The CloudFormation stack will take between 15 and 20 minutes to run so now will be a good time for a coffee break ☕.
+The CloudFormation stack will take between 15 and 20 minutes to create the database.
 
 ## 2. Recreate the fastapi-secret Object with the New Database Connection URL
 

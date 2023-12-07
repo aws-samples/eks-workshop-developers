@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 ## Objective
 
-This lab show you how to view Kubernetes resources such as Pods, Services, and Nodes using the EKS console. With EKS, there is no need to deploy and manage a Kubernetes Dashboard Pod in order to view Kubernetes resources. To use this EKS console feature, the IAM principal logged into the EKS console must have the required permissions to access the EKS cluster. 
+This lab shows you how to view Kubernetes resources such as Pods, Services, and Nodes using the EKS console. With EKS, there is no need to deploy and manage a Kubernetes Dashboard Pod in order to view Kubernetes resources. To use this EKS console feature, the IAM principal logged into the EKS console must have the required permissions to access the EKS cluster. 
 
 Of course, it's also possible to use the Kubernetes Dashboard instead of the EKS console. If you use Kubernetes Dashboard, please check the [kubernetes/dashboard: General-purpose web UI for Kubernetes clusters](https://github.com/kubernetes/dashboard) in the GitHub for installation instructions. You can also refer to [Monitoring Kubernetes Resources Using the Dashboard](http://localhost:3000/docs/kubernetes/python/kubernetes-dashboard) page for operation methods.
 
@@ -45,7 +45,7 @@ clusterrolebinding.rbac.authorization.k8s.io/eks-console-dashboard-full-access-b
 
 You can also view Kubernetes resources limited to a specific namespace. Refer to the EKS documentation for more details on creating RBAC bindings for a namespace.
 
-## 3. Adding the IAM principal ARN to the ConfigMap 'aws-auth'
+## 3. Adding the IAM principal ARN to the `aws-auth` ConfigMap
 
 :::caution
 
@@ -56,25 +56,25 @@ If the IAM principal logged into the EKS console is the creator of the EKS clust
 **Optionally**, you can register an existing IAM principal ARN logged into the EKS console to the ConfigMap 'aws-auth' by running the following command. Make sure to substitute the sample value with your _existing_ IAM principal ARN as the value for the `--arn` argument:
 
 <Tabs>
-  <TabItem value="Fargate cluster" label="Fargate cluster" default>
+  <TabItem value="Fargate" label="Fargate" default>
 
 ```bash
 eksctl create iamidentitymapping \
     --cluster fargate-quickstart \
-    --region ${AWS_REGION} \
-    --arn arn:aws:iam::111122223333:role/my-console-viewer-role \
+    --region $AWS_REGION \
+    --arn arn:aws:iam::012345678901:role/my-console-viewer-role \
     --group eks-console-dashboard-full-access-group \
     --no-duplicate-arns
 ```
 
   </TabItem>
-    <TabItem value="Managed node group(EC2) Cluster" label="Managed node group(EC2) Cluster" default>
+    <TabItem value="Managed Node Groups" label="Managed Node Groups" default>
 
 ```bash
 eksctl create iamidentitymapping \
     --cluster managednode-quickstart \
-    --region ${AWS_REGION} \
-    --arn arn:aws:iam::111122223333:role/my-console-viewer-role \
+    --region $AWS_REGION \
+    --arn arn:aws:iam::012345678901:role/my-console-viewer-role \
     --group eks-console-dashboard-full-access-group \
     --no-duplicate-arns
 ```
@@ -84,8 +84,8 @@ eksctl create iamidentitymapping \
 The expected output should look like this:
 
 ```bash
-2023-11-10 10:11:50 [ℹ]  checking arn arn:aws:iam::111122223333:role/my-console-viewer-role against entries in the auth ConfigMap
-2023-11-10 10:11:50 [ℹ]  adding identity "arn:aws:iam::111122223333:role/my-console-viewer-role" to auth ConfigMap
+2023-11-10 10:11:50 [ℹ]  checking arn arn:aws:iam::012345678901:role/my-console-viewer-role against entries in the auth ConfigMap
+2023-11-10 10:11:50 [ℹ]  adding identity "arn:aws:iam::012345678901:role/my-console-viewer-role" to auth ConfigMap
 ```
 
 ## 4. Viewing your Kubernetes resources

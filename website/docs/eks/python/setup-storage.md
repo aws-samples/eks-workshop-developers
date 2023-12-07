@@ -7,9 +7,11 @@ import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
+
 This lab shows you how to setup and configure a data storage mechanism on your cluster. 
 
 ## Prerequisites
+
 - [Setting up the AWS Application Load Balancer Controller (LBC) on the EKS Cluster](./setup-loadbalancing.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
@@ -21,9 +23,11 @@ This lab shows you how to setup and configure a data storage mechanism on your c
 This lab shows you how to setup an [Elastic File System (EFS)](https://aws.amazon.com/efs/) volume within your Fargate cluster using the EFS CSI Driver. It's important to note that dynamic provisioning of persistent volumes is **not** supported for Fargate. As a result, in this lab, we'll be manually provisioning both the EFS filesystem and the corresponding Persistent Volume.
 
 ## 1. Configuring Mount Targets for the EFS File System
+
 EFS only allows one mount target to be created in each Availability Zone, so you'll need to place the mount target on **each subnet**. 
 
-1. Fetch the VPC ID associated with your EKS cluster and save it in a variable. 
+1. Fetch the VPC ID associated with your EKS cluster and save it in a variable.
+
 ```bash
 vpc_id=$(aws eks describe-cluster \
   --name "fargate-quickstart" \
@@ -32,7 +36,8 @@ vpc_id=$(aws eks describe-cluster \
   --output "text")
 ```
 
-2. Retrieve the CIDR range for the VPC of your EKS cluster and save it in a variable. 
+2. Retrieve the CIDR range for the VPC of your EKS cluster and save it in a variable.
+
 ```bash
 cidr_range=$(aws ec2 describe-vpcs \
   --vpc-ids "$vpc_id" \
@@ -41,7 +46,8 @@ cidr_range=$(aws ec2 describe-vpcs \
   --region "$AWS_REGION")
 ```
 
-3. Create a security group with an inbound rule that allows inbound NFS traffic for your Amazon EFS mount points, and save it in a variable.
+1. Create a security group for your Amazon EFS mount points and save its ID in a variable.
+   
 ```bash
 security_group_id=$(aws ec2 create-security-group \
   --group-name "MyEfsSecurityGroup" \
@@ -51,7 +57,9 @@ security_group_id=$(aws ec2 create-security-group \
   --output "text")
 ```
 
-4. Create an inbound rule that allows inbound NFS traffic from the CIDR for your cluster's VPC.
+4. Create an inbound rule on the new security group that allows NFS traffic from the CIDR for your cluster's VPC.
+
+
 ```bash
 aws ec2 authorize-security-group-ingress \
   --group-id "$security_group_id" \
@@ -62,6 +70,7 @@ aws ec2 authorize-security-group-ingress \
 ```
 
 The expected output should look like this:
+
 ```bash
 {
   "Return": true,
@@ -85,6 +94,7 @@ To further restrict access to your file system, you can optionally specify the C
 :::
 
 5. Create the Amazon EFS File System for your cluster.
+   
 ```bash
 file_system_id=$(aws efs create-file-system \
   --region "$AWS_REGION" \
@@ -94,44 +104,20 @@ file_system_id=$(aws efs create-file-system \
   --output "text")
 ```
 
-6. Retrieve the IDs of the subnets in your VPC and their Availability Zone.
-```bash
-aws ec2 describe-subnets \
-  --filters "Name=vpc-id,Values=$vpc_id" \
-  --region "$AWS_REGION" \
-  --query 'Subnets[*].{
-    SubnetId: SubnetId,
-    AvailabilityZone: AvailabilityZone,
-    CidrBlock: CidrBlock
-  }' \
-  --output table
-```
-
-The expected output should look like this:
-```bash
-DescribeSubnets Output
---------------------------------------------------------------
-| AvailabilityZone |    CidrBlock     |      SubnetId       |
---------------------------------------------------------------
-|  region-codec    |  192.168.128.0/19|  subnet-EXAMPLE6e421a0e97  |
-|  region-codeb    |  192.168.96.0/19 |  subnet-EXAMPLEd0503db0ec  |
-|  region-codec    |  192.168.32.0/19 |  subnet-EXAMPLEe2ba886490  |
-|  region-codeb    |  192.168.0.0/19  |  subnet-EXAMPLE123c7c5182  |
-|  region-codea    |  192.168.160.0/19|  subnet-EXAMPLE0416ce588p  |
---------------------------------------------------------------
-```
-
-7. Run the following command on **each subnet** to create a mount target for the subnet, replacing the subnet ID. 
+6. Run the following command to create an EFS mount target in each of the cluster VPC's subnets.
 
 ```bash
-aws efs create-mount-target \
---file-system-id $file_system_id \
---subnet-id subnet-EXAMPLEe2ba886490 \
---region $AWS_REGION \
---security-groups $security_group_id
+for subnet in $(aws ec2 describe-subnets --filters "Name=vpc-id,Values=$vpc_id" --region "$AWS_REGION" --query 'Subnets[*].SubnetId' --output text)
+do
+  aws efs create-mount-target
+  --file-system-id $file_system_id \
+  --subnet-id $subnet \
+  --region $AWS_REGION \
+  --security-groups $security_group_id
+done
 ```
 
-The expected output should look like this:
+The expected output for each subnet should look like this:
 ```bash
 {
   "OwnerId": "01234567890",
@@ -141,7 +127,7 @@ The expected output should look like this:
   "LifeCycleState": "creating",
   "IpAddress": "192.168.61.208",
   "NetworkInterfaceId": "eni-0b59c825208f521b7",
-  "AvailabilityZoneId": "use2-az3",
+  "AvailabilityZoneId": "use1-az3",
   "AvailabilityZoneName": "us-east-1a",
   "VpcId": "vpc-0f3ef22756b1abf1f"
 }
@@ -152,11 +138,11 @@ The expected output should look like this:
 1. Deploy the Storage Class:
 
 ```bash
-cd python-fastapi-demo-docker  
 kubectl apply -f eks/efs-sc.yaml
 ```
 
 The expected output should look like this:
+
 ```bash
 storageclass.storage.k8s.io/efs-sc created
 ```
@@ -168,6 +154,7 @@ sed -i 's/fs-000000001121212/$file_system_id/g' eks/efs-pv.yaml
 ```
 
 **Optionally**, if you're running this on macOS, run the following command to update the file system identifier:
+
 ```bash
 sed -i '' 's/fs-000000001121212/'"$file_system_id"'/g' eks/efs-pv.yaml
 ```
@@ -179,6 +166,7 @@ kubectl apply -f eks/efs-pv.yaml
 ```
 
 The expected output should look like this:
+
 ```bash
 persistentvolume/efs-pv created
 ```
@@ -186,6 +174,7 @@ persistentvolume/efs-pv created
 ## 3. Verifying the Deployment of the Storage Class and Persistent Volumes
 
 1. Verify that the Storage Class was successfully created:
+
 ```bash
 kubectl get storageclass efs-sc
 ```
@@ -203,6 +192,7 @@ kubectl describe pv efs-pv
 ```
 
 The expected output should look like this:
+
 ```bash
 Name:            efs-pv
 Labels:          <none>
@@ -226,9 +216,9 @@ Source:
     VolumeAttributes:  <none>
 Events:                <none>
 ```
-</TabItem>
+  </TabItem>
 
-<TabItem value="Managed Node Groups" label="Managed Node Groups">
+  <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
 This lab shows you how to verify the setup of the [Amazon Elastic Block Store](https://aws.amazon.com/ebs/) volume for your managed node groups-based EKS cluster, which enabled dynamic provisioning of persistent volumes on our cluster using the EBS CSI Driver. It's worth noting that we're also leveraging [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) configured during the creation of our cluster.
 
@@ -243,9 +233,10 @@ EBS CSI volumes only support the 'ReadWriteOnce' access mode. While this may see
 You can verify that the EBS CSI add-on was successfully installed when you created your cluster in [create-mng-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-mng-python.yaml#L41-L43) using the following command:
 
 ```bash
-kubectl get po -n kube-system --selector=app.kubernetes.io/name=aws-ebs-csi-driver 
+kubectl get pod -n kube-system --selector=app.kubernetes.io/name=aws-ebs-csi-driver 
 ```
 The expected output should look like this:
+
 ```bash
 NAME                                  READY   STATUS    RESTARTS   AGE
 ebs-csi-controller-5bd7b5fdbf-6wpzv   6/6     Running   0          7h

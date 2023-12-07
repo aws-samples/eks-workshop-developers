@@ -32,7 +32,7 @@ When using Kubernetes Secrets there are a number of security considerations to k
 
 ## 1. Reviewing Our Implementation for Fetching Secrets
 
-As mentioned in some of the links above on Secrets best practices both volume mounts and environment variables have potential security pitfalls that are important to be aware of. For this reason, we've gone with the most secure path by cutting out Kubernetes Secrets from the equation. Instead, we're using [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (AWS SDK for Python) and making calls to AWS Secrets Manager directly. The code snippet below from [connect.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/4eb157b28bae2c688b6530cfe9c076dc77a4396c/server/app/connect.py#L40) shows how we're making this work:
+As mentioned in some of the links above on Secrets best practices both volume mounts and environment variables have potential security pitfalls that are important to be aware of. For this reason, we've gone with the most secure path by cutting out Kubernetes Secrets from the equation. Instead, we're using [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (AWS SDK for Python) and making calls to AWS Secrets Manager directly. The code snippet below from [connect.py](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-secrets-manager-lab/server/app/connect.py#L40) shows how we're making this work:
 
 ```python
 # Retrieves secret by name from AWS Secrets Manager
@@ -168,14 +168,18 @@ After a minute or two of CloudFormation templates running we should see success 
 
 We're in the home stretch now and all that's left is to build and deploy our application. To do this, let's first switch to the Git branch `aws-secrets-manager-lab` which has our updated application code and deployment manifest.
 
-```bash
-git switch aws-secrets-manager-lab
+:::tip
+You may receive an error like `error: Your local changes to the following files would be overwritten by checkout` when running the below command if there are changes made to any of the source files. To fix this, first run the command `git stash` and then run the below command. After the checkout is finished, run the command `git stash pop` to reapply the changes.
+:::
+
+``` bash
+git checkout aws-secrets-manager-lab
 ```
 
 Next we'll update our `IMAGE_VERSION` environment variable to use a new version:
 
 :::info
-This is an important step as using the same image version from previous parts of this workshop can result in an old image being used since they get cached by each EKS worker node after being pulled.
+It's important to use a new image version as cached images on worker nodes can result in unexpected behaviors.
 :::
 
 ```bash
@@ -197,10 +201,10 @@ docker buildx inspect --bootstrap
 docker buildx build --platform linux/amd64,linux/arm64 -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION . --push
 ```
 
-With our new image successfully uploaded to ECR we can now update our deployment file `eks/deploy-app-python.yaml` to use our new image. First we'll get the URI we need to use:
+With our new image successfully uploaded to ECR we can now update our deployment file `eks/deploy-app-with-secrets-manager.yaml` to use our new image. First, retrieve your Amazon ECR repository URI using the following command:
 
 ```bash
-echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION
+echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
 The output should look as follows:
@@ -209,16 +213,16 @@ The output should look as follows:
 012345678901.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:2.0
 ```
 
-We can take this URI and update our deployment file on line 32 to now be as follows:
+We can take this URI and update our deployment file `eks/deploy-app-with-secrets-manager.yaml` on line 32 to now be as follows:
 
 ```yaml
 image: 012345678901.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:2.0
 ```
 
-Lastly, the moment we've all been waiting for, let's deploy this new version to our EKS cluster with the following command:
+Lastly let's deploy this new version to our EKS cluster with the following command:
 
 ```bash
-kubectl apply -f eks/deploy-app-python.yaml
+kubectl apply -f eks/deploy-app-with-secrets-manager.yaml
 ```
 
 The output should look as follows:
@@ -271,10 +275,10 @@ To delete the resources we created during this lab run the following commands:
   <TabItem value="Fargate" label="Fargate" default>
 
 ```bash
-kubectl delete -f eks/deploy-app-python.yaml
+kubectl delete -f eks/deploy-app-with-secrets-manager.yaml
 aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
 eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster fargate-quickstart --namespace my-cool-app
-aws iam delete-policy --policy-arn $POLICY_ARN
+aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN
 ```
 
   </TabItem>
@@ -282,7 +286,7 @@ aws iam delete-policy --policy-arn $POLICY_ARN
 
 
 ```bash
-kubectl delete -f eks/deploy-app-python.yaml
+kubectl delete -f eks/deploy-app-with-secrets-manager.yaml
 aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
 eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster managednode-quickstart --namespace my-cool-app
 aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN

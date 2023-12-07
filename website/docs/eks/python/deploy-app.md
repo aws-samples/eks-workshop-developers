@@ -20,7 +20,7 @@ This lab shows you how to deploy the microservices of the [python-fastapi-demo-d
 
 ## 1. Creating db-init-script Configmap
 
-Run the following command from `python-fastapi-demo-docker` directory to create config map
+Run the following command from the `python-fastapi-demo-docker` project directory to create the ConfigMap:
 
 ```bash
 kubectl create configmap db-init-script --from-file=init.sh=server/db/init.sh -n my-cool-app
@@ -32,7 +32,7 @@ The expected output should look like this:
 configmap/db-init-script created
 ```
 
-To confirm that your Kubernetes Configmap has been successfully created, you can use the kubectl get configmap command. This command lists all secrets that exist in the current namespace:
+To confirm that your Kubernetes Configmap has been successfully created, you can use the `kubectl get configmap` command. This command lists all ConfigMaps that exist in the specified namespace:
 
 ```bash
 kubectl get configmap -n my-cool-app
@@ -51,23 +51,22 @@ kube-root-ca.crt   1      5m36s
 
 The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
 
-From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
-
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
+
+  From the `python-fastapi-demo-docker` project directory, apply the database manifest:
 
   ```bash
   kubectl apply -f eks/deploy-db-python-fargate.yaml
   ```
 
-   It will take less than 2 minutes for Fargate to provision pods. In order to verify that the db pod is running plese run the below command.
+   It will take a few minutes for Fargate to provision pods. In order to verify that the database pod is running please run the below command:
 
   ```bash
-   kubectl get po fastapi-postgres-0 -n my-cool-app
+   kubectl get pod fastapi-postgres-0 -n my-cool-app
   ```
-The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources: a Service, Deployment, and Ingress. 
 
-   expected output:
+  The expected output should look like this:
    
   ```bash
   kubectl get pod fastapi-postgres-0 -n my-cool-app
@@ -75,13 +74,28 @@ The **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi
   fastapi-postgres-0   1/1     Running   0          4m32s
   ```
 
-
   </TabItem>
   <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
-```bash
-kubectl apply -f eks/deploy-db-python.yaml
-```
+  From the `python-fastapi-demo-docker` project directory, apply the database manifest:
+
+  ```bash
+  kubectl apply -f eks/deploy-db-python.yaml
+  ```
+
+  In order to verify that the database pod is running please run the below command:
+
+  ```bash
+   kubectl get pod fastapi-postgres-0 -n my-cool-app
+  ```
+
+  The expected output should look like this:
+   
+  ```bash
+  kubectl get pod fastapi-postgres-0 -n my-cool-app
+  NAME                 READY   STATUS    RESTARTS   AGE
+  fastapi-postgres-0   1/1     Running   0          4m32s
+  ```
 
   </TabItem>
 </Tabs>
@@ -95,16 +109,15 @@ The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-dem
 
 Next, open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image and tag (e.g., `1.0`).
 
-From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
+From the `python-fastapi-demo-docker` project directory, apply the application manifest:
 
 ```bash
-cd python-fastapi-demo-docker
 kubectl apply -f eks/deploy-app-python.yaml
 ```
 
 ## 4. Verifying the Deployment
 
-After applying the configuration, verify that the deployment is running correctly.
+After applying the manifest, verify that the deployment is running correctly.
 
 Check the services:
 

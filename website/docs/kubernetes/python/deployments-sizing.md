@@ -150,7 +150,7 @@ Events:
   Type    Reason     Age    From               Message
   ----    ------     ----   ----               -------
   Normal  Scheduled  4m47s  default-scheduler  Successfully assigned my-cool-app/fastapi-deployment-86574858b9-n2c8t to minikube
-  Normal  Pulled     4m46s  kubelet            Container image "01234567890.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0" already present on machine
+  Normal  Pulled     4m46s  kubelet            Container image "012345678901.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0" already present on machine
   Normal  Created    4m46s  kubelet            Created container web
   Normal  Started    4m46s  kubelet            Started container web
 ```

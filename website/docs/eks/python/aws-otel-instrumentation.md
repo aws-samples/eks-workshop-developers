@@ -21,7 +21,11 @@ We'll go through the following steps as part of the instrumentation process:
 
 ## 1. Prepare Your Environment
 
-In the `python-fastapi-demo-docker` project where your [environment variables](../../introduction/python/environment-setup) are sourced, check-out the 'aws-opentelemetry' branch using the following command:
+In the `python-fastapi-demo-docker` project where your [environment variables](../../introduction/python/environment-setup) are sourced, check-out the `aws-opentelemetry` branch using the following command:
+
+:::tip
+You may receive an error like `error: Your local changes to the following files would be overwritten by checkout` when running the below command if there are changes made to any of the source files. To fix this, first run the command `git stash` and then run the below command. After the checkout is finished, run the command `git stash pop` to reapply the changes.
+:::
 
 ``` bash
 git checkout aws-opentelemetry
@@ -156,20 +160,20 @@ echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices
 Replace the sample image in the [eks/deploy-app-with-adot-sidecar.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/deploy-app-with-adot-sidecar.yaml#L35) file with your Amazon ECR URI. For example:
 
 ```bash
-image: 01234567890.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
+image: 012345678901.dkr.ecr.us-west-1.amazonaws.com/fastapi-microservices:1.0
 ```
 
 ## 5. Deploy the ADOT Add-On
 
-The '[cert-manager](https://cert-manager.io/docs/)' is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in EKS official documentation.
+The [`cert-manager`](https://cert-manager.io/docs/) add-on is required for deploying ADOT Add-on. To learn more, see [AWS Distro for OpenTelemetry (ADOT) prerequisites and considerations](https://docs.aws.amazon.com/eks/latest/userguide/adot-reqts.html#adot-reqtcr) in the EKS official documentation.
 
-Deploy the 'cert-manager' add-on in your cluster using the following command:
+Deploy the `cert-manager` add-on in your cluster using the following command:
 
 ``` bash
 kubectl apply -f eks/cert-manager.yaml
 ```
 
-Verify that 'cert-manager' is ready:
+Verify that `cert-manager` is ready:
 
 ``` bash
 kubectl get pod -w -n cert-manager
@@ -204,7 +208,7 @@ kubectl apply -f eks/opentelemetrycollector.yaml
 
 ### Verify the ADOT Collector IAM Roles Service Account (IRSA)
 
-The IRSA for ADOT provides the ADOT collector with "write" permissions to AWS XRay. The ADOT collector was configured by eksctl when you created your cluster. You can verify that the ADOT collector service account is configured using the following command:
+The IRSA for ADOT provides the ADOT collector with "write" permissions to AWS X-Ray. The ADOT collector was configured by eksctl when you created your cluster. You can verify that the ADOT collector service account is configured using the following command:
 
 ```bash
 kubectl describe serviceaccount -n my-cool-app adot-collector 
@@ -269,7 +273,7 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us
 
 ```
 
-Open a web browser and enter the ‘ADDRESS’ from the previous step to access the web application. For example, `http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/`. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
+Open a web browser and enter the `ADDRESS` from the previous step to access the web application. For example, `http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/`. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
 
 ![Trace Map](./images/k8-app-trace.png)
 
