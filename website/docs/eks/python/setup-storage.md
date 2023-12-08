@@ -46,7 +46,7 @@ cidr_range=$(aws ec2 describe-vpcs \
   --region "$AWS_REGION")
 ```
 
-1. Create a security group for your Amazon EFS mount points and save its ID in a variable.
+3. Create a security group for your Amazon EFS mount points and save its ID in a variable.
    
 ```bash
 security_group_id=$(aws ec2 create-security-group \
@@ -109,7 +109,7 @@ file_system_id=$(aws efs create-file-system \
 ```bash
 for subnet in $(aws ec2 describe-subnets --filters "Name=vpc-id,Values=$vpc_id" --region "$AWS_REGION" --query 'Subnets[*].SubnetId' --output text)
 do
-  aws efs create-mount-target
+  aws efs create-mount-target \
   --file-system-id $file_system_id \
   --subnet-id $subnet \
   --region $AWS_REGION \
@@ -150,7 +150,7 @@ storageclass.storage.k8s.io/efs-sc created
 2. To create a persistent volume, you need to attach your EFS file system identifier to the PV. Run the following command to update the file system identifier in the `deploy-efs-pv-fargate.yaml` manifest:
 
 ```bash
-sed -i 's/fs-000000001121212/$file_system_id/g' eks/efs-pv.yaml
+sed -i "s/fs-000000001121212/$file_system_id/g" eks/efs-pv.yaml
 ```
 
 **Optionally**, if you're running this on macOS, run the following command to update the file system identifier:
