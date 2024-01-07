@@ -3,9 +3,11 @@ title: UnicornStore Architecture
 sidebar_position: 3
 ---
 
+## Objective
+
 Throughout the entire workshop we will be use the following reference application called the **UnicornStore**. In this section you will get an overview about the inner workings of the app.
 
-## Introducing the UnicornStore
+## 1. Introducing the UnicornStore
 
 The UnicornStore is a **[Spring Boot 3](https://spring.io/projects/spring-boot) Java Application** that provides Create-, Read-, Update-, and Delete-(CRUD)-Operations for Unicorn-Records.
 It stores them in a relational database running on [Amazon RDS PostgreSQL](https://aws.amazon.com/rds/postgresql) and afterwards publishes an event about this action to [Amazon EventBridge](https://aws.amazon.com/eventbridge).
@@ -29,7 +31,7 @@ In a traditional **non-Serverless** and **non-Containers** setup the application
 
 - (5) Finally the application publishes an event about the action e.g. `UNICORN_CREATED`.
 
-## Inside the Java Code
+## 2. Inside the Java Code
 
 :::info
 You can also inspect the code directly in Cloud 9 in the /unicorn-store-spring/src folder.
@@ -102,3 +104,7 @@ public void publish(Unicorn unicorn, UnicornEventType unicornEventType) {
     }
 }
 ```
+
+## Conclusion
+
+In this section you got an overview about the Java Application which will be used during the workshop. You can now proceed with [Building and Running Container Images with Java Application Using Docker](containers/java/build-image.md).

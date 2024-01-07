@@ -11,19 +11,24 @@ The workshop covers a variety of AWS services and tools and provides an introduc
 
 ![java-on-aws-eks](./images/java-on-amazon-eks.png)
 
-## [Introduction](introduction/index.md)
+## [Introduction](introduction/java/workshop-setup.md)
 
-- Workshop setup.
+- Setting up the Development Environment.
 - Dive deep in UnicornStore Architecture.
 
-## [Containerize and run](containers/index.md)
+## [Containerize and run](containers/java/build-image.md)
 
-- Build container images with Java Application using Docker.
-- Run and test Java application container locally.
-- Optimize a Dockerfile with a **multi-stage build**.
-- Push a container image to Amazon Elastic Container Registry (ECR).
+- Building container images with Java Application using Docker.
+- Optimizing a Dockerfile with a multi-stage build.
+- Pushing a container image to Amazon Elastic Container Registry (ECR).
 
-## [Deploy to Amazon EKS](eks/index.md)
+## [Deploy to Amazon EKS](eks/java/create-cluster.md)
+
+- Create Amazon EKS cluster.
+- Setup Amazon EKS for Java Application.
+- Deploy a container image to Amazon EKS.
+
+## [Optimize Container Images](optimizations/java/optimize.md)
 
 - Create Amazon EKS cluster.
 - Setup Amazon EKS for Java Application.
@@ -73,7 +78,7 @@ At an AWS-managed event you can just follow the instructions of your facilitator
 
 1. Execute the following commands to clean up your workshop environment:
 
-```bash
+```bash showLineNumbers
 # approximately 60 minutes
 ~/environment/java-on-aws/labs/unicorn-store/infrastructure/scripts/99-destroy-all.sh
 ```

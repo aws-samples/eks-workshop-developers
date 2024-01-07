@@ -62,6 +62,12 @@ module.exports = {
           label: 'EKS',
         },
         {
+          type: 'doc',
+          docId: 'optimizations/index',
+          position: 'left',
+          label: 'Optimizations',
+        },        
+        {
           href: 'https://github.com/aws-samples/eks-workshop-developers',
           label: 'GitHub',
           position: 'right',
