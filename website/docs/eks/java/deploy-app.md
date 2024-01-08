@@ -9,7 +9,7 @@ This lab shows you how to deploy the the [Java Application](introduction/java/wo
 
 ## Prerequisites
 
-- [Setup Amazon EKS for Java Application](../../eks/java/setup-cluster.md)
+- [Setup Amazon EKS for Java Application](../../eks/java/eks-setup.md)
 
 ## 1. Deploying the application
 
@@ -163,4 +163,4 @@ You should see a similar result to:
 
 ## Conclusion
 
-In this section you have learned how to create a new EKS cluster. You deployed externals secrets, permissions and the UnicornStore Java application. With the container image deployed to Amazon EKS can now can apply different [Optimizations](optimizations/java/optimize.md) technics to container images.
+In this section you have learned how to create a new EKS cluster. You deployed externals secrets, permissions and the UnicornStore Java application. With the container image deployed to Amazon EKS can now can apply different [Optimizations](optimizations/java/optimize-containers.md) technics to container images.

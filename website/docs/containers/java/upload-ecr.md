@@ -66,4 +66,4 @@ docker push $ECR_URI:latest
 
 ## Conclusion
 
-You successfully containerized Java application and optimized the build behavior and image size. Finally, you pushed the container image to Amazon ECR. With the container image in the AWS Cloud you can now proceed with [Deploy to Amazon EKS](eks/java/create-cluster.md).
+You successfully containerized Java application and optimized the build behavior and image size. Finally, you pushed the container image to Amazon ECR. With the container image in the AWS Cloud you can now proceed with [Deploy to Amazon EKS](eks/java/eks-create.md).

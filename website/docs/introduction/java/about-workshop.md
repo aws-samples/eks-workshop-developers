@@ -22,13 +22,13 @@ The workshop covers a variety of AWS services and tools and provides an introduc
 - Optimizing a Dockerfile with a multi-stage build.
 - Pushing a container image to Amazon Elastic Container Registry (ECR).
 
-## [Deploy to Amazon EKS](eks/java/create-cluster.md)
+## [Deploy to Amazon EKS](eks/java/eks-create.md)
 
 - Create Amazon EKS cluster.
 - Setup Amazon EKS for Java Application.
 - Deploy a container image to Amazon EKS.
 
-## [Optimize Container Images](optimizations/java/optimize.md)
+## [Optimize Container Images](optimizations/java/optimize-containers.md)
 
 - Create Amazon EKS cluster.
 - Setup Amazon EKS for Java Application.
