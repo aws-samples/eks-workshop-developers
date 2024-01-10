@@ -55,9 +55,9 @@ Next, open the [eks/create-adot-add-on-python-fargate.yaml](https://github.com/a
   metadata:
     name: managednode-quickstart
     region: us-west-2
-  ``` 
+  ```
 
-  </TabItem> 
+  </TabItem>
 </Tabs>
 
 ## 2. Instrument the Application Code with Manual Instrumentation in Local Environment
@@ -73,28 +73,42 @@ Otel Instrumentation requires 4 primary steps to get you up and running with Ope
 
 We’ll be creating a new and improved multi-architecture image in this lab exercise. Remove the existing multi-architecture container you created:
 
-```bash
+<Tabs>
+ <TabItem value="Docker" label="Docker" default>
+
+ ```bash
 docker buildx rm webBuilder
 ```
 
-Alternatively, if you're using Finch, run the following commands to find the image by name and then remove it:
+ </TabItem>
+ <TabItem value="Finch" label="Finch">
 
 ```bash
 finch images --filter reference=webbuilder 
 finch rmi webbuilder
 ```
 
+</TabItem>
+</Tabs>
+
 To test the tracing locally, build the instrumented application code locally using the following command:
+
+<Tabs>
+  <TabItem value="Docker-compose" label="Docker-compose" default>
 
 ```bash
 docker-compose build 
 ```
 
-Alternatively, if you're using Finch, run the following command:
+</TabItem>
+<TabItem value="Finch" label="Finch">
 
 ```bash
 finch compose build
 ```
+
+</TabItem>
+</Tabs>
 
 docker-compose will use the local image and not the ECR image. In dev set up while doing the changes it is easier to refer to the local image rather than the remote repository image.
 
@@ -108,15 +122,22 @@ OTEL_SERVICE_NAME = "BookManagemment-App"
 
 Start the application using the following command:
 
+<Tabs>
+  <TabItem value="Docker-compose" label="Docker-compose" default>
+
 ```bash
 docker-compose up 
 ```
 
-Alternatively, if you're using Finch, run the following command to start the application:
+</TabItem>
+<TabItem value="Finch" label="Finch">
 
 ```bash
 finch compose up
 ```
+
+</TabItem>
+</Tabs>
 
 Play with the application by adding a couple new books at [http://0.0.0.0:8000](http://0.0.0.0:8000) to generate traces. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
 
@@ -128,20 +149,16 @@ Scroll down to view details of the requests in the trace:
 
 ## 4. Build and Push the Multi-Architecture Container
 
-After running a few requests, we'll now push the image to Amazon ECR. First, authenticate the Docker CLI to your Amazon ECR registry using:
+After running a few requests, we'll now push the image to Amazon ECR.
+
+<Tabs>
+  <TabItem value="Docker" label="Docker" default>
+
+First, authenticate the Docker CLI to your Amazon ECR registry using:
 
 ```bash
 aws ecr get-login-password \
 --region ${AWS_REGION} | docker login \
---username AWS \
---password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-```
-
-Alternatively, if you're using Finch, run the following command to authenticate:
-
-```bash
-aws ecr get-login-password \
---region ${AWS_REGION} | finch login \
 --username AWS \
 --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
@@ -154,9 +171,6 @@ docker buildx use webBuilder
 docker buildx inspect --bootstrap
 ```
 
->Note: There is no direct equivalent for `buildx` using Finch. You can target a set of platforms though.
->The `finch build` command allows targeting different platforms via the `--platform` flag, similar to buildx. You can build binaries for Linux, macOS, and Windows on AMD64 or ARM architectures. For example: `finch build --platform=amd64,arm64 .` to target both AMD and ARM architectures.
-
 Build and push the images for your web service by running the following commands:
 
 ```bash
@@ -164,11 +178,32 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-Alternatively, if you're using Finch, we can target the desired platform using the following command:
+</TabItem>
+<TabItem value="Finch" label="Finch">
+First, authenticate the Finch CLI to your Amazon ECR registry using:
+
+```bash
+aws ecr get-login-password \
+--region ${AWS_REGION} | finch login \
+--username AWS \
+--password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+```
+
+:::note
+
+There is no direct equivalent for `buildx` using Finch. You can target a set of platforms though.
+The `finch build` command allows targeting different platforms via the `--platform` flag, similar to buildx. You can build binaries for Linux, macOS, and Windows on AMD64 or ARM architectures. For example: `finch build --platform=amd64,arm64 .` to target both AMD and ARM architectures.
+
+:::
+
+Using Finch, we can target the desired platform using the following command:
 
 ```bash
 finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
 ```
+
+</TabItem>
+</Tabs>
 
 Display your Amazon ECR URI:
 
@@ -210,19 +245,20 @@ cert-manager-webhook-021345abcd-ef678      1/1     Running   0          12s
 Run the following command to install the EKS ADOT add-on:
 <Tabs>
  <TabItem value="Fargate" label="Fargate" default>
+
   ``` bash
   eksctl create addon -f eks/create-adot-add-on-python-fargate.yaml
   ```
+
  </TabItem>
  <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
   ``` bash
   eksctl create addon -f eks/create-adot-add-on-python.yaml
   ```
+
 </TabItem>
 </Tabs>
-
-
 
 ### Create the OpenTelemetryCollector Custom Resource Definition (CRD)
 
@@ -327,7 +363,7 @@ aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python-fargate.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
-eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve 
+eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve
 eksctl delete addon -f eks/create-adot-add-on-python-fargate.yaml
 kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
@@ -348,6 +384,6 @@ kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
 eksctl delete cluster -f eks/create-mng-python.yaml
 ```
+
 </TabItem>
 </Tabs>
-
