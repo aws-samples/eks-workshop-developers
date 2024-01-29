@@ -5,7 +5,7 @@ sidebar_position: 3
 
 ## Objective
 
-In this section you will take a closer look at how to create a custom Java runtime environment (JRE) for the UnicornStore application.
+In this lab, you will take a closer look at how to create a custom Java runtime environment (JRE) for the UnicornStore application.
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ The Java Platform Module System (JPMS) was introduced with JDK 9, which split up
 
 We have already prepared a Dockerfile with the necessary steps to build and deploy the UnicornStore application with a custom JRE.
 
-Copy the Dockerfile to the current application folder
+Copy the Dockerfile to the current application folder:
 
 ```bash showLineNumbers
 cd ~/environment/unicorn-store-spring
@@ -55,7 +55,7 @@ docker push $ECR_URI:$IMAGE_TAG
 docker push $ECR_URI:latest
 ```
 
-Inspect the modified `Dockerfile`.
+Take a look at the modified `Dockerfile`.
 
 ```dockerfile showLineNumbers {11-14,20-23,28-29}
 FROM public.ecr.aws/docker/library/maven:3.9-amazoncorretto-17-al2023 as builder
@@ -104,9 +104,9 @@ EXPOSE 8080
 ENTRYPOINT ["./custom-jre/bin/java","-jar","-Dserver.port=8080","/store-spring.jar"]
 ```
 
-As discussed in the first chapter the Dockerfile leverages a multi-stage build. In the first stage (starting line 1), the application and a custom runtime is built. The custom runtime is based on the list of dependencies that have been collected with `jdeps` (see line 11 - 14).
+As mentioned in the first chapter, the Dockerfile utilizes a multi-stage build approach. The initial stage (beginning at line 1) involves building the application and a customized runtime. This custom runtime is created based on the dependencies listed in `jdeps` (refer to lines 11-14).
 
-In the first step, the complete classpath of the application is analyzed and all module dependencies are written in a file called `jre-deps.info`. You may have noticed the explicit addition of `jdk.crypto.ec`. This module provides the implementation of the SunEC security provider which is necessary for TLS support. Unfortunately, it is not obvious from the analysis of the classpath that this additional module is necessary. For this reason, it is added at this point.
+In the first step, we analyze the entire classpath of the application and write down all module dependencies in a file called `jre-deps.info`. You might have noticed that we explicitly added `jdk.crypto.ec`. This module contains the implementation of the SunEC security provider, which is essential for TLS support. However, it is not easy to determine from the classpath analysis that this module is needed, which is why we include it at this stage.
 
 The `jre-deps.info` is used as input for `jlink` (line 20 - 23) in order to build a custom runtime. The goal of this is to reduce the size as much as possible, that's the reason the runtime is compressed and no header files and no man-pages are included.
 
@@ -114,7 +114,7 @@ In the second stage of our build (line 28 - 29), we copy the JAR file of the app
 
 ## 3. Re-deploying the application
 
-After the new image has been pushed to ECR you can re-trigger the deployment of the application:
+After pushing the new image to ECR, you can re-trigger the deployment of the application:
 
 ```bash
 kubectl rollout restart deploy unicorn-store-spring -n unicorn-store-spring
@@ -151,4 +151,4 @@ kubectl logs $(kubectl get pods -n unicorn-store-spring -o json | jq --raw-outpu
 
 ## Conclusion
 
-As you can see, we were able to reduce the size of the container image from 380 MB to 257 MB. The application startup time improved slightly.
+As you can see, we managed to decrease the size of the container image from 380 MB to 257 MB. The application startup time also improved by a small margin.

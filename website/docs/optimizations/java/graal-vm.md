@@ -15,10 +15,9 @@ In this lab we will build GraalVM native image.
 
 [GraalVM](https://www.graalvm.org/) is a high-performance runtime that is designed to address the limitations of traditional VMs such as initialization overhead and memory consumption.
 
-Beyond using GraalVM as just another JVM you can also create a native executable via the [native-image](https://www.graalvm.org/latest/reference-manual/native-image/) capability.
-This executable already includes all necessary dependencies (e.g. Garbage collector) and therefore does not a require a JVM to run your code.
+Beyond using GraalVM as just another JVM, you can also create a native executable via the [native-image](https://www.graalvm.org/latest/reference-manual/native-image/) capability. This executable already includes all necessary dependencies (e.g. Garbage collector) and therefore does not a require a JVM to run your code.
 
-One of the major advantages of `native-image` is that it produces a very low memory footprint native binary of applications. It does this by statically analyzing the code base and creating its own model of what is and what is not required at runtime. Anything which isn’t required is not included in the final native binary. This isn’t just whole classes, it can be individual methods and / or constructors.
+One of the major advantages of `native-image` is that it produces a very low memory footprint native binary of applications. It does this by statically analyzing the code base and creating its own model of what is and what is not required at runtime. Anything which isn’t required is not included in the final native binary. This isn’t just whole classes, it can be individual methods and/or constructors.
 
 This is great until the application includes dependencies which use features like reflection. The dynamic loading at runtime means that `native-image` has no way of knowing what classes may be required.
 
@@ -26,7 +25,7 @@ This is great until the application includes dependencies which use features lik
 Remember `native-image` only has partial support for reflection and needs to know the reflectively accessed program elements ahead-of-time.
 :::
 
-To be able to compile our application with `native-image`, we have to adapt our Dockerfile. In the previous version, `maven:3-amazoncorretto-17` was used as a builder-image for the application. Now we use the latest version of `ghcr.io/graalvm/graalvm-community`. The only additional software package needed for the build is Maven, which we install via [sdkman](https://sdkman.io/).
+In order to compile our application with `native-image`, we need to adapt our Dockerfile. In the previous version, `maven:3-amazoncorretto-17` was used as a builder-image for the application. Now, we will use the latest version of `ghcr.io/graalvm/graalvm-community`. The only additional software package needed for the build is Maven, which we install via [sdkman](https://sdkman.io/).
 
 ## Overview of components
 
@@ -42,12 +41,12 @@ For our application, we use Spring Boot version 3. A typical Spring Boot applica
 3. The runtime image invokes the native binary with all necessary parameters.
 
 :::info
-You may also have to create additional files under `resources/META-INF/native-image` depending on the usage of reflection, dynamic proxies or JNI. If you are interested please check the [Native Image Compatibility Guide](https://www.graalvm.org/latest/reference-manual/native-image/metadata/Compatibility/). For this workshop we have prepared the files already.
+You may also need to create additional files under `resources/META-INF/native-image` depending on the usage of reflection, dynamic proxies or JNI. To learn more, see [Native Image Compatibility Guide](https://www.graalvm.org/latest/reference-manual/native-image/metadata/Compatibility/). For this workshop, we have already prepared the files.
 :::
 
 ## Assisted configuration with the Tracing Agent
 
-As already explained, `native-image` statically analyses the code base to determine which parts of the code are reachable at runtime. Unfortunately, this doesn't work in all cases. Dynamic features like reflection or proxies must be specified to `native-image` as metadata. To make this step as easy as possible, GraalVM provides a tracing agent to collect all necessary information and prepare configuration files. More information on how to use the tracing agent can be found [here](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/). For this workshop, we have already prepared all necessary configuration files.
+As mentioned previously, `native-image` statically analyses the code base to determine which parts of the code are reachable at runtime. Unfortunately, this doesn't work in all cases. Dynamic features like reflection or proxies must be specified to `native-image` as metadata. To make this step as easy as possible, GraalVM provides a tracing agent to collect all necessary information and prepare configuration files. To learn more about how to use the tracing agent, see [Collect Metadata with the Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/). For this workshop, we have already prepared all necessary configuration files.
 
 ## Spring Boot and GraalVM
 
@@ -75,12 +74,12 @@ In order to build out UnicornStore-app using `native-image`, we need to to use t
 ```
 
 :::info
-In this lab we use the Graal compiler option `-Ob` to enable quick build mode, which improves the performance of the compilation stage. Usually, this is used during development. More information can be found [here](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildOutput/).
+In this lab, we used the Graal compiler option `-Ob` to enable quick build mode, which improves the performance of the compilation stage. Usually, this is used during development. To learn more, see [Native Image Build Output](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildOutput/).
 :::
 
 ## 1. Preparing components
 
-In `pom.xml`-file, we have included two different Maven-profiles which covers a JVM- as well as a GraalVM-build.
+In the `pom.xml` file, we have included two different Maven-profiles which cover a JVM-, and GraalVM-build.
 
 In the following section, you can see the modified Dockerfile.
 
@@ -117,11 +116,11 @@ EXPOSE 8080
 CMD ["./store-spring", "-Dserver.port=8080"]
 ```
 
-Various adjustments have been made in the Dockerfile: the first change is that `ghcr.io/graalvm/graalvm-community` is used as the parent image for the build process. This image contains - except for Maven - all the software components needed for the build. Building a native image is very memory-intense, which is why the maximum available memory is set to 8 GB. In order for a native image to be built, `-Pnative` must be specified as an additional parameter in the maven-build.
+We have made several changes to the Dockerfile. First, we switched to using `ghcr.io/graalvm/graalvm-community` as the parent image for the build process. This image includes all the necessary software components for the build, with the exception of Maven. Building a native image requires a significant amount of memory, so we set the maximum available memory to 8 GB. To build a native image, it is required to specify `-Pnative` as an additional parameter in the Maven build.
 
-In the target image, the native binary is first copied from the build image. Then the necessary environment variables are set for OTEL and in the last step the GraalVM version of the unicorn app is started.
+In the target image, the native binary is first copied from the build image. Then the necessary environment variables are set for OTEL, and in the last step, the GraalVM version of the unicorn app is started.
 
-Copy Dockerfile:
+Copy the Dockerfile:
 
 ```bash showLineNumbers
 cd ~/environment/unicorn-store-spring
@@ -141,13 +140,13 @@ public ResponseEntity<String> getWelcomeMessage() {
 AWS Cloud9 does not auto-save your files. Please ensure to save your files before deploying any changes via Ctrl+S or the top menu File&rarr;Save all.
 :::
 
-Reboot Cloud9 instance to free memory. The instance should back online in about 1 minute.
+Reboot the Cloud9 instance to free-up memory. The instance should be back online in about one minute.
 
 ```bash showLineNumbers
 sudo reboot now
 ```
 
-Build locally on Cloud9.
+Build locally on Cloud9:
 
 ```bash showLineNumbers
 cd ~/environment/unicorn-store-spring
@@ -179,7 +178,7 @@ kubectl rollout status deployment unicorn-store-spring -n unicorn-store-spring
 
 ## 3. Testing the application
 
-Run the following API call to verify that the new version of the application has been deployed successfully:
+Run the following API call to verify that the new version of the application was successfully deployed:
 
 Export the Service URL for later use:
 
@@ -207,4 +206,4 @@ kubectl logs $(kubectl get pods -n unicorn-store-spring -o json | jq --raw-outpu
 
 ## Conclusion
 
-As you can see from the previous initialization & execution duration, the performance drastically improved from more than 12 seconds to less than a second with GraalVM native image in comparison to the initial image. This is a 93% reduction.
+As you can see from the previous initialization and execution duration, the performance drastically improved, from more than 12 seconds to less than a second using the GraalVM native image, compared to the initial image. The result is a 93% reduction in image size.

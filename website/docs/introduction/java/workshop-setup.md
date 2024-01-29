@@ -41,7 +41,7 @@ You can use the following setup to create a virtual development environment by u
 
 ## 1. Deploying AWS CloudFormation template for Cloud9 instance and the workshop infrastructure
 
-Go to [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home#/) or navigate to AWS CloudShell in the AWS console.
+Go to the [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home#/) console directly, or navigate to AWS CloudShell in the AWS console.
 
 :::info
 If using the link above make sure the AWS console has opened in the region that you wish to run the labs in.
@@ -58,9 +58,9 @@ aws cloudformation deploy --stack-name java-on-aws-workshop \
 
 Wait until the command finish successfully.
 
-Go to [AWS CloudFormation](https://console.aws.amazon.com/cloudformation/home#/) or navigate to AWS CloudFormation in the AWS console
+Go to the [AWS CloudFormation](https://console.aws.amazon.com/cloudformation/home#/) console directly, or navigate to AWS CloudFormation in the AWS console.
 
-Check if the Stacks reached `CREATE_COMPLETE` status.
+Verify that the Stacks reached the `CREATE_COMPLETE` status.
 
 :::info
 The creation of the stacks might take around 30 minutes.
@@ -73,7 +73,7 @@ The creation of the stacks might take around 30 minutes.
 
 ## 2. Accessing AWS Cloud9 Instance
 
-Go to [AWS Cloud 9](https://console.aws.amazon.com/cloud9control/home#/) or navigate to Cloud9 in the AWS console:
+Go to the [AWS Cloud 9](https://console.aws.amazon.com/cloud9control/home#/) console directly, or navigate to Cloud9 in the AWS console:
 
 ![cloud9-console](./images/cloud9-console.png)
 
@@ -87,7 +87,7 @@ When asked about "Working with Java?" - click "Activate" and refresh the entire 
 
 You have now successfully opened Cloud9 instance.
 
-You can find the workshop code in the left sidebar to navigate through the files. You can close the welcome window and use `New terminal` command to open the terminal window and execute the commands in the workshop:
+After opening the Cloud9 instance, you can find the workshop code in the left sidebar. You can close the welcome window and use the "New terminal" command to open the terminal window and execute the commands provided in the workshop.
 
 ![cloud9-new-terminal](./images/cloud9-new-terminal.png)
 

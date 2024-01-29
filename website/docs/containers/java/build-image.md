@@ -22,7 +22,7 @@ mvn clean package && mv target/store-spring-1.0.0-exec.jar store-spring.jar
 
 ## 2. Running the application locally
 
-To run the Java Application we need to get a valid database connection-url and password. The database url is stored in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) and
+To run the Java Application we need to get a valid database `connection-url` and `password`. The database url is stored in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) and
 the database password in [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/). The values will be provided to the application as environment variables.
 
 Set the environment variables from Secrets Manager and Parameter Store:
@@ -32,7 +32,7 @@ export SPRING_DATASOURCE_URL=$(aws ssm get-parameter --name databaseJDBCConnecti
 export SPRING_DATASOURCE_PASSWORD=$(aws secretsmanager get-secret-value --secret-id unicornstore-db-secret | jq --raw-output '.SecretString' | jq -r .password)
 ```
 
-Start Java application locally (listening on port 8080):
+Start the Java application locally (listening on port 8080):
 
 ```bash showLineNumbers
 java -jar -Dserver.port=8080 store-spring.jar
@@ -51,22 +51,22 @@ curl --location --request POST $SVC_URL'/unicorns'   --header 'Content-Type: app
 ```
 
 :::info
-Don't close the terminal window with test command, we will use it for the following tests.
+Keep this terminal window open. We will use it in subsequent steps.
 :::
 
 You should see the following output:
 
 ![test-success](./images/test-success.png)
 
-Switch back to the initial terminal and stop the application with `Ctrl+C`.
+Switch back to the Java application terminal window, and stop the application with Ctrl+C.
 
 ## 3. Containerizing the application
 
-The local build can be a good starting point, but in the real world another development machine might miss some of the required dependencies to run the application. In order to solve the "Works on my machine" problem we can use containers.
+The local build can be a good starting point, but in the real world, another development machine might miss some of the required dependencies to run the application. To solve the "works okay on my machine" problem, we can use containers.
 
 A **container** is a standardized unit of software development that holds everything that your software application requires to run. This includes relevant code, runtime, system tools, and system libraries.
 
-Containers are created from a read-only template that's called an image. Images are typically built from a Dockerfile. A Dockerfile is a plaintext file that specifies all of the components that are included in the container. After they're built, these images are stored in a registry such as Amazon ECR where they can be downloaded from.
+Containers are created from a read-only template that's called an image. Images are typically built from a Dockerfile. A Dockerfile is a plaintext file that specifies all of the components that are included in the container. After they're built, these images are stored in a registry such as Amazon ECR where they can be uploaded and downloaded.
 
 Copy a simple Dockerfile to the current application folder:
 
@@ -100,7 +100,7 @@ Build a container image:
 docker buildx build --load -t unicorn-store-spring:latest .
 ```
 
-List previously built container image:
+List previously built container images:
 
 ```bash showLineNumbers
 docker images
@@ -128,11 +128,11 @@ curl --location --request POST $SVC_URL'/unicorns'   --header 'Content-Type: app
 }' | jq
 ```
 
-Switch back to the initial terminal and stop the application with `Ctrl+C`.
+Switch back to the Java application terminal window, and stop the application with Ctrl+C.
 
 ## 4. Building the application in the container
 
-Instead of building the Java application locally and copying the final binaries to the container we can also run the build process inside the container. With this technique your development or build machines do not have to worry about installing the required build tools anymore. The dependencies for building your application are now embedded in the image.
+Instead of building the Java application on your local machine and then transferring the final binaries to the container, an alternative is to run the build process directly within the container. This approach eliminates the need for your development or build machines to handle the installation of necessary build tools. The image now incorporates all the dependencies needed for building your application.
 
 Copy the new Dockerfile to the current folder
 
@@ -198,7 +198,7 @@ curl --location --request POST $SVC_URL'/unicorns'   --header 'Content-Type: app
 }' | jq
 ```
 
-Switch back to the initial terminal and stop the application with `Ctrl+C`.
+Switch back to the Java application terminal window, and stop the application with Ctrl+C.
 
 ## Conclusion
 

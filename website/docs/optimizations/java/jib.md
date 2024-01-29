@@ -5,7 +5,7 @@ sidebar_position: 4
 
 ## Objective
 
-In this section you'll inspect a simple and quick way to optimize [Open Container Initiative (OCI)](https://opencontainers.org/) images using [Jib](https://github.com/GoogleContainerTools/jib).
+In this lab, you will learn a straightforward and efficient method for optimizing images from the [Open Container Initiative (OCI)](https://opencontainers.org/) using [Jib](https://github.com/GoogleContainerTools/jib).
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ The important part for the build with Jib can be found in the `pom.xml`-file in 
 </plugin>
 ```
 
-The configuration at this point is very compact, we only define that the Java process in the container image does not run as root-user, but with a different user ID. We also use [Apline Linux](https://www.alpinelinux.org/) base image to achieve more improvements.
+At this stage, the configuration is quite compact. We simply specify that the Java process in the container image will not run as the root user, but instead with a different user ID. Additionally, we opt for the [Alpine Linux](https://www.alpinelinux.org/) base image to enhance the overall performance.
 
 ## 1. Changing the source code and pushing the image
 
@@ -47,7 +47,7 @@ AWS Cloud9 does not auto-save your files. Please ensure to save your files befor
 AWS Cloud9 does not auto-save your files. Please ensure to save your files before deploying any changes via Ctrl+S or the top menu File&rarr;Save all.
 :::
 
-Build new container images using `mvn compile jib:build`
+Build new container images using `mvn compile jib:build`:
 
 ```bash showLineNumbers
 export ECR_URI=$(aws ecr describe-repositories --repository-names unicorn-store-spring | jq --raw-output '.repositories[0].repositoryUri')
@@ -63,7 +63,7 @@ mvn compile jib:build -Dimage=$IMAGE_PATH
 
 ## 2. Re-deploying the application
 
-After the new image has been pushed to ECR you can re-trigger the deployment of the application:
+After pushing the new image to ECR, you can re-trigger the deployment of the application:
 
 ```bash showLineNumbers
 kubectl rollout restart deploy unicorn-store-spring -n unicorn-store-spring
@@ -72,7 +72,7 @@ kubectl rollout status deployment unicorn-store-spring -n unicorn-store-spring
 
 ## 3. Testing the application
 
-Run the following API call to verify that the new version of the application has been deployed successfully:
+Run the following API call to verify that the new version of the application was successfully deployed:
 
 ```bash showLineNumbers
 export SVC_URL=http://$(kubectl get svc unicorn-store-spring -n unicorn-store-spring -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname')
@@ -98,4 +98,4 @@ kubectl logs $(kubectl get pods -n unicorn-store-spring -o json | jq --raw-outpu
 
 ## Conclusion
 
-As you can see, we were able to reduce the size of the container image from 380 MB to 212 MB which means approx. It is 45% reduction without any code changes by just using Jib and Linux Alpine base image to create the container image. The application startup time improved by approximately 2 seconds.
+As you can see, we managed to decrease the container image size from 380 MB to 212 MB, resulting in a reduction of approximately 45% without making any changes to the code. This was achieved by using Jib and the Linux Alpine base image for container creation. Additionally, the application startup time improved by around 2 seconds.

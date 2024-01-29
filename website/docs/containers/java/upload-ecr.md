@@ -44,7 +44,7 @@ docker push $ECR_URI:$IMAGE_TAG
 docker push $ECR_URI:latest
 ```
 
-Go to [Amazon ECR](https://console.aws.amazon.com/ecr/home#/) in the AWS Console and verify that the image is uploaded:
+Go to the [Amazon ECR](https://console.aws.amazon.com/ecr/home#/)console directly, or navigate to Amazon ECR in the AWS Console. Verify that the image uploaded successfully:
 
 ![ecr-with-image](./images/ecr-with-image.png)
 
