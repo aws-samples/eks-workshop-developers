@@ -22,8 +22,7 @@ mvn clean package && mv target/store-spring-1.0.0-exec.jar store-spring.jar
 
 ## 2. Running the application locally
 
-To run the Java Application we need to get a valid database `connection-url` and `password`. The database url is stored in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) and
-the database password in [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/). The values will be provided to the application as environment variables.
+To run the Java Application we need to get a valid database `connection-url` and `password`. The database url is stored in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) and the database password in [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/). The values will be provided to the application as environment variables.
 
 Set the environment variables from Secrets Manager and Parameter Store:
 
@@ -58,7 +57,7 @@ You should see the following output:
 
 ![test-success](./images/test-success.png)
 
-Switch back to the Java application terminal window, and stop the application with Ctrl+C.
+Switch back to the Java application terminal window, and stop the application with `Ctrl+C`.
 
 ## 3. Containerizing the application
 

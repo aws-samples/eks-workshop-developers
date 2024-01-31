@@ -145,7 +145,7 @@ curl --location --request POST $SVC_URL'/unicorns' --header 'Content-Type: appli
 
 ## 2. Exploring Amazon EKS in AWS console
 
-Go to the [Amazon EKS](https://console.aws.amazon.com/eks/home#/) console directly, or navigate to Amazon EKS in the AWS console..
+Go to the [Amazon EKS](https://console.aws.amazon.com/eks/home#/) console directly, or navigate to Amazon EKS in the AWS console.
 
 ## 3. Accessing the application logs
 
