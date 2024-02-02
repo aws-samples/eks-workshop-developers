@@ -9,7 +9,7 @@ In this lab, you will learn a straightforward and efficient method for optimizin
 
 ## Prerequisites
 
-- [Preparation](../../optimizations/java/baseline.md)
+- [Preparation](./baseline.md)
 
 ## Context
 

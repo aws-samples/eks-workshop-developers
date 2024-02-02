@@ -9,7 +9,7 @@ This chapter shows you how to deploy the Kubernetes resources for Java Applicati
 
 ## Prerequisites
 
-- [Creating an Amazon EKS Cluster](../../eks/java/eks-create.md)
+- [Creating an Amazon EKS Cluster](./eks-create.md)
 
 [Amazon Elastic Kubernetes Service (Amazon EKS)](https://aws.amazon.com/eks/) is a managed service that you can use to run Kubernetes on AWS without needing to install, operate, and maintain your own Kubernetes control plane or nodes. Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications.
 

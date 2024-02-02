@@ -127,7 +127,7 @@ curl --location --request POST $SVC_URL'/unicorns'   --header 'Content-Type: app
 }' | jq
 ```
 
-Switch back to the Java application terminal window, and stop the application with Ctrl+C.
+Switch back to the Java application terminal window, and stop the application with `Ctrl+C`.
 
 ## 4. Building the application in the container
 
@@ -197,7 +197,7 @@ curl --location --request POST $SVC_URL'/unicorns'   --header 'Content-Type: app
 }' | jq
 ```
 
-Switch back to the Java application terminal window, and stop the application with Ctrl+C.
+Switch back to the Java application terminal window, and stop the application with `Ctrl+C`.
 
 ## Conclusion
 

@@ -9,7 +9,7 @@ In this lab, you will take a closer look at how to create a custom Java runtime 
 
 ## Prerequisites
 
-- [Preparation](../../optimizations/java/baseline.md)
+- [Preparation](./baseline.md)
 
 ## Context
 

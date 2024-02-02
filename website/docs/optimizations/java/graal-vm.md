@@ -9,7 +9,7 @@ In this lab we will build GraalVM native image.
 
 ## Prerequisites
 
-- [Preparation](../../optimizations/java/baseline.md)
+- [Preparation](./baseline.md)
 
 ## Context
 

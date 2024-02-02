@@ -9,7 +9,7 @@ This lab shows you how to deploy the the [Java Application](introduction/java/wo
 
 ## Prerequisites
 
-- [Setup Amazon EKS for Java Application](../../eks/java/eks-setup.md)
+- [Setup Amazon EKS for Java Application](./eks-setup.md)
 
 ## 1. Deploying the application
 

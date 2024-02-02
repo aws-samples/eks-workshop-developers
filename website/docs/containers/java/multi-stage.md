@@ -9,7 +9,7 @@ In this lab we will optimize a container image size using a multi-stage build.
 
 ## Prerequisites
 
-- [Building and Running Container Images with Java Application Using Docker](../../containers/java/build-image.md)
+- [Building and Running Container Images with Java Application Using Docker](./build-image.md)
 
 ## 1. Optimizing the Dockerfile
 

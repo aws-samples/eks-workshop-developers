@@ -9,7 +9,7 @@ In this lab we will login to ECR and push container images.
 
 ## Prerequisites
 
-- [Optimizing a Dockerfile with a Multi-stage Build](../../containers/java/multi-stage.md)
+- [Optimizing a Dockerfile with a Multi-stage Build](./multi-stage.md)
 
 ## 1. Pushing a container image to Amazon Elastic Container Registry (ECR)
 
