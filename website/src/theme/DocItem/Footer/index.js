@@ -69,6 +69,7 @@ export default function DocItemFooter() {
       )}
       {/* Feedback Link insertion */}
       <FeedbackLink />
+       <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "578e1c722b5e421eb1bf3a50d7486866"}'></script>
     </footer>
   );
 }
