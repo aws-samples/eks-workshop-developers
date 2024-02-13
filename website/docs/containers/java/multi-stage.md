@@ -15,7 +15,7 @@ In this lab we will optimize a container image size using a multi-stage build.
 
 We are now embedding additional build tools such as Maven, an image size will naturally increase. However, Maven is only needed during build-time and not for running the final JAR. You can therefore leverage a [multi-stage build](https://docs.docker.com/build/building/multi-stage/) to reduce the image size by separating the build from the runtime stage.
 
-Check size of the initial image, it is **995 MB**
+Check size of the initial image, it is **1.66 GB**
 
 ```bash showLineNumbers
 docker images
@@ -27,7 +27,7 @@ Image size and application startup times might be different in your case
 
 ```bash showLineNumbers
 REPOSITORY             TAG                   IMAGE ID       CREATED         SIZE
-unicorn-store-spring   latest            836da356dc0e   About a minute ago  995MB
+unicorn-store-spring   latest            836da356dc0e   About a minute ago  1.66GB
 ```
 
 Copy the prepared Dockerfile:
@@ -71,7 +71,7 @@ EXPOSE 8080
 ENTRYPOINT ["java","-jar","-Dserver.port=8080","/store-spring.jar"]
 ```
 
-Check size of the image, it is **660 MB** now.
+Check size of the image, it is **1.04 GB** now.
 
 ```bash showLineNumbers
 docker images
@@ -81,10 +81,10 @@ Now we can see that the size of our image is less than in the previous build:
 
 ```bash showLineNumbers
 REPOSITORY             TAG                   IMAGE ID       CREATED          SIZE
-unicorn-store-spring   latest            ea42046620d4   29 seconds ago       660MB
+unicorn-store-spring   latest            ea42046620d4   29 seconds ago       1.04GB
 ```
 
-With multi-stage build we achieved about **30%** reduction of container image size.
+With multi-stage build we achieved more than **30%** reduction of container image size.
 
 We will continue to optimize the image in the following modules.
 

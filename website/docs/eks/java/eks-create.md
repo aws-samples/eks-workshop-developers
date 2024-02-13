@@ -82,19 +82,12 @@ The creation of the cluster might take around 15 minutes.
 
 ![eks-finished](./images/eks-finished.png)
 
-Add the workshop IAM roles to the list of the EKS cluster administrators to get access from the AWS Console.
+Add your IAM role to the list of the EKS cluster administrators to get access from the AWS Console.
+Replace --arn `arn:aws:iam::$ACCOUNT_ID:role/Admin` with your role ARN of necessary.
 
 ```bash showLineNumbers
 eksctl create iamidentitymapping --cluster unicorn-store --region=$AWS_REGION \
-    --arn arn:aws:iam::$ACCOUNT_ID:role/WSParticipantRole --username admin --group system:masters \
-    --no-duplicate-arns
-
-eksctl create iamidentitymapping --cluster unicorn-store --region=$AWS_REGION \
-    --arn arn:aws:iam::$ACCOUNT_ID:role/java-on-aws-workshop-user --username admin --group system:masters \
-    --no-duplicate-arns
-
-eksctl create iamidentitymapping --cluster unicorn-store --region=$AWS_REGION \
-    --arn arn:aws:iam::$ACCOUNT_ID:role/java-on-aws-workshop-admin --username admin --group system:masters \
+    --arn arn:aws:iam::$ACCOUNT_ID:role/Admin --username admin --group system:masters \
     --no-duplicate-arns
 ```
 

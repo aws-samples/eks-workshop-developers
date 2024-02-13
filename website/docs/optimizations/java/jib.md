@@ -39,6 +39,13 @@ You are now going to change the application code of `unicorn-store-spring/src/ma
 
 Change the contents of the getWelcomeMessage function to identify the new version of the application:
 
+```java showLineNumbers {3}
+@GetMapping("/")
+public ResponseEntity<String> getWelcomeMessage() {
+    return new ResponseEntity<>("Welcome to the Unicorn Store - from Jib generated Image!", HttpStatus.OK);
+}
+```
+
 :::info
 AWS Cloud9 does not auto-save your files. Please ensure to save your files before deploying any changes via Ctrl+S or the top menu File&rarr;Save all.
 :::
