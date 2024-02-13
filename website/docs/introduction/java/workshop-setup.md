@@ -85,6 +85,10 @@ When asked about "Working with Java?" - click "Activate" and refresh the entire 
 
 ![java-confirm](./images/java-confirm.png)
 
+:::info
+In case if you see Information: AWS Toolkit. "Connection expired. To continue using CodeWhisperer, connect with AWS Builder ID or AWS IAM Identity center.", click "Don't Show Again" and continue.
+:::
+
 You have now successfully opened Cloud9 instance.
 
 After opening the Cloud9 instance, you can find the workshop code in the left sidebar. You can close the welcome window and use the "New terminal" command to open the terminal window and execute the commands provided in the workshop.
