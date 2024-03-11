@@ -1,4 +1,9 @@
-# Welcome to the EKS Developers Workshop
+---
+title: Welcome
+sidebar_position: 1
+---
+
+# Welcome to the EKS Developers Workshop for Python
 Welcome to the EKS Developers Workshop, a technical deep-dive into refactoring applications for Amazon Elastic Kubernetes Service (EKS). 
 
 ## Who Is This Workshop For?
@@ -22,4 +27,4 @@ This workshop offers a self-paced, comprehensive guide through the entire Kubern
 * **At an AWS Event (Coming Soon)**: Engage in a more guided and structured learning environment, ideal for those who prefer collaborative learning sessions.
 
 ## Getting Started
-Dive into our [overview](./introduction/about-workshop.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.
+Dive into our [introduction](./introduction/index.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.

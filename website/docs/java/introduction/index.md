@@ -2,28 +2,101 @@
 title: Introduction
 sidebar_position: 100
 ---
-# Welcome to the EKS Developers Workshop
-Welcome to the EKS Developers Workshop, a technical deep-dive into refactoring applications for Amazon Elastic Kubernetes Service (EKS). 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-## Who Is This Workshop For?
-This workshop is tailored for developers that want to refactor an application for containers and Kubernetes environments using EKS. It's specifically designed to be Kubernetes beginner-friendly and particularly beneficial for those who: 
+In this workshop, learn how to build cloud-native Java applications and deploy to Amazon Elastic Kubernetes Service (EKS) with best practices and performance-optimization techniques. Get hands-on experience using Amazon EKS, Amazon Corretto, Amazon ECR, GraalVM, Spring Boot, and more.
 
-* Need visibility of the entire Kubernetes lifecycle from refactoring, containers, to Kubernetes integrations on Amazon EKS.
-* Have a foundational understanding of container technologies and seek to increase their knowledge of Kubernetes-based application deployments.
-* Aim to transition traditional applications to cloud-native architectures, particularly within the AWS ecosystem.
+The workshop covers a variety of AWS services and tools and provides an introduction to Java related concepts. Below you can find a broad overview of services that are covered throughout the modules:
 
-## What You Will Learn
-* **Application Refactoring:** Learn how to apply The Twelve-Factor App methodologies to refactor applications for containers and Kubernetes.
+![java-on-aws-eks](./images/java-on-amazon-eks.png)
 
-* **Containerization Techniques:** Master the creation and management of Docker containers, integrate Amazon ECR with Docker Compose, and handle multi-architecture containers.
-* **Kubernetes Deployment:** Learn how to deploy your application to a local minikube cluster, including securing workloads with Kubernetes secrets.
-* **Amazon EKS Deployment:** Build your skills deploying Kubernetes workloads in production on Amazon EKS, integrating with AWS services like AWS Secrets Manager and Amazon RDS for PostgreSQL. 
+## [Introduction](java/introduction/workshop-setup.md)
 
-## How to Participate in the Workshop
-This workshop offers a self-paced, comprehensive guide through the entire Kubernetes lifecycle. From creating multi-architecture container images, to understanding Kubernetes, to integrating with Amazon EKS and other AWS services, this workshop is a continuous, end-to-end exploration. Each chapter is designed to build upon the previous, ensuring a cohesive learning experience. To get started with the workshop:
+- Setting up the Development Environment.
+- Dive deep in UnicornStore Architecture.
 
-* **In Your Own Account**: This option allows for a personalized and hands-on experience, using your AWS account to create resources.
-* **At an AWS Event (Coming Soon)**: Engage in a more guided and structured learning environment, ideal for those who prefer collaborative learning sessions.
+## [Containerize and run](java/containers/build-image.md)
 
-## Getting Started
-Dive into our [overview](./about-workshop.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.
+- Building container images with Java Application using Docker.
+- Optimizing a Dockerfile with a multi-stage build.
+- Pushing a container image to Amazon Elastic Container Registry (ECR).
+
+## [Deploy to Amazon EKS](java/eks/eks-create.md)
+
+- Create Amazon EKS cluster.
+- Setup Amazon EKS for Java Application.
+- Deploy a container image to Amazon EKS.
+
+## [Optimize Container Images](java/optimizations/index.md)
+
+- Create Amazon EKS cluster.
+- Setup Amazon EKS for Java Application.
+- Deploy a container image to Amazon EKS.
+
+---
+## Know before you go
+
+The following information will provide general guidance and safety-tips before running through the workshop.
+
+## Target Audience
+
+Developers, Architects, DevOps, SysOps, Testers. Anyone working with Java applications who is interested in using containers.
+
+## Experience Required
+
+Level: 200-300 (Intermediate to Advanced).
+
+In this workshop you will be editing and changing Java source code. It would be helpful to be familiar with the Java programming language. If you are not, that's ok, please follow the instructions carefully.
+
+You will also need a basic understanding of the AWS console and CLI.
+
+## Cost
+
+**If you run this workshop in your own AWS Account (without being provided an account at a hosted event) the resources that are created during this workshop will incur cost and will be billed to your account. Please make sure you delete all resources after the workshop to avoid unnecessary costs in the cleanup section.**
+
+The workshop uses an Amazon RDS PostgreSQL database, it's cost in the eu-west-1 region is:
+1 instance(s) x 0.078 USD hourly x (100 / 100 Utilized/Month) x 730 hours in a month = 56.9400 USD
+Amazon RDS PostgreSQL instances cost (monthly): 56.94 USD
+
+If you choose to use AWS Cloud9 as a development environment it will be charged at the [EC2 instance price](https://aws.amazon.com/cloud9/pricing/).
+
+Depending on the deployment options that you chose you will be charged based on the [Amazon EKS](https://aws.amazon.com/eks/pricing/) pricing.
+
+## Supported regions
+
+If you run the workshop on your own, you can choose any AWS region. However, if you want to use AWS Cloud9 as a development
+environment, you should check the [AWS Regional services list](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+to see if it's available in the desired region.
+
+At an AWS-managed event you can just follow the instructions of your facilitator who will preselect a region for you.
+
+## Clean Up
+
+<Tabs>
+<TabItem value="own" label="In your own AWS account (Cloud 9)" default>
+
+1. Execute the following commands to clean up your workshop environment:
+
+```bash showLineNumbers
+# approximately 60 minutes
+~/environment/java-on-aws/labs/unicorn-store/infrastructure/scripts/99-destroy-all.sh
+```
+
+:::info
+The deletion of the stacks might take more than 60 minutes.
+:::
+
+:::warning
+If you created resources manually "Using UI (AWS Console)" you need to delete these resources manually
+:::
+
+Delete Cloud9 instance `CloudFormation` &rarr; `Stacks` &rarr; `java-on-aws-workshop` &rarr; `Delete`
+
+</TabItem>
+<TabItem value="AWS" label="At an AWS hosted event">
+
+All the infrastructure components will be deleted automatically
+
+</TabItem>
+</Tabs>

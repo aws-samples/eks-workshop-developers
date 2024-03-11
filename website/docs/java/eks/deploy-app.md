@@ -1,6 +1,6 @@
 ---
 title: Deploy a container image to Amazon EKS
-sidebar_position: 3
+sidebar_position: 203
 ---
 
 ## Objective
@@ -163,4 +163,4 @@ You should see a similar result to:
 
 ## Conclusion
 
-In this section you have learned how to create a new EKS cluster. You deployed externals secrets, permissions and the UnicornStore Java application. With the container image deployed to Amazon EKS can now can apply different [Optimizations](java/optimizations/optimize-containers.md) technics to container images.
+In this section you have learned how to create a new EKS cluster. You deployed externals secrets, permissions and the UnicornStore Java application. With the container image deployed to Amazon EKS can now can apply different [Optimizations](java/optimizations/index.md) technics to container images.

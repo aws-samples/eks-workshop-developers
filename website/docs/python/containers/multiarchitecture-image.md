@@ -211,4 +211,4 @@ This lab explored the process of constructing and executing Docker containers us
 
 ## What's Next?
 
-- [Kubernetes](../../kubernetes/index.md)
+- [Kubernetes](../kubernetes/index.md)

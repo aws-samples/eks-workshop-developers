@@ -17,8 +17,8 @@ This lab will show you how to create an Amazon Aurora Serverless v2 PostgreSQL d
 
 ## Prerequisites
 
-* [Securing FastAPI Microservices with Kubernetes Secrets](../python/deploy-secrets.md)
-* [Deploying FastAPI and PostgreSQL Microservices to EKS](../python/deploy-app.md)
+* [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+* [Deploying FastAPI and PostgreSQL Microservices to EKS](./deploy-app.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />

@@ -1,6 +1,6 @@
 ---
 title: Setting up the Development Environment
-sidebar_position: 2
+sidebar_position: 102
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -96,11 +96,6 @@ After opening the Cloud9 instance, you can find the workshop code in the left si
 ![cloud9-new-terminal](./images/cloud9-new-terminal.png)
 
 ![cloud9-terminal](./images/cloud9-terminal.png)
-
-## 3. Additional hints
-
-The AWS account will only be available for the duration of this workshop and you will not be able to retain access after the workshop is complete. However,
-you can access the workshop instructions anytime after this event via [Java on AWS Immersion Day](https://catalog.workshops.aws/java-on-aws-immersion-day/en-US).
 
 :::warning
 AWS Cloud9 does not auto-save your files. Please ensure to save your files before deploying any changes via Ctrl+S or the top menu File&rarr;Save all.
