@@ -39,41 +39,23 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'introduction/index',
+          docId: 'python/index',
           position: 'left',
-          label: 'Introduction',
+          label: 'Python',
         },
         {
           type: 'doc',
-          docId: 'containers/index',
+          docId: 'java/index',
           position: 'left',
-          label: 'Containers',
+          label: 'Java',
         },
-        {
-          type: 'doc',
-          docId: 'kubernetes/index',
-          position: 'left',
-          label: 'Kubernetes',
-        },
-        {
-          type: 'doc',
-          docId: 'eks/index',
-          position: 'left',
-          label: 'EKS',
-        },
-        {
-          type: 'doc',
-          docId: 'optimizations/index',
-          position: 'left',
-          label: 'Optimizations',
-        },        
         {
           href: 'https://github.com/aws-samples/eks-workshop-developers',
           label: 'GitHub',
           position: 'right',
         },
       ],
-    },      
+    },
     footer: {
       style: 'dark',
       links: [
