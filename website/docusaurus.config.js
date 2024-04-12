@@ -20,7 +20,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/aws-samples/eks-workshop-developers/tree/main/website',
-          sidebarCollapsible: false,
+          sidebarCollapsible: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
