@@ -30,7 +30,7 @@ The **[create-fargate-python.yaml](https://github.com/aws-samples/python-fastapi
 From the `python-fastapi-demo-docker` project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../introduction/python/environment-setup).
+Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../python/introduction/environment-setup).
 :::
 
 ```bash

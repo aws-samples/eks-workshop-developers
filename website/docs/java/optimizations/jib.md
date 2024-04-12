@@ -1,6 +1,6 @@
 ---
 title: "Building optimized OCI images with Jib"
-sidebar_position: 4
+sidebar_position: 304
 ---
 
 ## Objective

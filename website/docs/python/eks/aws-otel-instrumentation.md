@@ -20,8 +20,8 @@ We'll go through the following steps as part of the instrumentation process:
 
 ## Prerequisites
 
-* [Securing FastAPI Microservices with Kubernetes Secrets](../python/deploy-secrets.md)
-* [Deploying FastAPI and PostgreSQL Microservices to EKS](../python/deploy-app.md)
+* [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+* [Deploying FastAPI and PostgreSQL Microservices to EKS](./deploy-app.md)
 
 ## 1. Prepare Your Environment
 

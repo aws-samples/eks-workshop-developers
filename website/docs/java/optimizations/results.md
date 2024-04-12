@@ -1,6 +1,6 @@
 ---
 title: "Results of the optimization steps"
-sidebar_position: 6
+sidebar_position: 306
 ---
 
 In previous labs, we looked at one optimization at a time. We started with the initial container image without optimization, then used 'jlink' and 'jdeps' for a custom runtime, introduced 'jib', and finally used GraalVM. The following table shows the different versions with the image size and the start time of the application (tested using Amazon EKS).

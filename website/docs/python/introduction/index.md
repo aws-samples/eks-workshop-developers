@@ -1,29 +1,21 @@
 ---
-title: Introduction
-sidebar_position: 100
+title: Python Workshop Overview
+sidebar_position: 1
 ---
-# Welcome to the EKS Developers Workshop
-Welcome to the EKS Developers Workshop, a technical deep-dive into refactoring applications for Amazon Elastic Kubernetes Service (EKS). 
 
-## Who Is This Workshop For?
-This workshop is tailored for developers that want to refactor an application for containers and Kubernetes environments using EKS. It's specifically designed to be Kubernetes beginner-friendly and particularly beneficial for those who: 
+Welcome to the Python developers workshop! We'll embark on an end-to-end journey with the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project, a Python-based application developed with FastAPI and PostgreSQL as the database. This workshop will guide you from the fundamentals of containerization, Kubernetes, and finally to deploying the application on Amazon Web Services (AWS).
 
-* Need visibility of the entire Kubernetes lifecycle from refactoring, containers, to Kubernetes integrations on Amazon EKS.
-* Have a foundational understanding of container technologies and seek to increase their knowledge of Kubernetes-based application deployments.
-* Aim to transition traditional applications to cloud-native architectures, particularly within the AWS ecosystem.
+## About This Workshop
+This workshop dives into the unique aspects of both stateless and stateful applications within the project, broken down into the following sections:
 
-## What You Will Learn
-* **Application Refactoring:** Learn how to apply The Twelve-Factor App methodologies to refactor applications for containers and Kubernetes.
+- **[Introduction](index.md)**: This chapter shows you the key principles we used to refactor the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project for Containers and Kubernetes environments, and how to setup your development environment. 
+- **[Containers](../containers/index.md)**: This chapter shows you how to containerize applications using Docker and deploy a multi-architecture container image to [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/). 
+- **[Kubernetes](../kubernetes/index.md)**: This chapter shows you how deploy your containerized application to a local Kubernetes cluster, providing an introduction into essential Kubernetes concepts such as service definitions, deployments, and secrets.
+- **[Amazon EKS](../eks/index.md)**: This chapter shows you how to deploy your containerized application stored in Amazon ECR onto an [Amazon EKS](https://aws.amazon.com/eks/) cluster, exploring use-case specific cluster set-up and integration with other AWS services. 
 
-* **Containerization Techniques:** Master the creation and management of Docker containers, integrate Amazon ECR with Docker Compose, and handle multi-architecture containers.
-* **Kubernetes Deployment:** Learn how to deploy your application to a local minikube cluster, including securing workloads with Kubernetes secrets.
-* **Amazon EKS Deployment:** Build your skills deploying Kubernetes workloads in production on Amazon EKS, integrating with AWS services like AWS Secrets Manager and Amazon RDS for PostgreSQL. 
+## Stateful and Stateless Microservices Use Case
+The [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) serves as a practical case study throughout this workshop. It uses [FastAPI](https://fastapi.tiangolo.com/lo/), an asynchronous Python web framework, and employs a [PostgreSQL](https://www.postgresql.org/) database for persistent data storage.
 
-## How to Participate in the Workshop
-This workshop offers a self-paced, comprehensive guide through the entire Kubernetes lifecycle. From creating multi-architecture container images, to understanding Kubernetes, to integrating with Amazon EKS and other AWS services, this workshop is a continuous, end-to-end exploration. Each chapter is designed to build upon the previous, ensuring a cohesive learning experience. To get started with the workshop:
-
-* **In Your Own Account**: This option allows for a personalized and hands-on experience, using your AWS account to create resources.
-* **At an AWS Event (Coming Soon)**: Engage in a more guided and structured learning environment, ideal for those who prefer collaborative learning sessions.
-
-## Getting Started
-Dive into our [overview](./python/about-workshop.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.
+- **FastAPI Application (Web Service)**: This stateless component serves as the primary application layer. Leveraging the FastAPI framework, this Python-based web service enables the rapid construction of APIs while maintaining top-notch performance. It offers robust data validation, serialization, and documentation via its integral [OpenAPI](https://swagger.io/specification/) support. Despite being stateless, it can process requests and return responses without preserving any data, thereby enhancing scalability and resilience.
+- **PostgreSQL Database (DB Service)**: Representing the stateful element of the project, this service employs the official PostgreSQL image from Docker Hub. Known for its robustness, reliability, and performance, PostgreSQL is an open-source object-relational database system that is responsible for data persistence in the project. This statefulness enables the application's data to be stored, accessed, and modified over time.
+ 

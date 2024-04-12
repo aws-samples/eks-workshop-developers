@@ -1,6 +1,6 @@
 ---
 title: Creating an Amazon EKS Cluster
-sidebar_position: 1
+sidebar_position: 201
 ---
 
 ## Objective
@@ -18,7 +18,7 @@ How does Amazon EKS work?
 
 ## Prerequisites
 
-- [Building and Running Multi-Architecture Containers](../../java/containers/upload-ecr.md)
+- [Building and Running Containers](../../java/containers/upload-ecr.md)
 
 [Amazon Elastic Kubernetes Service (Amazon EKS)](https://aws.amazon.com/eks/) is a managed service that you can use to run Kubernetes on AWS without needing to install, operate, and maintain your own Kubernetes control plane or nodes. Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications.
 
@@ -96,6 +96,65 @@ Get access to the cluster
 ```bash showLineNumbers
 aws eks --region $AWS_REGION update-kubeconfig --name unicorn-store
 kubectl get nodes
+```
+
+## 3. Adding IAM permissions and External secrets
+
+Create an IAM-Policy with the required permissions to publish to EventBridge, retrieve secrets, parameters and basic monitoring:
+
+```json showLineNumbers
+cat <<EOF > service-account-policy.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "xray:PutTraceSegments",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": "events:PutEvents",
+            "Resource": "arn:aws:events:$AWS_REGION:$ACCOUNT_ID:event-bus/unicorns",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret"
+            ],
+            "Resource": "$(aws cloudformation describe-stacks --stack-name UnicornStoreInfrastructure --query 'Stacks[0].Outputs[?OutputKey==`arnUnicornStoreDbSecret`].OutputValue' --output text)",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+            ],
+            "Resource": "arn:aws:ssm:$AWS_REGION:$ACCOUNT_ID:parameter/databaseJDBCConnectionString",
+            "Effect": "Allow"
+        }
+    ]
+}
+EOF
+aws iam create-policy --policy-name unicorn-eks-service-account-policy --policy-document file://service-account-policy.json
+rm service-account-policy.json
+```
+
+We need to synchronize the database secret from AWS Secrets Manager to a Kubernetes secret to use it in a deployment. To achieve that, we will use [External Secrets](https://external-secrets.io/) and install it via [Helm](https://helm.sh/docs/intro/using_helm/):
+
+Install the External Secrets Operator:
+
+```bash showLineNumbers
+helm repo add external-secrets https://charts.external-secrets.io
+helm install external-secrets \
+external-secrets/external-secrets \
+-n external-secrets \
+--create-namespace \
+--set installCRDs=true \
+--set webhook.port=9443 \
+--wait
 ```
 
 ## Conclusion

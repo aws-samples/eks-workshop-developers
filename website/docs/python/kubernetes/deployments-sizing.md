@@ -254,4 +254,4 @@ You should see something like this:
 This lab showed how to update the Kubernetes manifests for the FastAPI and PostgreSQL deployments in response to our load testing data. This ensures that your application has the resources it needs to perform well under high load, while also making efficient use of your cluster's resources.
 
 ## What's Next?
-- [EKS](../../eks/index.md)
+- [EKS](./index.md)

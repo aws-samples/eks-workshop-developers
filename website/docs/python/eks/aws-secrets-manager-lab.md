@@ -15,7 +15,7 @@ In this lab we'll be discussing Kubernetes Secrets, the security precautions to 
 3. Build and deploy the new version of the application to our EKS cluster
 
 ## Prerequisites
-* [Deploying FastAPI and PostgreSQL Microservices to EKS](../python/deploy-app.md)
+* [Deploying FastAPI and PostgreSQL Microservices to EKS](./deploy-app.md)
   
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
