@@ -88,21 +88,9 @@ db                ClusterIP      None            <none>        5432/TCP       10
 fastapi-service   LoadBalancer   10.108.241.54   <pending>     80:32180/TCP   95m
 ```
 
-Because the Service type of fastapi-service is [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer), a load balancer is provisioned for the Service. Currently, the value of its EXTERNAL-IP column is set to `<pending>`. As a test, run the following command:
+Because the Service type of fastapi-service is [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer), Minikube provisions a load balancer for the Service. 
 
-``` bash
-minikube tunnel
-```
-
-This command is for connecting to Minikube's load balancer. As a result, an IP address will be assigned to EXTERNAL-IP as follows:
-
-```bash
-NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-db                ClusterIP      None            <none>        5432/TCP       105m
-fastapi-service   LoadBalancer   10.108.241.54   127.0.0.1     80:32180/TCP   100m
-```
-
-The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside and routes them to Services. If the port number of NodePort isn't explicitly specified, one IP address in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. When a client sends requests to 127.0.0.1:80, the requests will be routed to the Pod fastapi-service as shown in the diagram above. Note that the next section shows how to access a FastAPI App without using the command minikube tunnel.
+The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside and routes them to Services. If the port number of NodePort isn't explicitly specified, one port in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. 
 
 Then, check the Deployment:
 

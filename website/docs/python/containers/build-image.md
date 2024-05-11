@@ -2,6 +2,8 @@
 title: Building and Running the Docker Containers
 sidebar_position: 2
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
@@ -45,7 +47,32 @@ Alternatively, if you're using Finch, run the following command to start the app
 finch compose up
 ```
 
-This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+This command initiates containers for each service as specified in the docker-compose.yml file. 
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+
+<Tabs>
+
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+Find the public IP of the EC2 instance where you are running this lab using the command below
+
+Example:
+```
+echo $PUBLIC_IP
+1.2.3.4
+```
+Then use the public IP of the EC2 instance and port 8000 to connect to the FastAPI application in your web browser.
+
+Example: http://1.2.3.4:8000
+
+</TabItem>
+
+  <TabItem value="Local Computer" label="Local Computer" default>
+Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+
+</TabItem>
+</Tabs>
 
 ![Image](./images/app-home.png)
 

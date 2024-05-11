@@ -19,7 +19,12 @@ In a terminal, install 'hey' with [Homebrew](https://brew.sh/):
 ```bash
 brew install hey
 ```
-Alternatively, for other installation options, refer to the ['hey' documentation](https://github.com/rakyll/hey).
+Alternatively, you can download 'hey' binaries
+```bash
+sudo curl -o /usr/bin/hey https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64 && sudo chmod +x /usr/bin/hey
+```
+
+For other installation options, refer to the ['hey' documentation](https://github.com/rakyll/hey).
 
 ## 2. Enabling the Metrics Server
 If it's not already running, start minikube:

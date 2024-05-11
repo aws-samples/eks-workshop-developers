@@ -17,7 +17,27 @@ Of course, it's also possible to use the Kubernetes Dashboard instead of the EKS
 
 ## 1. Checking IAM permissions for the IAM principal logging into the EKS console
 
-Make sure that the IAM principal you are using to logg into the EKS console has the required permissions according to [View Kubernetes resources](https://docs.aws.amazon.com/eks/latest/userguide/view-kubernetes-resources.html#view-kubernetes-resources-permissions) in EKS documentation. If any permissions are missing, add them. Once the necessary permissions have been added, proceed to the next step.
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+
+<Tabs>
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+You can access the EKS Console from the AWS Workshop Studio session. 
+
+The IAM role used by Workshop Studio is the same IAM role that was initially configured in VS Code environment and it was used to create the EKS cluster. This role is the creator of the cluster and it already has the required permissions.
+
+Next, skip to step '[4. View Kubernetes resources](#4-viewing-your-kubernetes-resources)' 
+
+</TabItem>
+  <TabItem value="Local Computer" label="Local Computer" default>
+
+Make sure that the IAM principal you are using to log into the EKS console has the required permissions according to [View Kubernetes resources](https://docs.aws.amazon.com/eks/latest/userguide/view-kubernetes-resources.html#view-kubernetes-resources-permissions) in EKS documentation. If any permissions are missing, add them. Once the necessary permissions have been added, proceed to the next step.
+
+
+</TabItem>
+
+
+</Tabs>
 
 ## 2. Creating Kubernetes RBAC resources
 
@@ -40,7 +60,6 @@ The expected output should look like this:
 ```bash
 clusterrole.rbac.authorization.k8s.io/eks-console-dashboard-full-access-clusterrole created
 clusterrolebinding.rbac.authorization.k8s.io/eks-console-dashboard-full-access-binding created
-
 ```
 
 You can also view Kubernetes resources limited to a specific namespace. Refer to the EKS documentation for more details on creating RBAC bindings for a namespace.

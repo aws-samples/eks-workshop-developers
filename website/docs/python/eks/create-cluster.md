@@ -30,7 +30,7 @@ The **[create-fargate-python.yaml](https://github.com/aws-samples/python-fastapi
 From the `python-fastapi-demo-docker` project directory, create the cluster using the eksctl configuration file:
 
 :::caution
-Make sure to verify the region specified in `eks/create-fargate-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../python/introduction/environment-setup).
+Make sure to update the **region** specified in `eks/create-fargate-python.yaml` to the region that you are using for this lab.
 :::
 
 ```bash
@@ -108,7 +108,7 @@ The **[create-mng-python.yaml](https://github.com/aws-samples/python-fastapi-dem
 From the 'python-fastapi-demo-docker' project directory, create the cluster using the eksctl configuration file. The cluster creation can take upwards of 15 minutes so now is a good time to stretch:
 
 :::caution
-Make sure to verify the region specified in `eks/create-mng-python.yaml` and change it, if needed. The region must be same as the one you used in your [.env file](../../python/introduction/environment-setup).
+Make sure to update the **region** specified in `eks/create-mng-python.yaml` to the region that you are using for this lab.
 :::
 
 ```bash

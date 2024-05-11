@@ -2,6 +2,8 @@
 title: Monitoring Kubernetes Resources Using the Dashboard
 sidebar_position: 7
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
@@ -29,7 +31,38 @@ To monitor CPU and memory usage statistics of the pods via the Kubernetes Dashbo
 minikube addons enable metrics-server
 ```
 
-## 2. Viewing Kubernetes resources
+## 2. Accessing Kubernetes Dashboard
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+
+<Tabs>
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+Expose Kubernetes Dashboard port 80 using host port 8001 by running:
+```bash
+kubectl -n kubernetes-dashboard port-forward --address 0.0.0.0 service/kubernetes-dashboard 8001:80
+```
+
+Find the public IP of the EC2 instance where you are running this lab using the command below
+
+Example:
+```
+echo $PUBLIC_IP
+1.2.3.4
+```
+Then use the public IP of the EC2 instance and port 8001 to connect to the Kubernetes Dashboard in your web browser.
+
+Example: http://1.2.3.4:8001
+
+</TabItem>
+  <TabItem value="Local Computer" label="Local Computer" default>
+
+Navigate to Kubernetes dashboard URL in your local browser
+
+</TabItem>
+</Tabs>
+
+## 3. Viewing Kubernetes resources
 
 ### Filter Kubernetes resources by the Namespace my-cool-app
 

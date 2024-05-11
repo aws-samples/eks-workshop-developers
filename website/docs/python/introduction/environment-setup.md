@@ -2,9 +2,57 @@
 title: Setting up the Development Environment
 sidebar_position: 3
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+
 ## Objective
 
-This guide shows you how to up the necessary tools and environment to leverage the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. For more samples, we recommend exploring the sample app collection (e.g., Python, Flask, FastAPI, PostgreSQL) at [docker/awesome-compose](https://github.com/docker/awesome-compose).
+This guide shows you how to set up the necessary tools and environment to leverage the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. For more samples, we recommend exploring the sample app collection (e.g., Python, Flask, FastAPI, PostgreSQL) at [docker/awesome-compose](https://github.com/docker/awesome-compose).
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+<Tabs>
+
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+In Workshop Studio environment, most tools and environment configurations are already completed. To complete the environment configuration, execute the setup steps below.
+
+## 1. Creating the .env file
+
+We'll be heavily reliant on environment variables to ease the set-up process throughout this workshop.
+
+First, navigate into the project directory and make a copy of the example environment variables file.
+
+```bash
+cd python-fastapi-demo-docker
+cp .env.example .env
+```
+Then, update variables inside `.env` file as indicated below.
+
+Update variables `AWS_ACCOUNT_ID` and `AWS_REGION` with the values returned by the following commands:
+```bash
+echo $AWS_ACCOUNT_ID
+echo $AWS_REGION
+```
+
+Update AWS credentials using the values from the AWS WorkshopStudio session, available under "AWS account access":
+
+```bash
+AWS_DEFAULT_REGION="us-east-1"
+AWS_ACCESS_KEY_ID="ASIAWNZPPVHEXAMPLE"
+AWS_SECRET_ACCESS_KEY="bPxRfiCYEXAMPLE"
+AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjECMaCXVzLWVhc3QtMSJHMEUCIAUqOHDilurbiEXAMPLE..."
+```
+
+Add your [DockerHub](https://hub.docker.com/) user name. I you don't have a DockerHub account, you can delete this variable from the `.env` file
+
+```
+DOCKER_USERNAME=frank9
+```
+
+</TabItem>
+
+  <TabItem value="Local Computer" label="Local Computer" default>
 
 ## 1. Installing Required Tools
 
@@ -116,6 +164,9 @@ finch vm init
 finch run public.ecr.aws/finch/hello-finch:latest
 ```
 
+</TabItem>
+
+</Tabs>
 ## What's Next?
 
 - [Containers](../containers/index.md)
