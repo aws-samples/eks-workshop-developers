@@ -43,13 +43,16 @@ The expected output should look like this:
 |-------------|-----------------|-------------|---------------------------|
 | my-cool-app | fastapi-service |          80 | http://192.168.49.2:30639 |
 |-------------|-----------------|-------------|---------------------------|
-🏃  Starting tunnel for service fastapi-service.
 🎉  Opening service my-cool-app/fastapi-service in default browser...
+👉  http://192.168.49.2:30639
 ```
-Then expose the service port 80 using host port 8000 by running
+Minikube exposes service port 80 using localhost address. Additionally, you need to expose the service on the EC2 instance public IP address, to be able to access it from your local browser.
+
+Expose the service port 80 using host port 8000 by running
 ```bash
 kubectl -n my-cool-app port-forward --address 0.0.0.0 service/fastapi-service 8000:80
 ```
+Keep this command running while accessing the service with the steps below.
 
 Find the public IP of the EC2 instance where you are running this lab using the command below
 

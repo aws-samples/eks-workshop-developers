@@ -35,7 +35,9 @@ echo $AWS_ACCOUNT_ID
 echo $AWS_REGION
 ```
 
-Update AWS credentials using the values from the AWS WorkshopStudio session, available under "AWS account access":
+Update AWS credentials using the values from the AWS WorkshopStudio session, available under "AWS account access".
+
+Example:
 
 ```bash
 AWS_DEFAULT_REGION="us-east-1"
@@ -44,10 +46,20 @@ AWS_SECRET_ACCESS_KEY="bPxRfiCYEXAMPLE"
 AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjECMaCXVzLWVhc3QtMSJHMEUCIAUqOHDilurbiEXAMPLE..."
 ```
 
-Add your [DockerHub](https://hub.docker.com/) user name. I you don't have a DockerHub account, you can delete this variable from the `.env` file
+Add your [DockerHub](https://hub.docker.com/) user name. If you don't have a DockerHub account, you can delete this variable from the `.env` file
 
 ```
 DOCKER_USERNAME=frank9
+```
+
+## 2. Import Environment Variables
+
+Next, from the root directory of the 'python-fastapi-demo-docker' project, import all environment variables by running the following commands.
+
+```bash
+cd python-fastapi-demo-docker
+set -a; source .env; set +a
+printenv
 ```
 
 </TabItem>
@@ -149,7 +161,7 @@ set
 **Linux**
 
 ```bash
-source .env
+set -a; source .env; set +a
 printenv
 ```
 

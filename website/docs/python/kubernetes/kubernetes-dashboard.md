@@ -19,17 +19,12 @@ This lab walks you through the process of using the [Kubernetes Dashboard](https
 
 ## 1. Installing the Kubernetes Dashboard
 
-To install and initiate the Kubernetes Dashboard, open your terminal and run the command outlined in the [Minikube documentation](https://minikube.sigs.k8s.io/docs/handbook/dashboard/). Once started, the Dashboard should automatically open in your default web browser. If it doesn't open automatically, the terminal will display a URL as part of the command's output that you can copy and paste into your web browser to access the Dashboard manually.
-
+Installl the Kubernetes Dashboard and Metrics Server addons by running:
 ```bash
-minikube dashboard
-```
-
-To monitor CPU and memory usage statistics of the pods via the Kubernetes Dashboard, the 'metrics-server' needs to be active. Install it using the following command:
-
-```bash
+minikube addons enable dashboard
 minikube addons enable metrics-server
 ```
+Metrics Server collects CPU and memory usage statistics of the pods and you can monitor them using the Kubernetes Dashboard.
 
 ## 2. Accessing Kubernetes Dashboard
 
@@ -46,7 +41,7 @@ kubectl -n kubernetes-dashboard port-forward --address 0.0.0.0 service/kubernete
 Find the public IP of the EC2 instance where you are running this lab using the command below
 
 Example:
-```
+```bash
 echo $PUBLIC_IP
 1.2.3.4
 ```
@@ -57,7 +52,12 @@ Example: http://1.2.3.4:8001
 </TabItem>
   <TabItem value="Local Computer" label="Local Computer" default>
 
-Navigate to Kubernetes dashboard URL in your local browser
+To initiate the Kubernetes Dashboard, open your terminal and run the command below:
+```bash
+minikube dashboard
+```
+Once started, the Dashboard should automatically open in your default web browser. If it doesn't open automatically, the terminal will display a URL as part of the command's output that you can copy and paste into your web browser to access the Dashboard manually.
+For omre information, check the [Minikube documentation](https://minikube.sigs.k8s.io/docs/handbook/dashboard/).
 
 </TabItem>
 </Tabs>

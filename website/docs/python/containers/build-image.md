@@ -47,7 +47,7 @@ Alternatively, if you're using Finch, run the following command to start the app
 finch compose up
 ```
 
-This command initiates containers for each service as specified in the docker-compose.yml file. 
+This command initiates containers for each service as specified in the docker-compose.yml file. Don't stop the command execution to keep application and database services running.
 
 **Use the tabs below to see the steps for the specific environment where you are running this lab.**
 
@@ -55,9 +55,9 @@ This command initiates containers for each service as specified in the docker-co
 
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-Find the public IP of the EC2 instance where you are running this lab using the command below
+Find the public IP of the EC2 instance where you are running this lab.
 
-Example:
+For example, you can run the command below in a new shell:
 ```
 echo $PUBLIC_IP
 1.2.3.4
@@ -90,7 +90,7 @@ Your application ('python-fastapi-demo-docker-web' service) and your database ('
 
 ## 5. Stopping the Services and Their Containers
 
-Stop and remove the containers of both services by pressing `CTRL + C` or running the following command:
+Stop and remove the containers of both services by pressing `CTRL + C` and running the following command:
 
 ```bash
 docker-compose down
