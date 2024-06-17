@@ -47,11 +47,15 @@ The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 <!--This is a shared file at src/includes/get-ecr-uri.md that shows users how to get their ECR URI.-->
 <GetECRURI />
 
-Next, open **[kubernetes/fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** and replace the sample value with your ECR repository URI image and tag (e.g., `1.0`).
+Next, open file **[kubernetes/fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** and replace the sample value for container image with your ECR repository URI image and tag (e.g., `1.0`).
 
-```bash
-cd python-fastapi-demo-docker
-vi kubernetes/fastapi-app.yaml
+The result should look like below:
+```yaml
+...
+      containers:
+      - name: web
+        image: 01234567890.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0
+...
 ```
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:

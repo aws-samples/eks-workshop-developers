@@ -15,7 +15,7 @@ This guide shows you how to set up the necessary tools and environment to levera
 
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-In Workshop Studio environment, most tools and environment configurations are already completed. To complete the environment configuration, execute the setup steps below.
+In Workshop Studio environment, most tools and environment configurations are already set up. To complete the environment configuration, execute the setup steps below.
 
 ## 1. Creating the .env file
 
@@ -35,15 +35,22 @@ echo $AWS_ACCOUNT_ID
 echo $AWS_REGION
 ```
 
-Update AWS credentials using the values from the AWS WorkshopStudio session, available under "AWS account access".
+Update variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, and add variable `AWS_SESSION_TOKEN` using the credentials values from the AWS WorkshopStudio session, available under WorkshopStudio Event section "AWS account access - Get AWS CLI credentials".
+These credentials will be used when executing aws commands in Visual Studio terminal. 
 
-Example:
+After updating AWS variables, file .env should look like below:
 
 ```bash
-AWS_DEFAULT_REGION="us-east-1"
+...
+# AWS CREDENTIALS
+# Run "aws sts get-caller-identity" to get your account id
+# Run "aws configure" to setup your credentials
+AWS_ACCOUNT_ID=0123EXAMPLE
+AWS_REGION=us-east-example
 AWS_ACCESS_KEY_ID="ASIAWNZPPVHEXAMPLE"
 AWS_SECRET_ACCESS_KEY="bPxRfiCYEXAMPLE"
 AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjECMaCXVzLWVhc3QtMSJHMEUCIAUqOHDilurbiEXAMPLE..."
+...
 ```
 
 Add your [DockerHub](https://hub.docker.com/) user name. If you don't have a DockerHub account, you can delete this variable from the `.env` file

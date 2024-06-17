@@ -6,6 +6,8 @@ sidebar_position: 1
 ## Overview
 This page serves as an introduction to Docker and Docker Compose, focusing on the deployment and orchestration of our Python-based FastAPI application using multi-stage builds and service management.
 
+In this page we will have a closer look at files `Dockerfile` and `docker-compose.yml` under directory `python-fastapi-demo-docker` to explain how define a multi-stage build using Docker and Docker Compose.
+
 ## Multi-Stage Builds in Docker for Cost Savings
 This section describes the practical application of Docker's multi-stage builds within our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's Dockerfile, reducing the final Docker image size and cost savings in cloud environments. Our project's Dockerfile employs a two-stage build process: "builder" and "runner". This strategy, utilizing only necessary elements for the final image, minimizes size and separates build-time and run-time dependencies.
 

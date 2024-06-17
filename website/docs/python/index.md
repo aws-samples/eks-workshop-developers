@@ -9,7 +9,7 @@ Welcome to the EKS Developers Workshop, a technical deep-dive into refactoring a
 ## Who Is This Workshop For?
 This workshop is tailored for developers that want to refactor an application for containers and Kubernetes environments using EKS. It's specifically designed to be Kubernetes beginner-friendly and particularly beneficial for those who: 
 
-* Need visibility of the entire Kubernetes lifecycle from refactoring, containers, to Kubernetes integrations on Amazon EKS.
+* Need visibility of the entire Kubernetes lifecycle, from refactoring containers, to Kubernetes integrations on Amazon EKS.
 * Have a foundational understanding of container technologies and seek to increase their knowledge of Kubernetes-based application deployments.
 * Aim to transition traditional applications to cloud-native architectures, particularly within the AWS ecosystem.
 
