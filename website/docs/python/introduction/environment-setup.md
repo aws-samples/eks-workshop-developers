@@ -15,9 +15,29 @@ This guide shows you how to set up the necessary tools and environment to levera
 
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-In Workshop Studio environment, most tools and environment configurations are already set up. To complete the environment configuration, execute the setup steps below.
+If you are attending an AWS hosted event, you will have access to an AWS account in AWS Workshop Studio, where the infrastructure and IAM policies needed to complete this workshop have been  pre-provisioned. The goal of this section is to complete the configuration of enviroment variables that will allow you to run commands in Vistual Studio terminal.
 
-## 1. Creating the .env file
+## Prerequisites
+
+* Access the event via the one-click join event link provided by the event operator as part of an AWS hosted event.
+* OR via the [Workshop Studio join URL](https://catalog.workshops.aws/join) with the 12 digit event access code distributed by an event operator.
+* Carefully review the terms and conditions associated with this event.
+
+## 1. Accessing Visual Studio terminal
+
+After joining the event, you should see the page with event information and workshop details. You should also see a section titled **"AWS account access"** on the left navigation bar. You can use these options to see AWS CLI credentials and access the AWS account provided to you for this workshop.
+
+This workshop deploys Visual Studion in an EC2 instance running in this AWS account. To access Visual Studio, open the **IdeUrl** and log in using the **IdePassword**.
+
+When running specifc steps int he workshop, you will asked to connect to the Public IP of this EC2 instance. For that, use the instance Public IP shown in **IdePublicIp**.
+
+![workshop-studio-event-python](./images/workshop-studio-event-python.jpg)
+
+After logging in Visual Studio, you can open Visual Studio terminal by accessing Menu -> Terminal-> New Terminal.
+
+![visual-studio-terminal](./images/visual-studio-terminal.jpg)
+
+## 2. Creating the .env file
 
 We'll be heavily reliant on environment variables to ease the set-up process throughout this workshop.
 
@@ -59,7 +79,7 @@ Add your [DockerHub](https://hub.docker.com/) user name. If you don't have a Doc
 DOCKER_USERNAME=frank9
 ```
 
-## 2. Import Environment Variables
+## 3. Import Environment Variables
 
 Next, from the root directory of the 'python-fastapi-demo-docker' project, import all environment variables by running the following commands.
 
