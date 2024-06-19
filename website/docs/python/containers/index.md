@@ -4,8 +4,8 @@ sidebar_position: 201
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import MultiArchLinuxImageUrl from '@site/docs/python/containers/multi-arch-linux.png';
-import MultiArchWindowsImageUrl from '@site/docs/python/containers/multi-arch-windows.png';
+import MultiArchLinuxImageUrl from '@site/docs/python/containers/images/multi-arch-linux.png';
+import MultiArchWindowsImageUrl from '@site/docs/python/containers/images/multi-arch-windows.png';
 
 ## Overview
 
