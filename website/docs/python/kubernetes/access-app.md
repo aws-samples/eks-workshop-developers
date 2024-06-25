@@ -54,7 +54,7 @@ kubectl -n my-cool-app port-forward --address 0.0.0.0 service/fastapi-service 80
 ```
 Keep this command running while accessing the service with the steps below.
 
-Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output "IdePublicIp" or reading the following env variable in a new shell:
+Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output **IdePublicIp** or reading the following env variable in a new shell:
 ```
 echo $PUBLIC_IP
 1.2.3.4
@@ -97,6 +97,8 @@ This command needs to be continuously running to keep the network route open, so
 To confirm that everything is functioning as expected, attempt to add a book by selecting the **Create a book** option.
 
 ![Image](./images/app-create-book.png)
+
+Now you can press `Ctrl+C` to stop the command.
 
 ## Conclusion
 This lab has walked you through the steps necessary to access your microservices, specifically the FastAPI service, deployed on a minikube cluster from your local machine. We've shown how to check the status of your pods, enable a minikube tunnel for access, and verify your setup by interacting with the FastAPI service. The minikube service command is a convenient way to expose your Kubernetes services to your local machine and interact with them as if they were locally deployed.

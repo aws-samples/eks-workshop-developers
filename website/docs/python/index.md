@@ -24,7 +24,9 @@ This workshop is tailored for developers that want to refactor an application fo
 This workshop offers a self-paced, comprehensive guide through the entire Kubernetes lifecycle. From creating multi-architecture container images, to understanding Kubernetes, to integrating with Amazon EKS and other AWS services, this workshop is a continuous, end-to-end exploration. Each chapter is designed to build upon the previous, ensuring a cohesive learning experience. To get started with the workshop:
 
 * **In Your Own Account**: This option allows for a personalized and hands-on experience, using your AWS account to create resources.
-* **At an AWS Event (Coming Soon)**: Engage in a more guided and structured learning environment, ideal for those who prefer collaborative learning sessions.
+* **At an AWS Event**: Engage in a more guided and structured learning environment at an AWS Event using AWS Workshop Studio platform, ideal for those who prefer collaborative learning sessions.
+
+This workshop has an approximate duration of 4 hours.
 
 ## Getting Started
 Dive into our [introduction](./introduction/index.md) to commence your technical exploration of EKS. Equip yourself with the knowledge and skills to confidently manage Kubernetes applications on AWS.

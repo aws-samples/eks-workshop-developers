@@ -22,9 +22,9 @@ Of course, it's also possible to use the Kubernetes Dashboard instead of the EKS
 <Tabs>
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-You can access the EKS Console from the AWS Workshop Studio session. 
+You can access the EKS Console from the AWS Workshop Studio event page, as explained in section [Setting up the Development Environment](./../introduction/environment-setup.md). 
 
-The IAM role used by Workshop Studio is the same IAM role that was initially configured in VS Code environment and it was used to create the EKS cluster. This role is the creator of the cluster and it already has the required permissions.
+The IAM role used in Workshop Studio is the same IAM role that was initially configured in Visual Studio terminal and it was used to create the EKS cluster. This role is the creator of the cluster and it already has the required permissions.
 
 Next, skip to step '[4. View Kubernetes resources](#4-viewing-your-kubernetes-resources)' 
 

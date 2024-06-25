@@ -66,6 +66,8 @@ finch compose up
 
 This command will now pull the image from the Amazon ECR repository, as specified in the docker-compose.yml file, and start your services.
 
+Press `Ctrl+C` to stop the services.
+
 ## 4. Updating Docker Images
 
 If you're working with a team and sharing the Docker image for the FastAPI application on Amazon ECR, you might find yourself pulling updates from ECR, making changes, and then pushing updates back to ECR. Here's the typical workflow.
@@ -164,6 +166,18 @@ Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch rmi -f $(finch images --filter reference=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com -q)
+```
+
+Stop and remove the containers of both services by running the following command:
+
+```bash
+docker-compose down --volumes
+```
+
+Alternatively, if you're using Finch, run the following command to stop and remove the containers:
+
+```bash
+finch compose down
 ```
 
 ## Conclusion

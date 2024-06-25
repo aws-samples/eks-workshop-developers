@@ -8,7 +8,7 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
-This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose and providing the Finch equivalent commands. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
+This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose or equivalent Finch commands. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ This command initiates containers for each service as specified in the docker-co
 
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output "IdePublicIp" or reading the following env variable in a new shell:
+Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output **IdePublicIp** or reading the following env variable in a new shell:
 ```
 echo $PUBLIC_IP
 1.2.3.4
@@ -84,27 +84,12 @@ To confirm that everything is functioning as expected, attempt to add a book by 
 
 Your application ('python-fastapi-demo-docker-web' service) and your database ('python-fastapi-demo-docker-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our python-fastapi-demo-docker application, as instances of the services in our Docker Compose configuration.
 
-![Image](./images/docker-extension-open-in-browser.png)
+![Image](./images/docker-extension-open-in-browser-v2.png)
 
-## 5. Stopping the Services and Their Containers
 
-Stop and remove the containers of both services by pressing `CTRL + C` and running the following command:
+## 5. Rebuilding and Restarting Docker Services
 
-```bash
-docker-compose down
-```
-
-Alternatively, if you're using Finch, press CTRL + C or run the following command to stop and remove the containers:
-
-```bash
-finch compose down
-```
-
-This command halts the containers and, by default, also removes the containers, networks, and volumes as described in your docker-compose.yml file.
-
-## 6. Rebuilding and Restarting Docker Services
-
-To rebuild the images and restart the services simultaneously, execute the following command:
+To rebuild the images and restart the services simultaneously, press `CTRL + C` and execute the following command:
 
 ```bash
 docker-compose up --build
@@ -117,6 +102,22 @@ finch compose up --build
 ```
 
 This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
+
+## 6. Stopping the Services and Removing Their Containers
+
+Stop and remove the containers of both services by pressing `CTRL + C` and running the following command:
+
+```bash
+docker-compose down --volumes
+```
+
+Alternatively, if you're using Finch, press `CTRL + C` and run the following command to stop and remove the containers:
+
+```bash
+finch compose down
+```
+
+This command halts the containers and also removes the containers, networks, and volumes as described in your docker-compose.yml file.
 
 ## Conclusion
 

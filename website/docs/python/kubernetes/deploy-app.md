@@ -22,7 +22,7 @@ The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 
 :::tip
 
-Take note that the Kubernetes service name of 'db' **must** match the service name of 'db' in Docker `postgresql://bookdbadmin:dbpassword@db:5432/bookstore`.
+Take note that the Kubernetes service name of 'db' **must** match the server name 'db' in postgresql URL, which is set in file .env with variable `DOCKER_DATABASE_URL=postgresql://bookdbadmin:dbpassword@db:5432/bookstore`.
 
 :::
 
@@ -67,7 +67,7 @@ kubectl apply -f kubernetes/fastapi-app.yaml
 The expected output should look like this:
 
 ```bash
-service/fastapi-service configured
+service/fastapi-service created
 deployment.apps/fastapi-deployment created
 ```
 
@@ -94,7 +94,7 @@ fastapi-service   LoadBalancer   10.108.241.54   <pending>     80:32180/TCP   95
 
 Because the Service type of fastapi-service is [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer), Minikube provisions a load balancer for the Service. 
 
-The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside and routes them to Services. If the port number of NodePort isn't explicitly specified, one port in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. 
+The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside the Kubernetes cluster and routes them to Services. If the port number of NodePort isn't explicitly specified, one port in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. In your case the port number may be different.
 
 Then, check the Deployment:
 

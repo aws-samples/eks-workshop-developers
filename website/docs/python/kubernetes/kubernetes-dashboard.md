@@ -24,7 +24,7 @@ Installl the Kubernetes Dashboard and Metrics Server addons by running:
 minikube addons enable dashboard
 minikube addons enable metrics-server
 ```
-Metrics Server collects CPU and memory usage statistics of the pods and you can monitor them using the Kubernetes Dashboard.
+Metrics Server collects CPU and memory usage statistics of the pods and nodes, and you can monitor them using the Kubernetes Dashboard.
 
 ## 2. Accessing Kubernetes Dashboard
 
@@ -38,7 +38,7 @@ Expose Kubernetes Dashboard port 80 using host port 8001 by running:
 kubectl -n kubernetes-dashboard port-forward --address 0.0.0.0 service/kubernetes-dashboard 8001:80
 ```
 
-Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output "IdePublicIp" or reading the following env variable in a new shell:
+Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output **IdePublicIp** or reading the following env variable in a new shell:
 ```
 echo $PUBLIC_IP
 1.2.3.4
@@ -80,11 +80,11 @@ Click on the 'fastapi-deployment' pod to check the spec and status.
 
 ![kubernetes-dashboard-3](./images/kubernetes-dashboard-3.jpg)
 
-Click the first button from the left of the red frame to check the Pod's container log. You can use this functionality in lieu of the 'kubectl logs' command when using the Kubernetes Dashboard.
+Click the first button from the left of the red frame (top right corner of the dashboard) to check the Pod's container log. You can use this functionality in lieu of the 'kubectl logs' command when using the Kubernetes Dashboard.
 
 ![kubernetes-dashboard-4](./images/kubernetes-dashboard-4.jpg)
 
-Press the second button from the left of the red frame to log in to the Pod using a shell. You can use this functionality in lieu of the 'kubectl exec' command when using the Kubernetes Dashboard.
+Press the second button from the left of the red frame (top right corner of the dashboard) to log in to the Pod using a shell. You can use this functionality in lieu of the 'kubectl exec' command when using the Kubernetes Dashboard.
 
 ![kubernetes-dashboard-5](./images/kubernetes-dashboard-5.jpg)
 
