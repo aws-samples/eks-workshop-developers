@@ -26,7 +26,7 @@ docker-compose build
 Alternatively, if you're using Finch, run the following command to build the container images for the application and database:
 
 ```bash
-finch compose build --platform linux/amd64
+finch compose build
 ```
 
 This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
