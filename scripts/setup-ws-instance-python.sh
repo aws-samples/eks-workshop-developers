@@ -82,7 +82,11 @@ code-server --install-extension ms-python.python --force
 
 ## Clone Git repository for the App
 cd ~/environment
-git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
+## temporary github link
+# git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
+git clone https://github.com/abencomoc/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
+cd /home/ec2-user/environment/python-fastapi-demo-docker/
+git checkout feature/revamp-env-vars
 
 ## Config .env file
 cd /home/ec2-user/environment/python-fastapi-demo-docker/
