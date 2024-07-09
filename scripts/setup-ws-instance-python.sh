@@ -62,12 +62,9 @@ export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Accoun
 TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
 export AWS_REGION=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
 export PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bash_profile
 echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bashrc
-echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
 echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bashrc
 echo "export PUBLIC_IP=${PUBLIC_IP}" | tee -a ~/.bashrc
-echo "export PUBLIC_IP=${PUBLIC_IP}" | tee -a ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
 
 ## Install minikube
@@ -87,7 +84,12 @@ code-server --install-extension ms-python.python --force
 cd ~/environment
 git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
 
+## Config .env file
+cd /home/ec2-user/environment/python-fastapi-demo-docker/
+cp .env.example .env
+sed -i "s/\(AWS_REGION=\).*\$/\1$AWS_REGION/" .env
+sed -i "s/\(AWS_ACCOUNT_ID=\).*\$/\1$AWS_ACCOUNT_ID/" .env
+echo "set -a; source /home/ec2-user/environment/python-fastapi-demo-docker/.env; set +a" | tee -a ~/.bashrc
+
 ## Print AWS env vars
-echo "AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID"
-echo "AWS_REGION: $AWS_REGION"
-echo "PUBLIC_IP: $PUBLIC_IP"
+printenv
