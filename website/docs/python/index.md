@@ -21,7 +21,9 @@ This workshop is tailored for developers that want to refactor an application fo
 * **Amazon EKS Deployment:** Build your skills deploying Kubernetes workloads in production on Amazon EKS, integrating with AWS services like AWS Secrets Manager and Amazon RDS for PostgreSQL. 
 
 ## How to Participate in the Workshop
-This workshop offers a self-paced, comprehensive guide through the entire Kubernetes lifecycle. From creating multi-architecture container images, to understanding Kubernetes, to integrating with Amazon EKS and other AWS services, this workshop is a continuous, end-to-end exploration. Each chapter is designed to build upon the previous, ensuring a cohesive learning experience. To get started with the workshop:
+This workshop offers a self-paced, comprehensive guide through the entire Kubernetes lifecycle. From creating multi-architecture container images, to understanding Kubernetes, to integrating with Amazon EKS and other AWS services, this workshop is a continuous, end-to-end exploration. Each chapter is designed to build upon the previous, ensuring a cohesive learning experience. 
+
+To get started with the workshop:
 
 * **In Your Own Account**: This option allows for a personalized and hands-on experience, using your AWS account to create resources.
 * **At an AWS Event**: Engage in a more guided and structured learning environment at an AWS Event using AWS Workshop Studio platform, ideal for those who prefer collaborative learning sessions.

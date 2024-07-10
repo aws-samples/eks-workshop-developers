@@ -358,7 +358,7 @@ To clean up all resources created in this lab exercise and the workshop up to th
 <Tabs>
  <TabItem value="Fargate" label="Fargate" default>
     ``` bash
-cd python-fastapi-demo-docker
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python-fargate.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
@@ -373,7 +373,7 @@ eksctl delete cluster -f create-fargate-python.yaml
  <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
   ``` bash
-cd python-fastapi-demo-docker
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml

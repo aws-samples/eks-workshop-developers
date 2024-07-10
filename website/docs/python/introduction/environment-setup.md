@@ -1,6 +1,6 @@
 ---
 title: Setting up the Development Environment
-sidebar_position: 3
+sidebar_position: 2
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -15,7 +15,10 @@ This guide shows you how to set up the necessary tools and environment to levera
 
   <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
 
-If you are attending an AWS hosted event, you will have access to an AWS account in AWS Workshop Studio, where the infrastructure needed to complete this workshop have been pre-provisioned. The goal of this section is to complete the configuration of enviroment variables that will allow you to run commands in Vistual Studio terminal.
+If you are attending an AWS hosted event, you will have access to a new AWS account in AWS Workshop Studio. You will use this AWS account to run the labs in this workshop. The account is destroyed when the AWS event is finished.
+
+There is a Visual Studio enviroment running on top of an EC2 instance that has been already bootstrapped. To run the workshop, you will connect to this Visual Studio environment and execute commands in the Visual Studio terminal.
+
 
 ## Prerequisites
 
@@ -23,83 +26,31 @@ If you are attending an AWS hosted event, you will have access to an AWS account
 * OR via the [Workshop Studio join URL](https://catalog.workshops.aws/join) with the 12 digit event access code distributed by an event operator.
 * Carefully review the terms and conditions associated with this event.
 
-## 1. Accessing Visual Studio terminal
+## 1. Entering Workshop Studio Event
 
-After joining the event, you should see the page with the event information and workshop details. You should also see a section titled **"AWS account access"** on the left navigation bar. You can use these options to see AWS CLI credentials and access the AWS account provided to you for this workshop.
-
-This workshop deploys Visual Studion in an EC2 instance running in this AWS account. To access Visual Studio, open the **IdeUrl** and log in using the **IdePassword**.
-
-When running specifc steps in the workshop, you will be asked to connect to the Public IP of this EC2 instance. For that, use the instance Public IP shown in **IdePublicIp**.
+After joining the AWS event, you should see the **Event Dashboard** page with the event information and workshop details. There relevant sections are highlighted below in red:
 
 ![workshop-studio-event-python](./images/workshop-studio-event-python.jpg)
 
-After logging in Visual Studio, you can open Visual Studio terminal by accessing Menu -> Terminal-> New Terminal.
+On the left side of the event page there is a section titled **AWS account access** with details to access the AWS account provisioned for you by Workshop Studio.
+- Option **Open AWS Console** opens the AWS Console.
+- Option **Get AWS CLI credentials** shows the AWS CLI credentials that you can use to execute aws cli commands.
 
-![visual-studio-terminal](./images/visual-studio-terminal.jpg)
+The workshop deploys Visual Studio in an EC2 instance running in this AWS account. 
+- To access Visual Studio, open the **IdeUrl** and log in using the **IdePassword**.
 
-## 2. Creating the .env file
+When running specifc steps in the workshop, you will be asked to connect to the Public IP of this EC2 instance.
+-  Use **IdePublicIp** when required during the workshop to connect to host EC@ instance running Visual Studio from a web browser.
 
-We'll be heavily reliant on environment variables to ease the set-up process throughout this workshop.
+## 2. Accessing Visual Studio terminal
 
-First, navigate into the project directory and make a copy of the example environment variables file.
+Open **IdeUrl** link in your web browser and log in using the **IdePassword**. A Visual Studio session will open.
 
-```bash
-cd python-fastapi-demo-docker
-cp .env.example .env
-```
-Then, update variables inside `.env` file as indicated below.
+Then open Visual Studio terminal by accessing Menu -> Terminal-> New Terminal. The required enviroment variables and IAM permissions have been configured in Visual Studio terminal already. 
 
-Update variables `AWS_ACCOUNT_ID` and `AWS_REGION` with the values returned by the following commands:
-```bash
-echo $AWS_ACCOUNT_ID
-echo $AWS_REGION
-```
+Now, you are ready to start the labs in this workshop.
 
-Update variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, and add variable `AWS_SESSION_TOKEN` using the credentials values from the AWS WorkshopStudio session, available under WorkshopStudio Event section "AWS account access - Get AWS CLI credentials".
-These credentials will be used when executing aws commands in Visual Studio terminal. 
-
-After updating the section for AWS variables in file .env, the result should look like below:
-
-```
-...
-# AWS CREDENTIALS
-# Run "aws sts get-caller-identity" to get your account id
-# Run "aws configure" to setup your credentials
-AWS_ACCOUNT_ID="0123EXAMPLE"
-AWS_REGION="us-east-example"
-AWS_ACCESS_KEY_ID="ASIAWNZPPVHEXAMPLE"
-AWS_SECRET_ACCESS_KEY="bPxRfiCYEXAMPLE"
-AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjECMaCXVzLWVhc3QtMSJHMEUCIAUqOHDilurbiEXAMPLE..."
-...
-```
-
-Add your [DockerHub](https://hub.docker.com/) user name. If you don't have a DockerHub account, you can delete this variable from the `.env` file
-
-```
-DOCKER_USERNAME=frank9
-```
-
-Save the changes in .env file.
-
-## 3. Import Environment Variables
-
-Next, from the root directory of the 'python-fastapi-demo-docker' project, import all environment variables by running the following commands.
-
-```bash
-cd python-fastapi-demo-docker
-set -a; source .env; set +a
-printenv
-```
-
-Execute the following command to ensure that, after loading these environment variables from file .env, Visual Studio terminal is using the IAM role for a workshop participant, similar to the output below:
-```
-$ aws sts get-caller-identity
-{
-    "UserId": "ASIAWNZPPVHEXAMPLE:Participant",
-    "Account": "0123EXAMPLE",
-    "Arn": "arn:aws:sts::0123EXAMPLE:assumed-role/WSParticipantRole/Participant"
-}
-```
+![visual-studio-terminal](./images/visual-studio-terminal.png)
 
 
 </TabItem>
@@ -109,7 +60,7 @@ $ aws sts get-caller-identity
 The steps below will help you set up the enviroment in your local computer, using your own AWS Account.
 
 :::warning
-**In this workshop there will be a number of AWS resources created in your account. These resources will incur cost and will be billed to your AWS Account, make sure you delete all resources after completing the workshop to avoid unnecessary costs. The steps to clean up resources are available in the last section of the workshop [Cleaning Up Resources](https://developers.eksworkshop.com/docs/python/eks/Cleanup)**
+**In this workshop there will be a number of AWS resources created in your account. These resources will incur cost and will be billed to your AWS Account. Make sure you delete all resources after completing the workshop to avoid unnecessary costs. The steps to clean up resources are available in the last section of the workshop [Cleaning Up Resources](https://developers.eksworkshop.com/docs/python/eks/Cleanup)**
 :::
 
 ## 1. Installing Required Tools
@@ -166,23 +117,15 @@ We'll be heavily reliant on environment variables to ease the set-up process thr
 First, navigate into the project directory and make a copy of the example environment variables file.
 
 ```bash
-cd python-fastapi-demo-docker
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 cp .env.example .env
 ```
 
-Now add your AWS credentials to the `.env` file you just created:
+Now update AWS variables in the `.env` file you just created using your AWS Account ID and region:
 
 ```bash
-AWS_ACCOUNT_ID=012345678901
-AWS_ACCESS_KEY_ID=ASIAWNZPPVHEXAMPLE
-AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLE
+AWS_ACCOUNT_ID=012345678901EXAMPLE
 AWS_REGION=us-east-1
-```
-
-Update the sample value with your [DockerHub](https://hub.docker.com/) user name:
-
-```
-DOCKER_USERNAME=frank9
 ```
 
 ## 6. Import Environment Variables
@@ -225,8 +168,3 @@ finch run public.ecr.aws/finch/hello-finch:latest
 </TabItem>
 </Tabs>
 
-
-
-## What's Next?
-
-- [Containers](../containers/index.md)

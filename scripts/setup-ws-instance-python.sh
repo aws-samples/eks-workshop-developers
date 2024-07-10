@@ -56,17 +56,6 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
 
-## Setup environment
-cd ~/environment
-export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
-TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-export AWS_REGION=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-export PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bashrc
-echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bashrc
-echo "export PUBLIC_IP=${PUBLIC_IP}" | tee -a ~/.bashrc
-aws configure set default.region ${AWS_REGION}
-
 ## Install minikube
 cd /home/ec2-user/
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -80,13 +69,19 @@ code-server --install-extension ms-azuretools.vscode-docker --force
 code-server --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 code-server --install-extension ms-python.python --force
 
-## Clone Git repository for the App
+## Setup environment
 cd ~/environment
-## temporary github link
-# git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
-git clone https://github.com/abencomoc/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
-cd /home/ec2-user/environment/python-fastapi-demo-docker/
-git checkout feature/revamp-env-vars
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+export AWS_REGION=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
+export PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
+echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bashrc
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bashrc
+echo "export PUBLIC_IP=${PUBLIC_IP}" | tee -a ~/.bashrc
+aws configure set default.region ${AWS_REGION}
+
+## Clone Git repository of Pythin Fastapi app
+git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
 
 ## Config .env file
 cd /home/ec2-user/environment/python-fastapi-demo-docker/
@@ -95,5 +90,9 @@ sed -i "s/\(AWS_REGION=\).*\$/\1$AWS_REGION/" .env
 sed -i "s/\(AWS_ACCOUNT_ID=\).*\$/\1$AWS_ACCOUNT_ID/" .env
 echo "set -a; source /home/ec2-user/environment/python-fastapi-demo-docker/.env; set +a" | tee -a ~/.bashrc
 
+## Update region in eksctl yaml files
+sed -i "s/\(region: \).*\$/\1$AWS_REGION/" eks/create-fargate-python.yaml
+sed -i "s/\(region: \).*\$/\1$AWS_REGION/" eks/create-mng-python.yaml
+
 ## Print AWS env vars
-printenv
+printenv | sort

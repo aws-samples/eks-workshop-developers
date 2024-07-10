@@ -35,6 +35,7 @@ Instead, use the pre-built Docker image hosted on Amazon ECR:
 
 ```yaml
   web:
+    build: .
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 

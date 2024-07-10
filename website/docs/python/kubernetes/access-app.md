@@ -54,14 +54,11 @@ kubectl -n my-cool-app port-forward --address 0.0.0.0 service/fastapi-service 80
 ```
 Keep this command running while accessing the service with the steps below.
 
-Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output **IdePublicIp** or reading the following env variable in a new shell:
+Execute the command below in a new VScode terminal to show the URL to connect to Node Port service fastapi-service:
 ```
-echo $PUBLIC_IP
-1.2.3.4
+echo "http://$PUBLIC_IP:8000"
 ```
-Then use this public IP and port 8000 to connect to Node Port service fastapi-service in your web browser.
-
-Example: http://1.2.3.4:8000
+Access this URL using your web browser.
 
 </TabItem>
 

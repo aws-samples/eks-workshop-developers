@@ -38,14 +38,11 @@ Expose Kubernetes Dashboard port 80 using host port 8001 by running:
 kubectl -n kubernetes-dashboard port-forward --address 0.0.0.0 service/kubernetes-dashboard 8001:80
 ```
 
-Find the public IP of the EC2 instance where Visual Studio is running by checking Workshop Studio Event Output **IdePublicIp** or reading the following env variable in a new shell:
+Execute the command below in a new VScode terminal to show the URL to connect to the Kubernetes Dashboard:
 ```
-echo $PUBLIC_IP
-1.2.3.4
+echo "http://$PUBLIC_IP:8001"
 ```
-Then use this public IP and port 8001 to connect to the Kubernetes Dashboard in your web browser.
-
-Example: http://1.2.3.4:8001
+Access this URL using your web browser.
 
 </TabItem>
   <TabItem value="Local Computer" label="Local Computer" default>
