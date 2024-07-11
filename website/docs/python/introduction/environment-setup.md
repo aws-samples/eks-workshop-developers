@@ -64,12 +64,10 @@ cd python-fastapi-demo-docker
 cp .env.example .env
 ```
 
-Now add your AWS credentials to the `.env` file you just created:
+Now update AWS variables in the `.env` file you just created using the AWS Account ID and region that you will use for this workshop:
 
 ```bash
 AWS_ACCOUNT_ID=012345678901
-AWS_ACCESS_KEY_ID=ASIAWNZPPVHEXAMPLE
-AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLE
 AWS_REGION=us-east-1
 ```
 
