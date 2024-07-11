@@ -1,10 +1,69 @@
 ---
 title: Setting up the Development Environment
-sidebar_position: 3
+sidebar_position: 2
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GetEnvVars from '../../../src/includes/get-env-vars.md';
+
 ## Objective
 
-This guide shows you how to up the necessary tools and environment to leverage the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. For more samples, we recommend exploring the sample app collection (e.g., Python, Flask, FastAPI, PostgreSQL) at [docker/awesome-compose](https://github.com/docker/awesome-compose).
+This guide shows you how to set up the necessary tools and environment to leverage the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project. For more samples, we recommend exploring the sample app collection (e.g., Python, Flask, FastAPI, PostgreSQL) at [docker/awesome-compose](https://github.com/docker/awesome-compose).
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+<Tabs>
+
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+If you are attending an AWS hosted event, you will have access to a new AWS account in AWS Workshop Studio. You will use this AWS account to run the labs in this workshop. The account is destroyed when the AWS event is finished.
+
+Workshop Studio deploys a Visual Studio enviroment running on top of an EC2 instance that has been already configured with all required CLI tools and permissions. To run the workshop, you will connect to this Visual Studio environment and execute commands in the Visual Studio terminal.
+
+There is no need to install additional tools or configure IAM permissions. You will be using the IAM permissions of the EC2 instance role where Visual Studio is running.
+
+
+## Prerequisites
+
+* Access the event via the one-click join event link provided by the event operator as part of an AWS hosted event.
+* OR via the [Workshop Studio join URL](https://catalog.workshops.aws/join) with the 12 digit event access code distributed by an event operator.
+* Carefully review the terms and conditions associated with this event.
+
+## 1. Entering Workshop Studio Event
+
+After joining the AWS event, you should see the **Event Dashboard** page with the event information and workshop details. The relevant sections are highlighted below in red:
+
+![workshop-studio-event-python](./images/workshop-studio-event-python.jpg)
+
+On the left side of the event page there is a section titled **AWS account access** with details to access the AWS account provisioned for you by Workshop Studio.
+- Option **Open AWS Console** opens the AWS Console.
+- Option **Get AWS CLI credentials** shows the AWS CLI credentials that you can use to execute aws cli commands.
+
+The workshop deploys Visual Studio in an EC2 instance running in this AWS account. 
+- To access Visual Studio, open the **IdeUrl** and log in using the **IdePassword**.
+
+When running specifc steps in the workshop, you will be asked to connect to the Public IP of this EC2 instance.
+-  Use **IdePublicIp** when required during the workshop to connect to the EC2 instance running Visual Studio from your web browser.
+
+## 2. Accessing Visual Studio terminal
+
+Open **IdeUrl** link in your web browser and log in using the **IdePassword**. A Visual Studio session will open.
+
+Then open Visual Studio terminal by accessing Menu -> Terminal-> New Terminal. The required enviroment variables and IAM permissions have been configured in Visual Studio terminal already. 
+
+Now, you are ready to start the labs in this workshop.
+
+![visual-studio-terminal](./images/visual-studio-terminal.png)
+
+
+</TabItem>
+
+  <TabItem value="Local Computer" label="Local Computer" default>
+
+The steps below will help you set up the enviroment in your local computer, using your own AWS Account.
+
+:::warning
+**In this workshop there will be a number of AWS resources created in your account. These resources will incur cost and will be billed to your AWS Account. Make sure you delete all resources after completing the workshop to avoid unnecessary costs. The steps to clean up resources are available in the last section of the workshop [Cleaning Up Resources](https://developers.eksworkshop.com/docs/python/eks/Cleanup)**
+:::
 
 ## 1. Installing Required Tools
 
@@ -60,7 +119,7 @@ We'll be heavily reliant on environment variables to ease the set-up process thr
 First, navigate into the project directory and make a copy of the example environment variables file.
 
 ```bash
-cd python-fastapi-demo-docker
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 cp .env.example .env
 ```
 
@@ -69,12 +128,6 @@ Now update AWS variables in the `.env` file you just created using the AWS Accou
 ```bash
 AWS_ACCOUNT_ID=012345678901
 AWS_REGION=us-east-1
-```
-
-Update the sample value with your [DockerHub](https://hub.docker.com/) user name:
-
-```
-DOCKER_USERNAME=frank9
 ```
 
 ## 6. Import Environment Variables
@@ -99,7 +152,7 @@ set
 **Linux**
 
 ```bash
-source .env
+set -a; source .env; set +a
 printenv
 ```
 
@@ -114,6 +167,6 @@ finch vm init
 finch run public.ecr.aws/finch/hello-finch:latest
 ```
 
-## What's Next?
+</TabItem>
+</Tabs>
 
-- [Containers](../containers/index.md)
