@@ -116,8 +116,8 @@ Update the `.env` file by adding the following lines:
 
 ```bash
 # OTLP Specific Configuration
-OTEL_EXPORTER_OTLP_ENDPOINT = adotcollector:4317
-OTEL_SERVICE_NAME = "BookManagemment-App"
+OTEL_EXPORTER_OTLP_ENDPOINT=adotcollector:4317
+OTEL_SERVICE_NAME="BookManagemment-App"
 ```
 
 Start the application using the following command:
@@ -388,11 +388,10 @@ To clean up all resources created in this lab exercise and the workshop up to th
  <TabItem value="Fargate" label="Fargate" default>
     ``` bash
 cd /home/ec2-user/environment/python-fastapi-demo-docker
-aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python-fargate.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
-eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve
+eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster fargate-quickstart
 eksctl delete addon -f eks/create-adot-add-on-python-fargate.yaml
 kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
@@ -402,7 +401,6 @@ kubectl delete pdb coredns ebs-csi-controller -n kube-system
 
   ``` bash
 cd /home/ec2-user/environment/python-fastapi-demo-docker
-aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
@@ -410,7 +408,6 @@ eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --
 eksctl delete addon --name adot --cluster managednode-quickstart
 kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
-eksctl delete cluster -f eks/create-mng-python.yaml
 ```
 
 </TabItem>
