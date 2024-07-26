@@ -12,6 +12,8 @@ This lab is designed to equip you with the necessary skills for efficient deploy
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+- [Building and Running the Docker Containers](../containers/build-image.md)
+- [Uploading Container Images to Amazon ECR](../containers/upload-ecr.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
