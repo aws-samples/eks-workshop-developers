@@ -6,7 +6,7 @@ sidebar_position: 2
 This chapter shows you how to deploy the Kubernetes resources for our FastAPI application and PostgreSQL database within an Amazon EKS cluster. 
 
 ## Objective
-This guide provides an overview of the resources we'll deploy to deploy the FastAPI application and PostgreSQL database within our Amazon EKS cluster. 
+This guide provides an overview of the resources to deploy the FastAPI application and PostgreSQL database within our Amazon EKS cluster. 
 
 ## FastAPI - Deployment, Service, and Ingress
 The **[deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** manifest file is used for the deployment of the FastAPI application and consists of three primary resources:

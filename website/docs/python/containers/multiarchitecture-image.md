@@ -157,14 +157,15 @@ Alternatively, if you're using Finch, run the following command:
 finch compose up
 ```
 
-This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+This command initiates containers for each service as specified in the docker-compose.yml file. You can connect to the service and access FastAPI application from your browser similarly to Step #2 in section [Building and Running the Docker Containers](./build-image.md#2-running-the-services-as-docker-containers).
+
 
 ## 5. Stopping the Services and Their Containers
 
 Stop and remove the containers of both services by pressing `CTRL + C` or running the following command:
 
 ```bash
-docker-compose down
+docker-compose down --volumes
 ```
 
 Alternatively, if you're using Finch, run the following command:
@@ -175,24 +176,30 @@ finch compose down
 
 ## 6. Rebuilding and Restarting Docker Services
 
-If you make changes to your application, rebuild the multi-architecture images and restart the services simultaneously using the following commands:
+If you make changes to your application, you can rebuild the multi-architecture images using the following commands:
 
+Define a new image version
+```
+IMAGE_VERSION=1.2
+```
+
+Rebuild the image and push it to your ECR repository:
 ```bash
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-Alternatively, if you're using Finch, run the following command to rebuild the multi-architecture image:
+Alternatively, if you're using Finch, you can run:
 
 ```bash
 finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
 ```
 
-This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
+This command rebuilds the Docker image and pushes it to your ECR repository.
 
 ## Cleanup
 
-**Optionally**, if you want to stop the workshop at this point, run the following command to clean up created images:
+Run the following command to clean up created images:
 
 ```bash
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)

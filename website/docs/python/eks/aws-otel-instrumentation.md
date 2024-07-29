@@ -37,7 +37,7 @@ git checkout aws-opentelemetry
 
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
-Next, open the [eks/create-adot-add-on-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python-fargate.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
+Next, open the [eks/create-adot-add-on-python-fargate.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python-fargate.yaml) file and replace the sample **region** with the same region as your EKS cluster. For example:
   ```bash
   apiVersion: eksctl.io/v1alpha5
   kind: ClusterConfig
@@ -47,7 +47,7 @@ Next, open the [eks/create-adot-add-on-python-fargate.yaml](https://github.com/a
   ```
   </TabItem>
   <TabItem value="Managed Node Groups" label="Managed Node Groups">
-  Next, open the [eks/create-adot-add-on-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python.yaml) file and replace the sample region with the same region as your EKS cluster. For example:
+  Next, open the [eks/create-adot-add-on-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/create-adot-add-on-python.yaml) file and replace the sample **region** with the same region as your EKS cluster. For example:
 
    ```bash
   apiVersion: eksctl.io/v1alpha5
@@ -116,8 +116,8 @@ Update the `.env` file by adding the following lines:
 
 ```bash
 # OTLP Specific Configuration
-OTEL_EXPORTER_OTLP_ENDPOINT = adotcollector:4317
-OTEL_SERVICE_NAME = "BookManagemment-App"
+OTEL_EXPORTER_OTLP_ENDPOINT=adotcollector:4317
+OTEL_SERVICE_NAME="BookManagemment-App"
 ```
 
 Start the application using the following command:
@@ -139,7 +139,32 @@ finch compose up
 </TabItem>
 </Tabs>
 
-Play with the application by adding a couple new books at [http://0.0.0.0:8000](http://0.0.0.0:8000) to generate traces. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
+
+Connect to the application and interact with it. This interaction will generate traces that you can check later in Amazon X-Ray.
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+
+<Tabs>
+
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+Execute the command below in a new VScode terminal to show the URL to connect to FastAPI application:
+```
+echo "http://$PUBLIC_IP:8000"
+```
+Access this URL using your web browser.
+
+</TabItem>
+
+  <TabItem value="Local Computer" label="Local Computer" default>
+Navigate to [http://localhost:8000](http://localhost:8000/) in your browser to connect to FastAPI application.
+
+</TabItem>
+</Tabs>
+
+Interact with the application by adding a couple of books.
+
+Then check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Click on the "Trace Id" and the "TraceMap" to view traces. For example:
 
 ![Trace Map](./images/Local-tracing.png)
 
@@ -264,7 +289,7 @@ Run the following command to install the EKS ADOT add-on:
 
 Now we'll create the OpenTelemetryCollector CRD object, which contains the configuration required for deploying the OTel Collector as a sidecar container.
 
-First, replace the sample region in the [eks/opentelemetrycollector.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L34).
+First, replace the sample **region** in the [eks/opentelemetrycollector.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/aws-opentelemetry/eks/opentelemetrycollector.yaml#L34) with the same region as your EKS cluster.
 
 Next, run the following command to create the CRD:
 
@@ -339,7 +364,11 @@ fastapi-ingress   <none>   *       k8s-mycoolap-fastapii-0114c40e9c-507298630.us
 
 ```
 
-Open a web browser and enter the `ADDRESS` from the previous step to access the web application. For example, `http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/`. You can check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
+Open a web browser and enter the `ADDRESS` from the previous step to access the web application. For example, `http://k8s-mycoolap-fastapii-0114c40e9c-507298630.us-west-1.elb.amazonaws.com/`. Note that ALB may take a few seconds to be fully provisioned and Active.
+
+Then, interact with the application by adding new books.
+
+Last, check for traces by opening the X-Ray Tracing page and selecting your AWS Region on the Amazon CloudWatch Console. Check for traces in AWS Cloudwatch Console -> X-Ray -> Traces. For example:
 
 ![Trace Map](./images/k8-app-trace.png)
 
@@ -358,23 +387,20 @@ To clean up all resources created in this lab exercise and the workshop up to th
 <Tabs>
  <TabItem value="Fargate" label="Fargate" default>
     ``` bash
-cd python-fastapi-demo-docker
-aws ecr delete-repository --repository-name fastapi-microservices --force
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 kubectl delete -f eks/deploy-db-python-fargate.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
-eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster managednode-quickstart  --approve
+eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --cluster fargate-quickstart
 eksctl delete addon -f eks/create-adot-add-on-python-fargate.yaml
 kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
-eksctl delete cluster -f create-fargate-python.yaml
 ```
  </TabItem>
  <TabItem value="Managed Node Groups" label="Managed Node Groups">
 
   ``` bash
-cd python-fastapi-demo-docker
-aws ecr delete-repository --repository-name fastapi-microservices --force
+cd /home/ec2-user/environment/python-fastapi-demo-docker
 kubectl delete -f eks/deploy-db-python.yaml
 kubectl delete -f eks/deploy-app-with-adot-sidecar.yaml
 kubectl delete -f eks/opentelemetrycollector.yaml
@@ -382,7 +408,6 @@ eksctl delete iamserviceaccount --name adot-collector --namespace my-cool-app --
 eksctl delete addon --name adot --cluster managednode-quickstart
 kubectl delete -f eks/cert-manager.yaml
 kubectl delete pdb coredns ebs-csi-controller -n kube-system
-eksctl delete cluster -f eks/create-mng-python.yaml
 ```
 
 </TabItem>

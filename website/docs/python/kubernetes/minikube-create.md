@@ -7,9 +7,6 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 ## Objective
 minikube is a tool that allows you to run Kubernetes locally. It creates a single-node or multi-node Kubernetes cluster inside a Virtual Machine (VM) on your local machine. The goal of this lab is to guide you in starting a local Kubernetes cluster using minikube and then creating a new namespace. This lays the groundwork for subsequent lab exercises.
 
-## Prerequisites
-- [Building and Running Multi-Architecture Containers](../../python/containers/multiarchitecture-image.md)
-
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
 

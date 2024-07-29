@@ -9,9 +9,6 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 ## Objective
 Creating an Amazon EKS cluster with [eksctl](https://eksctl.io/) allows for a wide range of configurations to cater to different needs. This can be achieved directly via command-line parameters or, for more complex setups, by utilizing a configuration file. This lab shows you how to create an Amazon EKS cluster using a configuration file specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. 
 
-## Prerequisites
-- [Building and Running Multi-Architecture Containers](../../python/containers/multiarchitecture-image.md)
-
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
 
