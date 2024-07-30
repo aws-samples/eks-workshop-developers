@@ -70,20 +70,22 @@ my-cool-app       Active   27m
 :::   
 
 ## 4. Creating a Namespace
-While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands after updating the names in both commands:
+While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands:
 
 ```bash
-kubectl create namespace my-cool-app
+kubectl create namespace my-cool-app-v2
 ```
-To create Fargate Profile, a [PodExecutionRole](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html) is needed. Create the role if it doesn't exist and update the ARN in the below command.
+Before creating a Fargate Profile, first ensure that Fargate PodExecutionRole exists in the account. Create a PodExecutionRole with name `AmazonEKSFargatePodExecutionRole` if it doesn't exist following the steps in [EKS Fargate documentation](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html).
+
+Then create a Fargate profile running the command below:
 
 ```bash
 aws eks create-fargate-profile \
     --region ${AWS_REGION} \
     --cluster fargate-quickstart \
     --fargate-profile-name fp-dev \
-    --pod-execution-role-arn arn:aws:iam::0123456789:role/AmazonEKSFargatePodExecutionRole \
-    --selectors namespace=my-cool-app
+    --pod-execution-role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/AmazonEKSFargatePodExecutionRole \
+    --selectors namespace=my-cool-app-v2
 ```
 
 ## Conclusion

@@ -1,5 +1,7 @@
 #bin/sh
 
+## Script to set up VScode terminal in Workshop Studio: install CLIs, clone fastapi, set env vars, etc 
+
 ## Go to tmp directory
 cd /tmp
 
@@ -80,7 +82,7 @@ echo "export PUBLIC_IP=${PUBLIC_IP}" | tee -a ~/.bashrc
 echo "alias k=kubectl" | tee -a ~/.bashrc
 aws configure set default.region ${AWS_REGION}
 
-## Clone Git repository of Pythin Fastapi app
+## Clone Git repository of Python Fastapi app
 git clone https://github.com/aws-samples/python-fastapi-demo-docker.git /home/ec2-user/environment/python-fastapi-demo-docker/
 
 ## Config .env file
