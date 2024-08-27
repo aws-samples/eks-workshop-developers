@@ -9,9 +9,6 @@ import GetEnvVars from '../../../src/includes/get-env-vars.md';
 ## Objective
 Creating an Amazon EKS cluster with [eksctl](https://eksctl.io/) allows for a wide range of configurations to cater to different needs. This can be achieved directly via command-line parameters or, for more complex setups, by utilizing a configuration file. This lab shows you how to create an Amazon EKS cluster using a configuration file specifically aimed at deploying the [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project's resources. 
 
-## Prerequisites
-- [Building and Running Multi-Architecture Containers](../../python/containers/multiarchitecture-image.md)
-
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
 
@@ -73,20 +70,22 @@ my-cool-app       Active   27m
 :::   
 
 ## 4. Creating a Namespace
-While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands after updating the names in both commands:
+While we've already created the necessary Fargate profile and namespace for this workshop, to create any additional namespace and fargate profile, run the following commands:
 
 ```bash
-kubectl create namespace my-cool-app
+kubectl create namespace my-cool-app-v2
 ```
-To create Fargate Profile, a [PodExecutionRole](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html) is needed. Create the role if it doesn't exist and update the ARN in the below command.
+Before creating a Fargate Profile, first ensure that Fargate PodExecutionRole exists in the account. Create a PodExecutionRole with name `AmazonEKSFargatePodExecutionRole` if it doesn't exist following the steps in [EKS Fargate documentation](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html).
+
+Then create a Fargate profile running the command below:
 
 ```bash
 aws eks create-fargate-profile \
     --region ${AWS_REGION} \
     --cluster fargate-quickstart \
     --fargate-profile-name fp-dev \
-    --pod-execution-role-arn arn:aws:iam::0123456789:role/AmazonEKSFargatePodExecutionRole \
-    --selectors namespace=my-cool-app
+    --pod-execution-role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/AmazonEKSFargatePodExecutionRole \
+    --selectors namespace=my-cool-app-v2
 ```
 
 ## Conclusion

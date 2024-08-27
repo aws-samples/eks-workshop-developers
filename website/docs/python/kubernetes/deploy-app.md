@@ -12,6 +12,8 @@ This lab is designed to equip you with the necessary skills for efficient deploy
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets](./deploy-secrets.md)
+- [Building and Running the Docker Containers](../containers/build-image.md)
+- [Uploading Container Images to Amazon ECR](../containers/upload-ecr.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
@@ -22,7 +24,7 @@ The '[postgres-db.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 
 :::tip
 
-Take note that the Kubernetes service name of 'db' **must** match the service name of 'db' in Docker `postgresql://bookdbadmin:dbpassword@db:5432/bookstore`.
+Take note that the Kubernetes service name of 'db' **must** match the server name 'db' in postgresql URL, which is set in file .env with variable `DOCKER_DATABASE_URL=postgresql://bookdbadmin:dbpassword@db:5432/bookstore`.
 
 :::
 
@@ -47,11 +49,15 @@ The '[fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docke
 <!--This is a shared file at src/includes/get-ecr-uri.md that shows users how to get their ECR URI.-->
 <GetECRURI />
 
-Next, open **[kubernetes/fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** and replace the sample value with your ECR repository URI image and tag (e.g., `1.0`).
+Next, open file **[kubernetes/fastapi-app.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/kubernetes/fastapi-app.yaml)** and replace the sample value for container image with your ECR repository URI image and tag.
 
-```bash
-cd python-fastapi-demo-docker
-vi kubernetes/fastapi-app.yaml
+The result should look like below:
+```yaml
+...
+      containers:
+      - name: web
+        image: 01234567890.dkr.ecr.us-east-1.amazonaws.com/fastapi-microservices:1.0
+...
 ```
 
 From the 'python-fastapi-demo-docker' project directory, apply the Kubernetes configuration:
@@ -63,7 +69,7 @@ kubectl apply -f kubernetes/fastapi-app.yaml
 The expected output should look like this:
 
 ```bash
-service/fastapi-service configured
+service/fastapi-service created
 deployment.apps/fastapi-deployment created
 ```
 
@@ -88,21 +94,9 @@ db                ClusterIP      None            <none>        5432/TCP       10
 fastapi-service   LoadBalancer   10.108.241.54   <pending>     80:32180/TCP   95m
 ```
 
-Because the Service type of fastapi-service is [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer), a load balancer is provisioned for the Service. Currently, the value of its EXTERNAL-IP column is set to `<pending>`. As a test, run the following command:
+Because the Service type of fastapi-service is [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer), Minikube provisions a load balancer for the Service. 
 
-``` bash
-minikube tunnel
-```
-
-This command is for connecting to Minikube's load balancer. As a result, an IP address will be assigned to EXTERNAL-IP as follows:
-
-```bash
-NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-db                ClusterIP      None            <none>        5432/TCP       105m
-fastapi-service   LoadBalancer   10.108.241.54   127.0.0.1     80:32180/TCP   100m
-```
-
-The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside and routes them to Services. If the port number of NodePort isn't explicitly specified, one IP address in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. When a client sends requests to 127.0.0.1:80, the requests will be routed to the Pod fastapi-service as shown in the diagram above. Note that the next section shows how to access a FastAPI App without using the command minikube tunnel.
+The port 80 in the PORT(S) column of fastapi-service is for LoadBalancer, and the port 32180 is for [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). NodePort is the port that the node accepts requests from outside the Kubernetes cluster and routes them to Services. If the port number of NodePort isn't explicitly specified, one port in the range of 30000 to 32767 will be assigned as default behavior. In the case of this example, it was 32180. In your case the port number may be different.
 
 Then, check the Deployment:
 

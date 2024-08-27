@@ -27,7 +27,11 @@ The **data plane** consists of nodes, which act as the worker machines that run 
 - **Container Runtime**: The container runtime is responsible for pulling the container images from a registry and running them on the node.
 
 ## Tools
-Before you begin, make sure you've completed the following:
+Before you begin, make sure that the following tools have been installed:
 
-* [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
-* [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+```
+kubectl version --client
+minikube version
+```
+
+If any of these tools are missing, refer to section [Setting up the Development Environment](../../python/introduction/environment-setup.md) for installation instructions.

@@ -35,6 +35,7 @@ Instead, use the pre-built Docker image hosted on Amazon ECR:
 
 ```yaml
   web:
+    build: .
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
@@ -66,6 +67,8 @@ finch compose up
 
 This command will now pull the image from the Amazon ECR repository, as specified in the docker-compose.yml file, and start your services.
 
+Press `Ctrl+C` to stop the services.
+
 ## 4. Updating Docker Images
 
 If you're working with a team and sharing the Docker image for the FastAPI application on Amazon ECR, you might find yourself pulling updates from ECR, making changes, and then pushing updates back to ECR. Here's the typical workflow.
@@ -94,13 +97,13 @@ Alternatively, if you're using Finch, run the following command:
 finch compose up
 ```
 
-After making changes to your application, stop the running services with `Ctrl+C` and then update the image version value in your `.env` file. For example:
+After making changes to your application, stop the running services with `Ctrl+C`.
+Then update the image version value in your environment variable:
 
-```text
-IMAGE_VERSION=1.1
 ```
-
-After editing `.env` make sure to [re-import your environment variables](../../python/introduction/environment-setup) and verify if `IMAGE_VERSION` is updated.
+export IMAGE_VERSION=1.1
+```
+Verify that `IMAGE_VERSION` is updated by executing the following command:
 
 ```bash
 echo $IMAGE_VERSION
@@ -164,6 +167,18 @@ Alternatively, if you're using Finch, run the following command:
 
 ```bash
 finch rmi -f $(finch images --filter reference=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com -q)
+```
+
+Stop and remove the containers of both services by running the following command:
+
+```bash
+docker-compose down --volumes
+```
+
+Alternatively, if you're using Finch, run the following command to stop and remove the containers:
+
+```bash
+finch compose down
 ```
 
 ## Conclusion
