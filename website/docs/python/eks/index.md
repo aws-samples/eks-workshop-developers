@@ -14,10 +14,15 @@ Amazon EKS supports multiple cluster types, including self-managed nodes, manage
 - **Fargate** clusters are another managed worker node option that abstracts away the underlying infrastructure, allowing you to run Kubernetes pods without managing the worker nodes. With Fargate clusters, you can launch pods directly on Fargate without the need for EC2 instances. Fargate clusters simplify the operation of the EKS cluster by abstracting away the worker nodes, allowing you to focus on the applications running in the Kubernetes cluster.
 
 ## Tools
-Before you begin, make sure you've completed the following:
+Before you begin, make sure that the following tools have been installed:
 
-- [Install Helm](https://helm.sh/docs/intro/install/)
-- [Install eksctl](https://eksctl.io/)
+```
+kubectl version --client
+eksctl version
+helm version
+```
+
+If any of these tools are missing, refer to section [Setting up the Development Environment](../../python/introduction/environment-setup.md) for installation instructions.
 
 ## Samples
 - [eksctl examples](https://github.com/weaveworks/eksctl/tree/main/examples)

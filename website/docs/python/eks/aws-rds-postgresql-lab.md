@@ -5,6 +5,7 @@ sidebar_position: 12
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
+import GetECRURI from '../../../src/includes/get-ecr-uri.md';
 
 ## Objective
 
@@ -22,6 +23,16 @@ This lab will show you how to create an Amazon Aurora Serverless v2 PostgreSQL d
 
 <!--This is a shared file at src/includes/get-env-vars.md that tells users to navigate to the 'python-fastapi-demo-docker' directory where their environment variables are sourced.-->
 <GetEnvVars />
+
+Check-out the `main` branch using the following command:
+
+:::tip
+You may receive an error like `error: Your local changes to the following files would be overwritten by checkout` when running the below command if there are changes made to any of the source files. To fix this, first run the command `git stash` and then run the below command. After the checkout is finished, run the command `git stash pop` to reapply the changes.
+:::
+
+``` bash
+git checkout main
+```
 
 ## 1. Deploy the Amazon Aurora PostgreSQL Database Using CloudFormation
 
@@ -49,7 +60,7 @@ To create the CloudFormation stack please run correct command below based on whe
 
 ```bash
 aws cloudformation create-stack --region $AWS_REGION \
-  --stack-name eksworkshop-rds-cluster \
+  --stack-name eksdevworkshop-rds-cluster \
   --template-body file://eks/rds-serverless-postgres.json \
   --parameters ParameterKey=ClusterType,ParameterValue=Fargate
 ```
@@ -59,7 +70,7 @@ aws cloudformation create-stack --region $AWS_REGION \
 
 ```bash
 aws cloudformation create-stack --region $AWS_REGION \
-  --stack-name eksworkshop-rds-cluster \
+  --stack-name eksdevworkshop-rds-cluster \
   --template-body file://eks/rds-serverless-postgres.json \
   --parameters ParameterKey=ClusterType,ParameterValue=ManagedNodeGroup
 ```
@@ -72,7 +83,7 @@ The output should look as follows:
 
 ```json
 {
-    "StackId": "arn:aws:cloudformation:$AWS_REGION:$AWS_ACCOUNT_ID:stack/eksworkshop-rds-cluster/9aa714d0-7e3d-11ee-91c8-0aa42affc2ab"
+    "StackId": "arn:aws:cloudformation:$AWS_REGION:$AWS_ACCOUNT_ID:stack/eksdevworkshop-rds-cluster/9aa714d0-7e3d-11ee-91c8-0aa42affc2ab"
 }
 ```
 
@@ -85,19 +96,19 @@ Now that we've had a cup of coffee and our CloudFormation stack has completed, w
 To find this value, we can run the following command:
 
 ```bash
-aws rds describe-db-clusters --region $AWS_REGION --db-cluster-identifier eksworkshop-rds --query 'DBClusters[0].Endpoint' --output text
+aws rds describe-db-clusters --region $AWS_REGION --db-cluster-identifier eksdevworkshop-rds --query 'DBClusters[0].Endpoint' --output text
 ```
 
 The output should look as follows:
 
 ```
-eksworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com
+eksdevworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com
 ```
 
 From here, we can edit our `.env` file and update the `DOCKER_DATABASE_URL` variable to replace `db` with the above endpoint. After the update, the value should look like this:
 
 ```bash
-DOCKER_DATABASE_URL=postgresql://bookdbadmin:dbpassword@eksworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com:5432/bookstore
+DOCKER_DATABASE_URL=postgresql://bookdbadmin:dbpassword@eksdevworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com:5432/bookstore
 ```
 
 With this new value in place the `fastapi-secret` object can now be deleted and recreated:
@@ -116,10 +127,18 @@ secret/fastapi-secret created
 
 ## 3. Restart the FastAPI Deployment and Confirm Connectivity
 
-With all of the pieces in place we can now restart the deployment `fastapi-deployment` which will get the new database URL from `fastapi-secret` and will create our database schema for us automatically:
+With all of the pieces in place we can now restart the deployment `fastapi-deployment` which will get the new database URL from `fastapi-secret` and will create our database schema for us automatically.
+
+<!--This is a shared file at src/includes/get-ecr-uri.md that shows users how to get their ECR URI.-->
+<GetECRURI />
+
+Next, open **[eks/deploy-app-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-app-python.yaml)** and replace the sample value with your ECR repository URI image and tag.
+
+Last, clean any previous deployment of Fastapi and re-apply the app manifest with the following commands:
 
 ```bash
-kubectl rollout restart deploy/fastapi-deployment -n my-cool-app
+kubectl delete -f eks/deploy-app-python.yaml
+kubectl apply -f eks/deploy-app-python.yaml
 ```
 
 Once this finishes we can then view our logs for the deployment and make sure we're seeing that it has connected successfully.
@@ -131,7 +150,7 @@ kubectl logs deploy/fastapi-deployment -n my-cool-app
 We should see the following in the output:
 
 ```log
-INFO:server.app.connect:Trying to connect to eksworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com:5432 as bookdbadmin...
+INFO:server.app.connect:Trying to connect to eksdevworkshop-rds.cluster-xxxxxxxxxx.us-east-1.rds.amazonaws.com:5432 as bookdbadmin...
 INFO:server.app.connect:Connection successful!
 INFO:     Started server process [7]
 INFO:     Waiting for application startup.
@@ -148,5 +167,7 @@ We can now visit our website and see that it's still working as expected:
 To clean up the resources provisioned during this lab we will just need to delete the CloudFormation stack using the command below:
 
 ```bash
-aws cloudformation delete-stack --region $AWS_REGION --stack-name eksworkshop-rds
+aws cloudformation delete-stack --region $AWS_REGION --stack-name eksdevworkshop-rds-cluster
+kubectl delete -f eks/deploy-app-python.yaml
+kubectl delete secret fastapi-secret -n my-cool-app
 ```

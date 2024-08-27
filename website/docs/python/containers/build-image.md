@@ -2,11 +2,13 @@
 title: Building and Running the Docker Containers
 sidebar_position: 2
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import GetEnvVars from '../../../src/includes/get-env-vars.md';
 
 ## Objective
 
-This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose and providing the Finch equivalent commands. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
+This lab walks you through the process of building container images for our [python-fastapi-demo-docker](https://github.com/aws-samples/python-fastapi-demo-docker) project and running them as distinct services using Docker Compose or equivalent Finch commands. By the end, you'll know how to manage your multi-service applications more effectively, ensuring smoother development, deployment, and updates.
 
 ## Prerequisites
 
@@ -26,7 +28,7 @@ docker-compose build
 Alternatively, if you're using Finch, run the following command to build the container images for the application and database:
 
 ```bash
-finch compose build --platform linux/amd64
+finch compose build
 ```
 
 This builds Docker images based on the configurations in the docker-compose.yml file. Docker follows the Dockerfile instructions during each service's build process, creating separate images for the 'python-fastapi-demo-docker-web' and 'python-fastapi-demo-docker-db' services.
@@ -45,7 +47,28 @@ Alternatively, if you're using Finch, run the following command to start the app
 finch compose up
 ```
 
-This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+This command initiates containers for each service as specified in the docker-compose.yml file. Don't stop the command execution to keep application and database services running.
+
+**Use the tabs below to see the steps for the specific environment where you are running this lab.**
+
+<Tabs>
+
+  <TabItem value="AWS Workshop Studio" label="AWS Workshop Studio" default>
+
+
+Execute the command below in a new VScode terminal to show the URL to connect to FastAPI application:
+```
+echo "http://$PUBLIC_IP:8000"
+```
+Access this URL using your web browser.
+
+</TabItem>
+
+  <TabItem value="Local Computer" label="Local Computer" default>
+Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+
+</TabItem>
+</Tabs>
 
 ![Image](./images/app-home.png)
 
@@ -59,14 +82,15 @@ To confirm that everything is functioning as expected, attempt to add a book by 
 
 Your application ('python-fastapi-demo-docker-web' service) and your database ('python-fastapi-demo-docker-db' service) will operate in separate containers. The "Containers" tab in the [Docker VS Code Extension](https://code.visualstudio.com/docs/containers/overview) shows the containers for our python-fastapi-demo-docker application, as instances of the services in our Docker Compose configuration.
 
-![Image](./images/docker-extension-open-in-browser.png)
+![Image](./images/docker-extension-open-in-browser-v2.png)
+
 
 ## 5. Stopping the Services and Their Containers
 
-Stop and remove the containers of both services by pressing `CTRL + C` or running the following command:
+Stop and remove the containers of both services by pressing `CTRL + C` and running the following command:
 
 ```bash
-docker-compose down
+docker-compose down --volumes
 ```
 
 Alternatively, if you're using Finch, press CTRL + C or run the following command to stop and remove the containers:
@@ -91,7 +115,23 @@ Alternatively, if you're using Finch, run the following command:
 finch compose up --build
 ```
 
-This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
+This rebuilds the Docker images, and starts the services with the new images, ensuring your services are always operating with the latest application version.
+
+## 7. Stopping the Services and Removing Their Containers
+
+Then again, stop and remove the containers of both services by pressing `CTRL + C` and running the following command:
+
+```bash
+docker-compose down --volumes
+```
+
+Alternatively, if you're using Finch, press `CTRL + C` and run the following command to stop and remove the containers:
+
+```bash
+finch compose down
+```
+
+This command halts the containers and also removes the containers, networks, and volumes as described in your docker-compose.yml file.
 
 ## Conclusion
 

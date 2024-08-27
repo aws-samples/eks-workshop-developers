@@ -39,7 +39,7 @@ aws ecr get-login-password \
 
 ## 2. Building Multi-Architecture Docker Image for the Web Service
 
-You can use 'docker buildx' to build Docker images for application and database services that are compatible with multiple architectures, including Kubernetes clusters.
+You can use `docker buildx` to build Docker images for application and database services that are compatible with multiple architectures, including Kubernetes clusters.
 
 First, create and start new builder instances for the web service:
 
@@ -67,8 +67,14 @@ Status:    running
 Platforms: linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/mips64le, linux/mips64, linux/arm/v7, linux/arm/v6
 ```
 
-> Note: There is no direct equivalent for `buildx` using Finch. You can target a set of platforms though.
->The `finch build` command allows targeting different platforms via the `--platform` flag, similar to buildx. You can build binaries for Linux, macOS, and Windows on AMD64 or ARM architectures. For example: `finch build --platform=amd64,arm64 .` to target both AMD and ARM architectures.
+Alternatively, if you're using Finch, run the following command to build the multi-architecture image:
+
+```bash
+finch build \
+    --platform linux/amd64,linux/arm64 \
+    --tag ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} \
+    .
+```
 
 ## 3. Pushing the Image to Amazon ECR
 
@@ -79,10 +85,12 @@ docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-Alternatively, if you're using Finch, you can target the platform architecture using the following command:
+Alternatively, if you're using Finch, upload the images to ECR using the following command:
 
 ```bash
-finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
+finch push \
+    --all-platforms \
+    ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
 This builds Docker images based on the Dockerfile instructions and pushes them to your ECR repository.
@@ -157,14 +165,15 @@ Alternatively, if you're using Finch, run the following command:
 finch compose up
 ```
 
-This command initiates containers for each service as specified in the docker-compose.yml file. Upon navigating to [http://localhost:8000](http://localhost:8000/) in your browser, you should see the FastAPI application running.
+This command initiates containers for each service as specified in the docker-compose.yml file. You can connect to the service and access FastAPI application from your browser similarly to Step #2 in section [Building and Running the Docker Containers](./build-image.md#2-running-the-services-as-docker-containers).
+
 
 ## 5. Stopping the Services and Their Containers
 
 Stop and remove the containers of both services by pressing `CTRL + C` or running the following command:
 
 ```bash
-docker-compose down
+docker-compose down --volumes
 ```
 
 Alternatively, if you're using Finch, run the following command:
@@ -175,24 +184,37 @@ finch compose down
 
 ## 6. Rebuilding and Restarting Docker Services
 
-If you make changes to your application, rebuild the multi-architecture images and restart the services simultaneously using the following commands:
+If you make changes to your application, you can rebuild the multi-architecture images using the following commands:
 
+Define a new image version
+```
+IMAGE_VERSION=1.2
+```
+
+Rebuild the image and push it to your ECR repository:
 ```bash
 docker buildx use webBuilder
 docker buildx build --platform linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . --push
 ```
 
-Alternatively, if you're using Finch, run the following command to rebuild the multi-architecture image:
+Alternatively, if you're using Finch, you can run:
 
 ```bash
-finch build --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} . push=true
+finch build \
+    --platform linux/amd64,linux/arm64 \
+    --tag ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION} \
+    .
+
+finch push \
+    --all-platforms \
+    ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/fastapi-microservices:${IMAGE_VERSION}
 ```
 
-This halts your services, rebuilds the Docker images, and reboots the services with the new images, ensuring your services are always operating with the latest application version.
+This command rebuilds the Docker image and pushes it to your ECR repository.
 
 ## Cleanup
 
-**Optionally**, if you want to stop the workshop at this point, run the following command to clean up created images:
+Run the following command to clean up created images:
 
 ```bash
 docker rmi -f $(docker images "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/*" -q)
@@ -207,7 +229,7 @@ finch rmi $(finch images -f "dangling=true" -q)
 
 ## Conclusion
 
-This lab explored the process of constructing and executing Docker containers using Docker Compose in the 'python-fastapi-demo-docker' project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.
+This lab explored the process of constructing and executing Docker containers using Docker Compose in the `python-fastapi-demo-docker` project. We also demonstrated how to use Docker's buildx feature to create Docker images that are compatible with multiple CPU architectures. This approach provides an efficient way to manage multi-service applications, enhancing their portability and ensuring they can run on a wider range of platforms.
 
 ## What's Next?
 
