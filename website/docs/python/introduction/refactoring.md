@@ -1,6 +1,6 @@
 ---
 title: Refactoring Python Apps Using Twelve-Factor App Principles
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 ## Objective

@@ -14,6 +14,8 @@ This lab shows you how to deploy the microservices of the [python-fastapi-demo-d
 ## Prerequisites
 
 - [Securing FastAPI Microservices with Kubernetes Secrets in Amazon EKS](./deploy-secrets.md)
+- [Building and Running the Docker Containers](../containers/build-image.md)
+- [Uploading Container Images to Amazon ECR](../containers/upload-ecr.md)
 
 <!--This is a shared file at src/includes/get-env-vars.md that reminds users to source their environment variables.-->
 <GetEnvVars />

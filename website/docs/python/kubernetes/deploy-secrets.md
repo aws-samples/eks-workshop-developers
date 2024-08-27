@@ -76,8 +76,6 @@ Type:  Opaque
 
 Data
 ====
-AWS_SECRET_ACCESS_KEY:       40 bytes
-AWS_SESSION_TOKEN:           764 bytes
 DATABASE_URL:                58 bytes
 HTTP_HOST:                   16 bytes
 IMAGE_VERSION:               3 bytes
@@ -87,7 +85,6 @@ DOCKER_DATABASE_URL:         53 bytes
 POSTGRES_MASTER:             8 bytes
 POSTGRES_TABLE:              5 bytes
 APP_HOST:                    7 bytes
-AWS_ACCESS_KEY_ID:           20 bytes
 POSTGRES_HOST:               9 bytes
 POSTGRES_PASSWORD:           15 bytes
 POSTGRES_VOLUME:             2 bytes

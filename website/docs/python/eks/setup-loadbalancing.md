@@ -22,20 +22,15 @@ Classic Load Balancers are not supported for pods running on Fargate. Network Lo
 <GetEnvVars />
 
 ## 1. Set Environment Variables
-Before we start setting up our EKS cluster, we need to set a couple environment variables. Optionally, you can add these to the `.env` file at the root of the `python-fastapi-demo-docker` project directory.
+Before we start setting up our EKS cluster, we need to set a couple environment variables.
 
-From the `python-fastapi-demo-docker` project directory, fetch the VPC ID associated with your EKS cluster and set an environment variable to that value:
+Export the name of your EKS cluster and the VPC ID associated with your EKS cluster executing the following commands:
 
 <Tabs>
   <TabItem value="Fargate" label="Fargate" default>
 
 ```bash
 export CLUSTER_VPC=$(aws eks describe-cluster --name fargate-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
-```
-
-set your EKS cluster name as an environment variable:
-
-```bash
 export CLUSTER_NAME=fargate-quickstart
 ```
 
@@ -45,11 +40,6 @@ export CLUSTER_NAME=fargate-quickstart
 
 ```bash
 export CLUSTER_VPC=$(aws eks describe-cluster --name managednode-quickstart --region ${AWS_REGION} --query "cluster.resourcesVpcConfig.vpcId" --output text)
-```
-
-set your EKS cluster name as an environment variable:
-
-```bash
 export CLUSTER_NAME=managednode-quickstart
 ```
 
