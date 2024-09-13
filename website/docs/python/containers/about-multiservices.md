@@ -15,21 +15,18 @@ This section describes the practical application of Docker's multi-stage builds 
 
 The `builder` uses a Python base image, installs system dependencies, copies the requirements.txt file, and downloads Python dependencies as wheel files into the /server/wheels directory. These wheel files are binary packages facilitating safer, faster installations.
 
-```
+```dockerfile
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim-buster as builder
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 # Set work directory
 WORKDIR /server
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y build-essential
-
-# Install Python dependencies
+# Install system dependencies and Python dependencies
 COPY ./server/requirements.txt /server/
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /server/wheels -r requirements.txt
 ```
