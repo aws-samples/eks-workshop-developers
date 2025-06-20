@@ -69,7 +69,7 @@ If you're planning to complete the workshop in full, make sure you've set up the
 
 - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Create a DockerHub Account](https://hub.docker.com/)
-- [Install Python 3.9+](https://www.python.org/downloads/release/python-390/)
+- [Install Python 3.11+](https://www.python.org/downloads/release/python-3110/)
 - [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [Install minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [Install eksctl](https://eksctl.io/installation)
@@ -77,7 +77,7 @@ If you're planning to complete the workshop in full, make sure you've set up the
 - [Install Helm](https://helm.sh/docs/intro/install/)
 
 ## 2. (Optional) Alternative Tools
-Optionally, if you are using macOS catalina (10.15) or higher, you can use Finch, instead of Docker. Finch is an open source tool for local container development. It is available for macOS on Intel and Apple Silicon. Finch and Docker can be installed together; however, for performing the workshop exercises, we recommend using either Finch or Docker consistently for all the steps.
+Optionally, you can use Finch, instead of Docker. Finch is an open source tool for local container development. It is available for macOS on Intel and Apple Silicon. Finch and Docker can be installed together; however, for performing the workshop exercises, we recommend using either Finch or Docker consistently for all the steps.
 
 - [Install Finch](https://runfinch.com/docs/managing-finch/macos/installation/)
 
@@ -167,4 +167,3 @@ finch run public.ecr.aws/finch/hello-finch:latest
 
 </TabItem>
 </Tabs>
-
