@@ -3,8 +3,9 @@ import Head from '@docusaurus/Head';
 
 export default function Home() {
   useEffect(() => {
-    // Immediate client-side redirect
-    window.location.replace('https://eksworkshop.com');
+    // Immediate client-side redirect with path preservation
+    const targetUrl = 'https://eksworkshop.com' + window.location.pathname + window.location.search + window.location.hash;
+    window.location.replace(targetUrl);
   }, []);
 
   return (
