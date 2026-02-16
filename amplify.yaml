@@ -20,4 +20,4 @@ applications:
 customRules:
   - source: '/<*>'
     target: 'https://eksworkshop.com/<*>'
-    status: '301'
+    status: 301
