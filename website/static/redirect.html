@@ -43,6 +43,14 @@
         // Immediate JavaScript redirect with path preservation
         const targetUrl = 'https://eksworkshop.com' + window.location.pathname + window.location.search + window.location.hash;
         window.location.replace(targetUrl);
+        
+        // Update manual links with the target URL for better UX if redirect fails
+        setTimeout(function() {
+            const links = document.querySelectorAll('a[href="https://eksworkshop.com"]');
+            links.forEach(function(link) {
+                link.href = targetUrl;
+            });
+        }, 100);
     </script>
 </head>
 <body>
