@@ -1,6 +1,6 @@
 ---
 title: Cleaning Up Resources
-sidebar_position: 14
+sidebar_position: 15
 ---
 
 import Tabs from '@theme/Tabs';
@@ -19,14 +19,8 @@ This guide shows you how to delete all the resources you created in this worksho
 To avoid incurring future charges, you should delete the resources you created during this workshop.
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
-1. Retrieve the EFS ID (e.g., `fs-040f4681791902287`) you configured in the [previous lab exercise](setup-storage.md), then replace the sample value in [eks/efs-pv.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/efs-pv.yaml) with your EFS ID.
-```bash
-echo $file_system_id
-```
-
-2. Run the following commands to delete all resources created in this workshop.
 ```bash
 # Delete the ECR repository
 aws ecr delete-repository --repository-name fastapi-microservices --force
@@ -35,24 +29,10 @@ aws ecr delete-repository --repository-name fastapi-microservices --force
 kubectl delete -f eks/deploy-app-python.yaml
 
 # Delete PostgreSQL services
-kubectl delete -f eks/deploy-db-python-fargate.yaml
-
-# Delete the Persistent Volume Claim (PVC)
-kubectl delete pvc postgres-data-fastapi-postgres-0 -n my-cool-app
-
-# Delete the Persistent Volume (PV)
-kubectl delete -f eks/efs-pv.yaml
-
-# Delete the Storage Class
-kubectl delete -f eks/efs-sc.yaml
-
-# Delete all mount targets associated with your EFS file system
-for mount_target_id in $(aws efs describe-mount-targets --file-system-id $file_system_id --output text --query 'MountTargets[*].MountTargetId'); do
-  aws efs delete-mount-target --mount-target-id "$mount_target_id"
-done
+kubectl delete -f eks/deploy-db-python.yaml
 
 # Delete the cluster
-eksctl delete cluster -f eks/create-fargate-python.yaml
+eksctl delete cluster -f eks/create-automode-python.yaml
 ```
 </TabItem>
 
@@ -67,9 +47,6 @@ kubectl delete -f eks/deploy-app-python.yaml
 
 # Delete PostgreSQL services
 kubectl delete -f eks/deploy-db-python.yaml
-
-# Delete PodDisruptionBudgets for 'coredns' and 'ebs-csi-controller'
-kubectl delete pdb coredns ebs-csi-controller -n kube-system
 
 # Delete the cluster
 eksctl delete cluster -f eks/create-mng-python.yaml

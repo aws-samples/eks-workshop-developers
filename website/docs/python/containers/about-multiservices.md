@@ -17,7 +17,7 @@ The `builder` uses a Python base image, installs system dependencies, copies the
 
 ```dockerfile
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim-buster as builder
+FROM python:3.11-slim-buster as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -37,7 +37,7 @@ The `runner` starts with a Python base image, installs system dependencies like 
 
 ```dockerfile
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim-buster as builder
+FROM python:3.11-slim-buster as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -50,7 +50,7 @@ WORKDIR /server
 COPY ./server/requirements.txt /server/
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /server/wheels -r requirements.txt
 
-FROM python:3.9-slim-buster as runner
+FROM python:3.11-slim-buster as runner
 
 WORKDIR /server
 
@@ -101,12 +101,12 @@ The **db** service uses the official PostgreSQL image available on DockerHub. It
 
 ```
   db:
-    image: postgres:13
+    image: postgres:15
     env_file:
       - .env
     volumes:
       - ./server/db/init.sh:/docker-entrypoint-initdb.d/init.sh
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql@15/data
     networks:
       - webnet
 ```

@@ -56,13 +56,13 @@ To create the CloudFormation stack please run correct command below based on whe
 
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
 ```bash
 aws cloudformation create-stack --region $AWS_REGION \
   --stack-name eksdevworkshop-rds-cluster \
   --template-body file://eks/rds-serverless-postgres.json \
-  --parameters ParameterKey=ClusterType,ParameterValue=Fargate
+  --parameters ParameterKey=ClusterType,ParameterValue=AutoMode
 ```
 
   </TabItem>

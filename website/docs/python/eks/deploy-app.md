@@ -51,56 +51,34 @@ kube-root-ca.crt   1      5m36s
 
 ## 2. Deploying the PostgreSQL StatefulSet, Service, and PersistentVolumeClaim
 
-The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a StorageClass, Service, StatefulSet, and PersistentVolumeClaim.
+The **[eks/deploy-db-python.yaml](https://github.com/aws-samples/python-fastapi-demo-docker/blob/main/eks/deploy-db-python.yaml)** file is used for the deployment of the PostgreSQL database and consists of four primary resources: a Service, StatefulSet, and PersistentVolumeClaim.
 
-<Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+From the `python-fastapi-demo-docker` project directory, apply the database manifest:
 
-  From the `python-fastapi-demo-docker` project directory, apply the database manifest:
+```bash
+kubectl apply -f eks/deploy-db-python.yaml
+```
 
-  ```bash
-  kubectl apply -f eks/deploy-db-python-fargate.yaml
-  ```
+The expected output should look like this:
 
-   It will take a few minutes for Fargate to provision pods. In order to verify that the database pod is running please run the below command:
+```bash
+service/db created
+statefulset.apps/fastapi-postgres created
+```
 
-  ```bash
-   kubectl get pod fastapi-postgres-0 -n my-cool-app
-  ```
+It will take a few minutes for Fargate to provision pods. In order to verify that the database pod is running please run the below command:
 
-  The expected output should look like this:
-   
-  ```bash
-  kubectl get pod fastapi-postgres-0 -n my-cool-app
-  NAME                 READY   STATUS    RESTARTS   AGE
-  fastapi-postgres-0   1/1     Running   0          4m32s
-  ```
+```bash
+kubectl get pod fastapi-postgres-0 -n my-cool-app
+```
 
-  </TabItem>
-  <TabItem value="Managed Node Groups" label="Managed Node Groups">
+The expected output should look like this:
 
-  From the `python-fastapi-demo-docker` project directory, apply the database manifest:
-
-  ```bash
-  kubectl apply -f eks/deploy-db-python.yaml
-  ```
-
-  In order to verify that the database pod is running please run the below command:
-
-  ```bash
-   kubectl get pod fastapi-postgres-0 -n my-cool-app
-  ```
-
-  The expected output should look like this:
-   
-  ```bash
-  kubectl get pod fastapi-postgres-0 -n my-cool-app
-  NAME                 READY   STATUS    RESTARTS   AGE
-  fastapi-postgres-0   1/1     Running   0          4m32s
-  ```
-
-  </TabItem>
-</Tabs>
+```bash
+kubectl get pod fastapi-postgres-0 -n my-cool-app
+NAME                 READY   STATUS    RESTARTS   AGE
+fastapi-postgres-0   1/1     Running   0          4m32s
+```
 
 ## 3. Deploying the FastAPI Deployment, Service, and Ingress
 
@@ -115,6 +93,14 @@ From the `python-fastapi-demo-docker` project directory, apply the application m
 
 ```bash
 kubectl apply -f eks/deploy-app-python.yaml
+```
+
+The expected output should look like this:
+
+```bash
+service/fastapi-service created
+deployment.apps/fastapi-deployment created
+ingress.networking.k8s.io/fastapi-ingress created
 ```
 
 ## 4. Verifying the Deployment

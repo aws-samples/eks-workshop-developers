@@ -27,13 +27,13 @@ kubectl config current-context
 This command will output the current context, which should resemble:
 
 ```bash
-arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart
+arn:aws:eks:us-east-1:012345678901:cluster/automode-quickstart
 ```
 
 or
 
 ```bash
-admin@fargate-quickstart.us-east-1.eksctl.io
+admin@automode-quickstart.us-east-1.eksctl.io
 ```
 
 ## 2. Switching Contexts
@@ -43,27 +43,27 @@ If your current context doesn't match your EKS cluster, you need to switch conte
 From the `python-fastapi-demo-docker` project directory, update your local kubeconfig file using either one of the following commands:
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
 ```bash
-aws eks --region ${AWS_REGION} update-kubeconfig --name fargate-quickstart
+aws eks --region ${AWS_REGION} update-kubeconfig --name automode-quickstart
 ```
 
 or
 
 ```bash
-eksctl utils write-kubeconfig --cluster fargate-quickstart --region ${AWS_REGION}
+eksctl utils write-kubeconfig --cluster automode-quickstart --region ${AWS_REGION}
 ```
 
 Executing the above commands should output a confirmation message similar to the output below, indicating a successful context switch:
 
 ```bash
-Updated context arn:aws:eks:us-east-1:012345678901:cluster/fargate-quickstart in /Users/frank/.kube/config
+Updated context arn:aws:eks:us-east-1:012345678901:cluster/automode-quickstart in /Users/frank/.kube/config
 ```
 or
 
 ```bash
-2023-09-22 17:00:52 [✔]  saved kubeconfig as "/Users/frank/.kube/config"
+2025-06-18 13:24:37 [✔]  saved kubeconfig as "/Users/frank/.kube/config"
 ```
 </TabItem>
 
@@ -87,7 +87,7 @@ Updated context arn:aws:eks:us-east-1:012345678901:cluster/managednode-quickstar
 or
 
 ```bash
-2023-09-22 17:00:52 [✔]  saved kubeconfig as "/Users/frank/.kube/config"
+2025-06-20 22:22:14 [✔]  saved kubeconfig as "/Users/frank/.kube/config"
 ```
   </TabItem>
 </Tabs>
@@ -102,4 +102,3 @@ or
 ## Conclusion
 
 This lab provided a quick walkthrough on how to verify and switch Kubernetes contexts in an EKS cluster. With a good grasp of Kubernetes contexts, you're now better equipped to handle workloads on different EKS clusters efficiently.
-

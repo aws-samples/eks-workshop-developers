@@ -146,10 +146,10 @@ POLICY_ARN=$(aws --region $AWS_REGION --query Policy.Arn --output text iam creat
 Lastly, we'll need to create our IAM Role for the FastAPI application using this policy and create our `serviceaccount` for IRSA to provide credentials for this role to our application.
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
 ```bash
-eksctl create iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster fargate-quickstart --attach-policy-arn $POLICY_ARN --namespace my-cool-app --approve --override-existing-serviceaccounts
+eksctl create iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster automode-quickstart --attach-policy-arn $POLICY_ARN --namespace my-cool-app --approve --override-existing-serviceaccounts
 ```
 
   </TabItem>
@@ -166,17 +166,7 @@ After a minute or two of CloudFormation templates running we should see success 
 
 ## 3. Build and Deploy the New Version of the Application
 
-We're in the home stretch now and all that's left is to build and deploy our application. To do this, let's first switch to the Git branch `aws-secrets-manager-lab` which has our updated application code and deployment manifest.
-
-:::tip
-You may receive an error like `error: Your local changes to the following files would be overwritten by checkout` when running the below command if there are changes made to any of the source files. To fix this, first run the command `git stash` and then run the below command. After the checkout is finished, run the command `git stash pop` to reapply the changes.
-:::
-
-``` bash
-git checkout aws-secrets-manager-lab
-```
-
-Next we'll update our `IMAGE_VERSION` environment variable to use a new version:
+We'll update our `IMAGE_VERSION` environment variable to use a new version:
 
 :::info
 It's important to use a new image version as cached images on worker nodes can result in unexpected behaviors.
@@ -198,7 +188,7 @@ Now, we can run the following commands to create our multi-architecture build en
 docker buildx create --name webBuilder
 docker buildx use webBuilder
 docker buildx inspect --bootstrap
-docker buildx build --platform linux/amd64,linux/arm64 -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION . --push
+docker buildx build -f Dockerfile.aws-secrets --platform linux/amd64,linux/arm64 -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastapi-microservices:$IMAGE_VERSION . --push
 ```
 
 With our new image successfully uploaded to ECR we can now update our deployment file `eks/deploy-app-with-secrets-manager.yaml` to use our new image. First, retrieve your Amazon ECR repository URI using the following command:
@@ -272,12 +262,13 @@ INFO:     192.168.25.22:30050 - "GET / HTTP/1.1" 200 OK
 To delete the resources we created during this lab run the following commands:
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
 ```bash
-kubectl delete -f eks/deploy-app-with-secrets-manager.yaml
+kubectl delete -f eks/aws-secrets/deploy-app-with-secrets-manager.yaml
+kubectl delete -f eks/deploy-db-python.yaml
 aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
-eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster fargate-quickstart --namespace my-cool-app
+eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster automode-quickstart --namespace my-cool-app
 aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN
 ```
 
@@ -286,7 +277,8 @@ aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN
 
 
 ```bash
-kubectl delete -f eks/deploy-app-with-secrets-manager.yaml
+kubectl delete -f eks/aws-secrets/deploy-app-with-secrets-manager.yaml
+kubectl delete -f eks/deploy-db-python.yaml
 aws secretsmanager delete-secret --region $AWS_REGION --force-delete-without-recovery --secret-id eksdevworkshop-db-url
 eksctl delete iamserviceaccount --name fastapi-deployment-sa --region $AWS_REGION --cluster managednode-quickstart --namespace my-cool-app
 aws iam delete-policy --region $AWS_REGION --policy-arn $POLICY_ARN
