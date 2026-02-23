@@ -16,3 +16,8 @@ applications:
         paths:
           - node_modules/**/*
     appRoot: website
+# AWS Amplify redirect rules - permanent 301 redirects for SEO
+customRules:
+  - source: '/<*>'
+    target: 'https://eksworkshop.com/<*>'
+    status: 301
