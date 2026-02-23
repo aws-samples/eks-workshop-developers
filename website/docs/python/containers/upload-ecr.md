@@ -21,7 +21,7 @@ This lab shows the process of pushing Docker images to Amazon ECR using the Fast
 Create a new private Amazon ECR repository:
 
 ```bash
-aws ecr create-repository --repository-name fastapi-microservices
+aws --region ${AWS_REGION} ecr create-repository --repository-name fastapi-microservices
 ```
 
 ## 2. Logging into Amazon ECR

@@ -64,48 +64,75 @@ clusterrolebinding.rbac.authorization.k8s.io/eks-console-dashboard-full-access-b
 
 You can also view Kubernetes resources limited to a specific namespace. Refer to the EKS documentation for more details on creating RBAC bindings for a namespace.
 
-## 3. Adding the IAM principal ARN to the `aws-auth` ConfigMap
+## 3. Creating the access entry for the IAM principal ARN
 
-:::caution
 
-If the IAM principal logged into the EKS console is the creator of the EKS cluster, skip this step and proceed to step '[4. View Kubernetes resources](#4-viewing-your-kubernetes-resources)'. Performing this step by mistake will overwrite the original super-user permissions in the ConfigMap 'aws-auth', which can make the EKS cluster difficult to manage.
-
-:::
-
-**Optionally**, you can register an existing IAM principal ARN logged into the EKS console to the ConfigMap 'aws-auth' by running the following command. Make sure to substitute the sample value with your _existing_ IAM principal ARN as the value for the `--arn` argument:
+**Optionally**, you can create the access entry for an existing IAM principal ARN logged into the EKS console by running the following command. Make sure to substitute the sample value with your _existing_ IAM principal ARN as the value for the `--principal-arn` argument:
 
 <Tabs>
-  <TabItem value="Fargate" label="Fargate" default>
+  <TabItem value="EKS Auto Mode" label="EKS Auto Mode" default>
 
-```bash
-eksctl create iamidentitymapping \
-    --cluster fargate-quickstart \
-    --region $AWS_REGION \
-    --arn arn:aws:iam::012345678901:role/my-console-viewer-role \
-    --group eks-console-dashboard-full-access-group \
-    --no-duplicate-arns
+
 ```
-
-  </TabItem>
-    <TabItem value="Managed Node Groups" label="Managed Node Groups" default>
-
-```bash
-eksctl create iamidentitymapping \
-    --cluster managednode-quickstart \
-    --region $AWS_REGION \
-    --arn arn:aws:iam::012345678901:role/my-console-viewer-role \
-    --group eks-console-dashboard-full-access-group \
-    --no-duplicate-arns
+aws eks create-access-entry --cluster-name automode-quickstart  \
+  --principal-arn arn:aws:iam::012345678901:role/my-console-viewer-role  \
+  --kubernetes-groups eks-console-dashboard-full-access-group
 ```
-  </TabItem>
-</Tabs>
 
 The expected output should look like this:
 
-```bash
-2023-11-10 10:11:50 [ℹ]  checking arn arn:aws:iam::012345678901:role/my-console-viewer-role against entries in the auth ConfigMap
-2023-11-10 10:11:50 [ℹ]  adding identity "arn:aws:iam::012345678901:role/my-console-viewer-role" to auth ConfigMap
 ```
+{
+    "accessEntry": {
+        "clusterName": "automode-quickstart",
+        "principalArn": "arn:aws:iam::012345678901:role/my-console-viewer-role",
+        "kubernetesGroups": [
+            "eks-console-dashboard-full-access-group"
+        ],
+        "accessEntryArn": "arn:aws:eks:us-east-1:012345678901:access-entry/automode-quickstart/role/092934755410/my-console-viewer-role/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "createdAt": "2025-06-18T21:36:50.926000-07:00",
+        "modifiedAt": "2025-06-18T21:36:50.926000-07:00",
+        "tags": {},
+        "username": "arn:aws:sts::012345678901:assumed-role/my-console-viewer-role/{{SessionName}}",
+        "type": "STANDARD"
+    }
+}
+```
+
+</TabItem>
+  <TabItem value="Managed Node Groups" label="Managed Node Groups" default>
+
+
+```
+aws eks create-access-entry --cluster-name managednode-quickstart  \
+  --principal-arn arn:aws:iam::012345678901:role/my-console-viewer-role  \
+  --kubernetes-groups eks-console-dashboard-full-access-group
+```
+
+The expected output should look like this:
+
+```
+{
+    "accessEntry": {
+        "clusterName": "managednode-quickstart",
+        "principalArn": "arn:aws:iam::012345678901:role/my-console-viewer-role",
+        "kubernetesGroups": [
+            "eks-console-dashboard-full-access-group"
+        ],
+        "accessEntryArn": "arn:aws:eks:us-east-1:012345678901:access-entry/automode-quickstart/role/092934755410/my-console-viewer-role/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "createdAt": "2025-06-18T21:36:50.926000-07:00",
+        "modifiedAt": "2025-06-18T21:36:50.926000-07:00",
+        "tags": {},
+        "username": "arn:aws:sts::012345678901:assumed-role/my-console-viewer-role/{{SessionName}}",
+        "type": "STANDARD"
+    }
+}
+```
+
+  </TabItem>
+</Tabs>
+
+
 
 ## 4. Viewing your Kubernetes resources
 
