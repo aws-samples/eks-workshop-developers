@@ -52,7 +52,7 @@
     "@docusaurus/module-type-aliases": "^3.10.0"
   },
   "resolutions": {
-    "axios": "^1.15.0",
+    "axios": "^1.19.0",
     "node-forge": "^1.4.0",
     "path-to-regexp": "^0.1.13",
     "follow-redirects": "^1.16.0",
