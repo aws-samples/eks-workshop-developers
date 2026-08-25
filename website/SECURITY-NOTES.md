@@ -24,4 +24,4 @@ or accepted risk) for the `website/` Docusaurus project. Remove entries once res
   }
   ```
   then run `yarn install` and re-run `yarn audit --groups dependencies` to confirm 0 high findings.
-- **Last reviewed:** 2026-08-19
+- **Last reviewed:** 2026-08-25

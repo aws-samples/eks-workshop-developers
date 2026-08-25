@@ -102,6 +102,8 @@ kubectl get nodes
 
 Create an IAM-Policy with the required permissions to publish to EventBridge, retrieve secrets, parameters and basic monitoring:
 
+> **Note:** `xray:PutTraceSegments` does not support resource-level permissions, so `"*"` is the required (and only valid) value for this action. This is expected behavior, not a misconfiguration.
+
 ```json showLineNumbers
 cat <<EOF > service-account-policy.json
 {

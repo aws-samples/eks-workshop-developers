@@ -1,4 +1,6 @@
-#bin/sh
+#!/bin/sh
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ## Script to set up VScode terminal in Workshop Studio: install CLIs, clone fastapi, set env vars, etc 
 
