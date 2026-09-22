@@ -23,7 +23,7 @@ module.exports = {
     : [],
   title: 'EKS Developers Workshop',
   tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://developers.eksworkshop.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -37,7 +37,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/tree/main/website',
+          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/edit/main/website',
           sidebarCollapsible: true,
         },
         theme: {
