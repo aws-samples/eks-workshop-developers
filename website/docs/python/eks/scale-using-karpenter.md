@@ -123,12 +123,14 @@ To learn more, see [Concepts | Karpenter](https://karpenter.sh/docs/concepts/) i
           {
               "Effect": "Allow",
               "Action": "iam:RemoveRoleFromInstanceProfile",
-              "Resource": "*"
+              "Resource": "arn:aws:iam::*:instance-profile/*"
           }
       ]
   }
   EOF
   ```
+
+  The `iam:RemoveRoleFromInstanceProfile` action is scoped to instance profiles (`arn:aws:iam::*:instance-profile/*`) following least-privilege best practices.
 
   If successful, no output will be displayed.
   Next, add this as an inline policy to the IAM role 'eksctl-managednode-quickstart-karpenter-iamservice-role':

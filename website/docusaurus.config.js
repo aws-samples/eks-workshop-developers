@@ -1,11 +1,29 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 const path = require('path');
 
+// Cloudflare Web Analytics beacon token, provided via environment variable
+// (set CF_BEACON_TOKEN in the Amplify build environment). The beacon is only
+// injected when the token is present, so no token is hardcoded in source.
+const cfBeaconToken = process.env.CF_BEACON_TOKEN;
+
 module.exports = {
+  scripts: cfBeaconToken
+    ? [
+        {
+          src: 'https://static.cloudflareinsights.com/beacon.min.js',
+          defer: true,
+          'data-cf-beacon': JSON.stringify({ token: cfBeaconToken }),
+        },
+      ]
+    : [],
   title: 'EKS Developers Workshop',
   tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://developers.eksworkshop.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -19,7 +37,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/tree/main/website',
+          editUrl: 'https://github.com/aws-samples/eks-workshop-developers/edit/main/website',
           sidebarCollapsible: true,
         },
         theme: {

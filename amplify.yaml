@@ -4,6 +4,14 @@ applications:
       phases:
         preBuild:
           commands:
+            # CF_BEACON_TOKEN is the Cloudflare Web Analytics beacon token.
+            # Set it as an Amplify environment variable
+            # (Amplify Console > App settings > Environment variables) so the
+            # token is not hardcoded in source. It is injected into the build
+            # automatically. When unset, the Cloudflare beacon is simply not
+            # emitted (the build still succeeds). This is a public browser-side
+            # beacon token, not a secret.
+            - echo "CF_BEACON_TOKEN is ${CF_BEACON_TOKEN:+set}${CF_BEACON_TOKEN:-not set (beacon disabled)}"
             - npm install
         build:
           commands:

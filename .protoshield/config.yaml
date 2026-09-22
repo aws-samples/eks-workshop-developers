@@ -1,0 +1,22 @@
+protoshield_version: v0.15.0-rc4
+model_id: global.anthropic.claude-haiku-4-5-20251001-v1:0
+filename: summary.md
+plugins:
+    bandit:
+        timeout: "300"
+    cdknag:
+        timeout: "300"
+    cfnnag:
+        timeout: "300"
+    checkov:
+        timeout: "300"
+    cve:
+        timeout: "300"
+    license-headers:
+        copyright_text: Copyright Amazon.com
+        license_text: 'SPDX-License-Identifier: Apache-2.0'
+        timeout: "120"
+    secrets:
+        timeout: "300"
+    semgrep:
+        timeout: "300"
