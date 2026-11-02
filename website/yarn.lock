@@ -6875,7 +6875,7 @@ node-emoji@^2.1.0:
     emojilib "^2.4.0"
     skin-tone "^2.0.0"
 
-node-forge@^1.4.0:
+node-forge@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.4.2.tgz#9988b154241e3b401a969a76cfb7aca7ddb5e70b"
   integrity sha512-rRtAR5XLJ8gCKd9du4qrKAsgCG1ObGP4gLeNJMa4vYSeq4bmBMOJk5IHkrviBV0q7uoAJlVd8HEQYQSVUb4FGQ==
@@ -8474,10 +8474,10 @@ send@~0.19.0, send@~0.19.1:
     range-parser "~1.2.1"
     statuses "~2.0.2"
 
-serialize-javascript@^6.0.0, serialize-javascript@^6.0.1, serialize-javascript@^7.0.5:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-7.1.2.tgz#0161010a0815dd7b7e011cbc5a3644850b8c2289"
-  integrity sha512-GL2BWwVa6JydKO6l/ljVgjAZF4QJ3S7dWDWi53s5GZT8PJzD2fNxi67HANQGKAqPrwEpL5ba7gUBGi0Ls/sEoQ==
+serialize-javascript@^6.0.0, serialize-javascript@^6.0.1, serialize-javascript@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-7.1.3.tgz#c8f3a5355d5c52d76f4d61389172747a71f22ef6"
+  integrity sha512-kYEnegpAxWFjUw3dSYdSM9zVlTrsxDbsSkq/qd3B7VanqyJ+JdDy6qVyuqVGBhSfuD/rLZQEKuXsO5KZFCrVYQ==
 
 serve-handler@^6.1.7:
   version "6.1.7"
